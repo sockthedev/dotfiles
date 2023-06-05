@@ -17,8 +17,8 @@ return {
       },
       view = {
         adaptive_size = false,
-        side = "right",
-        width = 60,
+        side = "left",
+        width = 45,
       },
       actions = {
         open_file = {
