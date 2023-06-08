@@ -42,14 +42,15 @@ return {
             },
           },
         },
-        overrides = function(colors) -- add/modify highlights
-          local theme = colors.theme
+        overrides = function() -- add/modify highlights
           return {
             NormalFloat = { bg = "none" },
             FloatBorder = { bg = "none" },
             FloatTitle = { bg = "none" },
             TelescopeBorder = { bg = "none" },
             Folded = { bg = "none" },
+            TabLine = { bg = "none" },
+            TabLineSel = { bg = "none" },
             TabLineFill = { bg = "none" },
             HarpoonNumberInactive = { bg = "none" },
             HarpoonInactive = { bg = "none" },

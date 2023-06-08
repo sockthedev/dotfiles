@@ -13,18 +13,20 @@ require("lspsaga").setup({
   },
   symbol_in_winbar = {
     enable = false,
-    separator = " ",
+    separator = "  ",
     ignore_patterns = {},
     hide_keyword = true,
     show_file = true,
     folder_level = 2,
-    respect_root = false,
+    respect_root = true,
     color_mode = true,
   },
   ui = {
     border = "single",
-    -- This doesn't work nicely with themes:
-    -- winblend = 10,
+  },
+  beacon = {
+    enable = true,
+    frequency = 7,
   },
 })
 
