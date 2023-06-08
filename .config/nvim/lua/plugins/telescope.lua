@@ -10,19 +10,19 @@ return {
   keys = {
     { "<leader><space>", "<cmd>Telescope resume<cr>", desc = "Telescope resume" },
     { "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
-    { "<leader>/", "<cmd>Telescope live_grep hidden=true<cr>", desc = "Find in Files (Grep)" },
+    { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Find in Files (Grep)" },
     { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
     -- find
     { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
-    { "<leader>ff", "<cmd>Telescope find_files hidden=true<cr>", desc = "Find Files" },
+    { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
     {
       "<leader>fF",
       function()
         require("telescope.builtin").find_files({ hidden = true, no_ignore = true })
       end,
-      desc = "Find All Files",
+      desc = "Find Files (+hidden)",
     },
-    { "<leader>fr", "<cmd>Telescope oldfiles hidden=true<cr>", desc = "Recent" },
+    { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
     -- git
     { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
     { "<leader>gs", "<cmd>Telescope git_status<CR>", desc = "status" },
@@ -69,6 +69,16 @@ return {
       },
     },
     defaults = {
+      vimgrep_arguments = {
+        "rg",
+        "--color=never",
+        "--no-heading",
+        "--with-filename",
+        "--line-number",
+        "--column",
+        "--smart-case",
+        "--hidden",
+      },
       prompt_prefix = " ",
       selection_caret = " ",
       mappings = {

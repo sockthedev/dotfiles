@@ -5,7 +5,7 @@ local plugins = {
     "tpope/vim-fugitive",
     config = function()
       u.set_keymaps("n", {
-        { "<leader>gf", vim.cmd.Git, "Open Fugitive" },
+        { "<leader>gf", "<cmd>tab +Git<cr>", "Open Fugitive" },
       })
     end,
   },
