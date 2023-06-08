@@ -3,7 +3,9 @@
 # Clean up existing files
 rm -rf ~/.config/karabiner
 rm -rf ~/.config/nvim
+rm -rf ~/.config/skhd
 rm -rf ~/.config/wezterm
+rm -rf ~/.config/yabai
 rm -rf ~/.config/zsh
 rm ~/.tmux.conf
 rm ~/.zshrc
@@ -11,7 +13,9 @@ rm ~/.zshrc
 # Create symlinks
 ln -s "$(pwd)/.config/karabiner" ~/.config/karabiner
 ln -s "$(pwd)/.config/nvim" ~/.config/nvim
+ln -s "$(pwd)/.config/skhd" ~/.config/skhd
 ln -s "$(pwd)/.config/wezterm" ~/.config/wezterm
+ln -s "$(pwd)/.config/yabai" ~/.config/yabai
 ln -s "$(pwd)/.config/zsh" ~/.config/zsh
 ln -s "$(pwd)/.tmux.conf" ~/.tmux.conf
 ln -s "$(pwd)/.zshrc" ~/.zshrc
