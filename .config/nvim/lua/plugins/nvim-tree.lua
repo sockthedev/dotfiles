@@ -31,30 +31,10 @@ return {
         root_folder_label = false,
         root_folder_modifier = ":t",
         icons = {
-          git_placement = "after",
-          glyphs = {
-            default = "",
-            symlink = "",
-            folder = {
-              arrow_closed = "",
-              arrow_open = "",
-              default = "",
-              open = "",
-              empty = "",
-              empty_open = "",
-              symlink = "",
-              symlink_open = "",
-            },
-            git = {
-              unstaged = "",
-              staged = "S",
-              unmerged = "",
-              renamed = "➜",
-              untracked = "U",
-              deleted = "",
-              ignored = "◌",
-            },
+          show = {
+            folder_arrow = false,
           },
+          git_placement = "after",
         },
       },
       filters = {
@@ -63,14 +43,7 @@ return {
         no_buffer = false,
       },
       diagnostics = {
-        enable = true,
-        show_on_dirs = true,
-        icons = {
-          hint = "",
-          info = "",
-          warning = "",
-          error = "",
-        },
+        enable = false,
       },
     })
 

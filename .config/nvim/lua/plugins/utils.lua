@@ -56,7 +56,12 @@ local plugins = {
   {
     "dmmulroy/tsc.nvim",
     config = function()
-      require("tsc").setup()
+      require("tsc").setup({
+        flags = {
+          -- Support typchecking across a monorepo
+          build = true,
+        },
+      })
 
       vim.keymap.set("n", "<leader>xt", "<cmd>TSC<cr>", { desc = "TypeScript tsc" })
     end,
