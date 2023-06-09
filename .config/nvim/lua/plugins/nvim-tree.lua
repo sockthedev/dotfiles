@@ -33,6 +33,7 @@ return {
         icons = {
           show = {
             folder_arrow = false,
+            git = false,
           },
           git_placement = "after",
         },

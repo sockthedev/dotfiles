@@ -6,7 +6,7 @@ return {
   config = function()
     require("harpoon").setup({
       tabline = true,
-      tabline_prefix = " ⚓️  ",
+      tabline_prefix = " ",
       tabline_suffix = "  ",
     })
 
