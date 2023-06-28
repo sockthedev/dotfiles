@@ -35,5 +35,5 @@ Once you have it up and running open the configuration panel and make the follow
 
 Make sure to disable the following settings so that `C-space` keyboard shortcuts work.
 
-<img src="./assets/input-sources-fix.png" width="200" />
+<img src="./assets/input-sources-fix.png" />
 
