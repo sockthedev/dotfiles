@@ -41,9 +41,16 @@ yabai -m config right_padding                10
 yabai -m config window_gap                   10
 
 # disable specific apps
-yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^1Password$" manage=off
 yabai -m rule --add app="^Calculator$" manage=off
+yabai -m rule --add app="^Dropbox$" manage=off
+yabai -m rule --add app="^ExpressVPN$" manage=off
+yabai -m rule --add app="^ImageOptim$" manage=off
 yabai -m rule --add app="^Karabiner-Elements$" manage=off
+yabai -m rule --add app="^Microsoft Teams$" manage=off
 yabai -m rule --add app="^QuickTime Player$" manage=off
+yabai -m rule --add app="^Raycast$" manage=off
+yabai -m rule --add app="^WhatsApp$" manage=off
+yabai -m rule --add app="^System Settings$" manage=off
 
 echo "yabai configuration loaded.."

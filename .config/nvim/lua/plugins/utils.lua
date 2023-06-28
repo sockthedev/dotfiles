@@ -123,24 +123,6 @@ local plugins = {
     end,
   },
 
-  -- highlight/navigate uses of  word under cursor using LSP, Tree-sitter, or regex matching
-  {
-    "rrethy/vim-illuminate",
-    event = "BufReadPost",
-    opts = {
-      delay = 200,
-      under_cursor = false, -- we dont want to highlight the word under cursor, only other instances
-    },
-    config = function(_, opts)
-      require("illuminate").configure(opts)
-    end,
-    -- stylua: ignore
-    keys = {
-      { "]]", function() require("illuminate").goto_next_reference(false) end, desc = "Next word reference", },
-      { "[[", function() require("illuminate").goto_prev_reference(false) end, desc = "Prev word reference" },
-    },
-  },
-
   -- buffer remove
   {
     "echasnovski/mini.bufremove",

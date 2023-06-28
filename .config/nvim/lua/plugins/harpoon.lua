@@ -5,7 +5,7 @@ return {
   },
   config = function()
     require("harpoon").setup({
-      tabline = true,
+      tabline = false,
       tabline_prefix = " ",
       tabline_suffix = "  ",
     })

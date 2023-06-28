@@ -12,7 +12,7 @@ return {
         function()
           require("dap").toggle_breakpoint()
         end,
-        "Breakpoint",
+        desc = "Breakpoint",
       },
       {
         "<Leader>dB",
@@ -25,56 +25,56 @@ return {
           local log_message = vim.fn.input("Breakpoint log message: ")
           require("dap").set_breakpoint(condition, hit_condition, log_message)
         end,
-        "Conditional Breakpoint",
+        desc = "Conditional Breakpoint",
       },
       {
         "<Leader>dc",
         function()
           require("dap").continue()
         end,
-        "Continue",
+        desc = "Continue",
       },
       {
         "<Leader>dp",
         function()
           require("dap").pause()
         end,
-        "Pause",
+        desc = "Pause",
       },
       {
         "<Leader>dt",
         function()
           require("dap").terminate()
         end,
-        "Terminate",
+        desc = "Terminate",
       },
       {
         "<Leader>di",
         function()
           require("dap").step_into()
         end,
-        "Step Into",
+        desc = "Step Into",
       },
       {
         "<Leader>do",
         function()
           require("dap").step_out()
         end,
-        "Step Out",
+        desc = "Step Out",
       },
       {
         "<Leader>dO",
         function()
           require("dap").step_over()
         end,
-        "Step Over",
+        desc = "Step Over",
       },
       {
         "<Leader>drc",
         function()
           require("dap").run_to_cursor()
         end,
-        "Run to Cursor",
+        desc = "Run to Cursor",
       },
       {
         "<Leader>dh",
@@ -82,7 +82,7 @@ return {
           ---@diagnostic disable-next-line: missing-parameter
           require("dapui").eval()
         end,
-        "Eval",
+        desc = "Eval",
       },
     },
     config = function()

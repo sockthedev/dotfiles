@@ -6,7 +6,7 @@ return {
     build = ":TSUpdate",
     event = "BufReadPost",
     keys = {
-      { "<m-space>", desc = "Increment selection" },
+      { "<C-space>", desc = "Increment selection" },
       { "<bs>", desc = "Schrink selection", mode = "x" },
     },
     config = function()

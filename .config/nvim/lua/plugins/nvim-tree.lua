@@ -13,12 +13,14 @@ return {
       },
       update_focused_file = {
         enable = true,
-        update_cwd = false,
       },
       view = {
-        adaptive_size = false,
+        cursorline = false,
         side = "left",
-        width = 45,
+        width = {
+          min = 40,
+          max = 60,
+        },
       },
       actions = {
         open_file = {
@@ -39,9 +41,7 @@ return {
         },
       },
       filters = {
-        dotfiles = false,
         custom = { "^.git$" },
-        no_buffer = false,
       },
       diagnostics = {
         enable = false,
@@ -50,5 +50,6 @@ return {
 
     -- keymaps
     vim.keymap.set("n", "tt", ":NvimTreeToggle<CR>", { silent = true, desc = "Toggle" })
+    vim.keymap.set("n", "tf", ":NvimTreeFocus<CR>", { silent = true, desc = "Focus" })
   end,
 }

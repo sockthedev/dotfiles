@@ -31,4 +31,9 @@ Once you have it up and running open the configuration panel and make the follow
   Also a great addition, no more need to try and find those annoying arrow keys and completely lose track of your finger placement.
 
 
+## Mac OS Fixes
+
+Make sure to disable the following settings so that `C-space` keyboard shortcuts work.
+
+<img src="./assets/input-sources-fix.png" width="200" />
 
