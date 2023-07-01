@@ -14,7 +14,6 @@ mason_lsp.setup({
     "cssls",
     "emmet_ls",
     "html",
-    "jdtls",
     "jsonls",
     "lua_ls",
     "rust_analyzer",
@@ -51,11 +50,6 @@ lspconfig.emmet_ls.setup({
 })
 
 lspconfig.html.setup({
-  on_attach = default_on_attach,
-  capabilities = capabilities,
-})
-
-lspconfig.jdtls.setup({
   on_attach = default_on_attach,
   capabilities = capabilities,
 })

@@ -113,6 +113,33 @@ local plugins = {
         desc = "Replace in files (Spectre)",
       },
     },
+    config = function()
+      require("spectre").setup({
+        open_cmd = "new", -- open horizontal split
+        is_open_target_win = false,
+        is_insert_mode = true,
+        is_close = true,
+      })
+    end,
+  },
+
+  -- highlight/navigate uses of  word under cursor using LSP, Tree-sitter, or regex matching
+  {
+    "rrethy/vim-illuminate",
+    event = "BufReadPost",
+    opts = {
+      delay = 250,
+      under_cursor = true,
+      min_count_to_highlight = 2,
+    },
+    config = function(_, opts)
+      require("illuminate").configure(opts)
+    end,
+    -- stylua: ignore
+    keys = {
+      { "]]", function() require("illuminate").goto_next_reference(false) end, desc = "Next word reference", },
+      { "[[", function() require("illuminate").goto_prev_reference(false) end, desc = "Prev word reference" },
+    },
   },
 
   -- markdown preview

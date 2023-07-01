@@ -32,5 +32,9 @@ return {
     vim.keymap.set("n", "<leader>ta", function()
       require("neotest").run.attach()
     end, { desc = "Attach to nearest test" })
+
+    vim.keymap.set("n", "<leader>tp", function()
+      require("neotest").run.run_last()
+    end, { desc = "Run previous test" })
   end,
 }
