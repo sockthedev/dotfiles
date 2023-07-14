@@ -5,7 +5,7 @@ local setup_format_on_save = require("plugins.lsp.utils.setup-format-on-save")
 local setup_keymaps = require("plugins.lsp.utils.setup-keymaps")
 
 null_ls.setup({
-  debug = true,
+  debug = false,
   sources = {
     null_ls.builtins.diagnostics.luacheck.with({
       condition = function(utils)

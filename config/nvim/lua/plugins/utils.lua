@@ -2,7 +2,7 @@ local plugins = {
   -- repl
   {
     "michaelb/sniprun",
-    build = "sh ./install.sh",
+    build = "bash ./install.sh",
     config = function()
       require("sniprun").setup({
         selected_interpreters = { "JS_TS_deno" },

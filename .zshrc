@@ -45,3 +45,5 @@ fi
 # fly through shell history
 eval "$(mcfly init zsh)"
 
+# rust
+source "$HOME/.cargo/env"
