@@ -8,7 +8,7 @@ local plugins = {
       "jose-elias-alvarez/typescript.nvim",
       "MunifTanjim/prettier.nvim",
       "onsails/lspkind-nvim",
-      "j-hui/fidget.nvim",
+      { "j-hui/fidget.nvim", version = "legacy" },
       {
         "williamboman/mason-lspconfig.nvim",
         dependencies = {

@@ -11,6 +11,7 @@ local setup_keymaps = require("plugins.lsp.utils.setup-keymaps")
 mason_lsp.setup({
   ensure_installed = {
     "astro",
+    "csharp_ls",
     "cssls",
     "emmet_ls",
     "html",
@@ -34,6 +35,11 @@ end
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 lspconfig.astro.setup({
+  on_attach = default_on_attach,
+  capabilities = capabilities,
+})
+
+lspconfig.csharp_ls.setup({
   on_attach = default_on_attach,
   capabilities = capabilities,
 })
@@ -173,4 +179,10 @@ vim.diagnostic.config({
 })
 
 -- Shows progress of the current LSP server in the bottom right hand corner
-require("fidget").setup()
+require("fidget").setup({
+  sources = {
+    ["null-ls"] = {
+      ignore = true,
+    },
+  },
+})
