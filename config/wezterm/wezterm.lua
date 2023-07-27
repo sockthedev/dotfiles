@@ -2,6 +2,7 @@ local wezterm = require("wezterm")
 
 local config = {
 	-- window_background_opacity = 0.9,
+	disable_default_key_bindings = true,
 	enable_tab_bar = false,
 	window_decorations = "RESIZE",
 	adjust_window_size_when_changing_font_size = false,

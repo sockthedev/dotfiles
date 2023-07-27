@@ -12,14 +12,14 @@ require("lspsaga").setup({
     },
   },
   symbol_in_winbar = {
-    enable = false,
+    enable = true,
     separator = "  ",
     ignore_patterns = {},
     hide_keyword = true,
     show_file = true,
-    folder_level = 2,
+    folder_level = 1,
     respect_root = true,
-    color_mode = true,
+    color_mode = false,
   },
   ui = {
     border = "single",
@@ -37,7 +37,7 @@ vim.keymap.set(
   ":Lspsaga hover_doc ++keep<CR>",
   { desc = "Show documentation (and keep visible)", noremap = true, silent = true }
 )
-vim.keymap.set("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", { desc = "References", noremap = true, silent = true })
+vim.keymap.set("n", "gr", "<cmd>Lspsaga finder<CR>", { desc = "References", noremap = true, silent = true })
 vim.keymap.set("n", "gp", "<cmd>Lspsaga peek_definition<CR>", { desc = "Peek", noremap = true, silent = true })
 vim.keymap.set("n", "gI", "<cmd>Lspsaga incoming_calls<CR>", { desc = "Incoming calls", noremap = true, silent = true })
 vim.keymap.set("n", "gO", "<cmd>Lspsaga outgoing_calls<CR>", { desc = "Outgoing calls", noremap = true, silent = true })
