@@ -3,7 +3,7 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 
 local config = {
-	disable_default_key_bindings = false,
+	disable_default_key_bindings = true,
 	enable_tab_bar = false,
 	window_decorations = "RESIZE",
 	adjust_window_size_when_changing_font_size = false,
