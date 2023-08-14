@@ -19,7 +19,6 @@ ZSH_CUSTOM=$HOME/.config/zsh/custom
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 plugins=(
-  vi-mode
   aws
   git
   nvm

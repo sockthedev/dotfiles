@@ -5,7 +5,6 @@ local plugins = {
       "b0o/schemastore.nvim",
       "folke/neodev.nvim",
       "hrsh7th/cmp-nvim-lsp",
-      "jose-elias-alvarez/typescript.nvim",
       "MunifTanjim/prettier.nvim",
       "onsails/lspkind-nvim",
       { "j-hui/fidget.nvim", version = "legacy" },
@@ -36,7 +35,7 @@ local plugins = {
     end,
   },
   {
-    "glepnir/lspsaga.nvim",
+    "nvimdev/lspsaga.nvim",
     event = "BufRead",
     config = function()
       require("plugins.lsp.lspsaga")

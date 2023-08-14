@@ -122,12 +122,7 @@ lspconfig.tsserver.setup({
       },
     },
   },
-  on_attach = function(client, bufnr)
-    default_on_attach(client, bufnr)
-    vim.api.nvim_buf_create_user_command(bufnr, "OI", function(opts)
-      require("typescript").actions.organizeImports({ sync = opts.bang })
-    end, { desc = "Organize Imports", bang = true })
-  end,
+  on_attach = default_on_attach,
   capabilities = capabilities,
 })
 
