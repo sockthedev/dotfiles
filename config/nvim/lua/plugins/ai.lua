@@ -33,6 +33,7 @@ return {
     end,
   },
 
+  -- TODO: Change this to https://github.com/jackMort/ChatGPT.nvim
   {
     "Bryley/neoai.nvim",
     dependencies = {
