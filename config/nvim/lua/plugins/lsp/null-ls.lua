@@ -68,10 +68,12 @@ prettier.setup({
 })
 
 require("mason-null-ls").setup({
+  automatic_installation = true,
   ensure_installed = {
     "cspell",
     "eslint_d",
     "luacheck",
+    "ocamlformat",
     -- "prettierd",
     "stylua",
   },

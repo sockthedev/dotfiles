@@ -46,3 +46,14 @@ eval "$(mcfly init zsh)"
 
 # rust
 source "$HOME/.cargo/env"
+
+# opam configuration
+[[ ! -r /Users/sock/.opam/opam-init/init.zsh ]] || source /Users/sock/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+# pnpm
+export PNPM_HOME="/Users/sock/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

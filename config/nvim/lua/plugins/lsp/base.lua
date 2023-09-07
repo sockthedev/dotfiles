@@ -9,6 +9,7 @@ local setup_format_on_save = require("plugins.lsp.utils.setup-format-on-save")
 local setup_keymaps = require("plugins.lsp.utils.setup-keymaps")
 
 mason_lsp.setup({
+  automatic_installation = true,
   ensure_installed = {
     "astro",
     "csharp_ls",
@@ -17,6 +18,7 @@ mason_lsp.setup({
     "html",
     "jsonls",
     "lua_ls",
+    "ocamllsp",
     "rust_analyzer",
     "tailwindcss",
     "tsserver",
@@ -83,6 +85,11 @@ lspconfig.lua_ls.setup({
   on_attach = function(client, bufnr)
     default_on_attach(client, bufnr)
   end,
+  capabilities = capabilities,
+})
+
+lspconfig.ocamllsp.setup({
+  on_attach = default_on_attach,
   capabilities = capabilities,
 })
 
