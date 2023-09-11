@@ -49,8 +49,8 @@ null_ls.setup({
 })
 
 prettier.setup({
-  -- bin = "prettierd",
-  bin = "prettier",
+  bin = "prettierd",
+  -- bin = "prettier",
   filetypes = {
     "css",
     "graphql",
@@ -74,7 +74,7 @@ require("mason-null-ls").setup({
     "eslint_d",
     "luacheck",
     "ocamlformat",
-    -- "prettierd",
+    "prettierd",
     "stylua",
   },
 })
