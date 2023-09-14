@@ -18,7 +18,7 @@ return {
     {
       "<leader>fF",
       function()
-        require("telescope.builtin").find_files({ hidden = true, no_ignore = true })
+        require("telescope.builtin").find_files({ hidden = true, no_ignore = false })
       end,
       desc = "Find Files (+hidden)",
     },
@@ -71,13 +71,15 @@ return {
     defaults = {
       vimgrep_arguments = {
         "rg",
+        "--hidden",
         "--color=never",
         "--no-heading",
         "--with-filename",
         "--line-number",
         "--column",
         "--smart-case",
-        -- "--hidden",
+        "--glob=!.git/*",
+        "--glob=!node_modules/*",
       },
       prompt_prefix = " ",
       selection_caret = " ",
@@ -103,6 +105,15 @@ return {
       winblend = 0,
     },
     pickers = {
+      find_files = {
+        find_command = {
+          "rg",
+          "--hidden",
+          "--files",
+          "--glob=!.git/*",
+          "--glob=!node_modules/*",
+        },
+      },
       buffers = {
         sort_lastused = true,
         mappings = {
@@ -116,7 +127,7 @@ return {
       },
     },
   },
-  setup = function()
+  config = function()
     require("telescope").load_extension("fzf")
   end,
 }

@@ -1,6 +1,5 @@
 return {
   "nvim-lualine/lualine.nvim",
-  after = "nord.nvim",
   config = function()
     require("lualine").setup({
       options = {
