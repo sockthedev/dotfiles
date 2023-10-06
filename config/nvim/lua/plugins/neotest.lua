@@ -45,12 +45,16 @@ return {
       require("neotest").run.attach()
     end, { desc = "Attach to nearest test" })
 
-    vim.keymap.set("n", "<leader>tp", function()
+    vim.keymap.set("n", "<leader>tl", function()
       require("neotest").run.run_last()
-    end, { desc = "Run previous test" })
+    end, { desc = "Run last test" })
 
     vim.keymap.set("n", "<leader>to", function()
-      require("neotest").output.open()
-    end, { desc = "Run previous test" })
+      require("neotest").output.open({ enter = true })
+    end, { desc = "Open test output" })
+
+    vim.keymap.set("n", "<leader>tp", function()
+      require("neotest").output_panel.toggle()
+    end, { desc = "Toggle output panel" })
   end,
 }
