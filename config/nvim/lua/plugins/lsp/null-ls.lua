@@ -7,13 +7,15 @@ local setup_keymaps = require("plugins.lsp.utils.setup-keymaps")
 null_ls.setup({
   debug = false,
   sources = {
+    null_ls.builtins.code_actions.cspell,
+    -- Lua
+    null_ls.builtins.formatting.stylua,
     null_ls.builtins.diagnostics.luacheck.with({
       condition = function(utils)
         return utils.root_has_file({ ".luacheckrc" })
       end,
     }),
-    null_ls.builtins.formatting.stylua,
-    null_ls.builtins.code_actions.cspell,
+    -- JavaScript / TypeScript
     null_ls.builtins.code_actions.eslint_d,
     null_ls.builtins.diagnostics.eslint_d.with({
       diagnostics_format = "[eslint] #{m}\n(#{c})",
@@ -28,6 +30,10 @@ null_ls.setup({
         })
       end,
     }),
+    -- Python
+    null_ls.builtins.formatting.black,
+    null_ls.builtins.diagnostics.mypy,
+    null_ls.builtins.diagnostics.ruff,
   },
   on_attach = function(client, bufnr)
     setup_keymaps(bufnr)
@@ -70,11 +76,14 @@ prettier.setup({
 require("mason-null-ls").setup({
   automatic_installation = true,
   ensure_installed = {
+    "black",
     "cspell",
     "eslint_d",
     "luacheck",
+    "mypy",
     "ocamlformat",
     "prettierd",
+    "ruff",
     "stylua",
   },
 })

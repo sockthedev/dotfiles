@@ -60,74 +60,82 @@ return {
       desc = "Goto Symbol",
     },
   },
-  opts = {
-    extensions = {
-      fzf = {
-        fuzzy = true, -- false will only do exact matching
-        override_generic_sorter = true, -- override the generic sorter
-        override_file_sorter = true, -- override the file sorter
-      },
-    },
-    defaults = {
-      vimgrep_arguments = {
-        "rg",
-        "--hidden",
-        "--color=never",
-        "--no-heading",
-        "--with-filename",
-        "--line-number",
-        "--column",
-        "--smart-case",
-        "--glob=!.git/*",
-        "--glob=!node_modules/*",
-      },
-      prompt_prefix = " ",
-      selection_caret = " ",
-      mappings = {
-        i = {
-          ["<c-t>"] = function(...)
-            return require("trouble.providers.telescope").open_with_trouble(...)
-          end,
-          ["<C-i>"] = function()
-            Util.telescope("find_files", { no_ignore = true })()
-          end,
-          ["<C-h>"] = function()
-            Util.telescope("find_files", { hidden = true })()
-          end,
-          ["<C-Down>"] = function(...)
-            return require("telescope.actions").cycle_history_next(...)
-          end,
-          ["<C-Up>"] = function(...)
-            return require("telescope.actions").cycle_history_prev(...)
-          end,
+  config = function()
+    require("telescope").setup({
+      extensions = {
+        fzf = {
+          fuzzy = true, -- false will only do exact matching
+          override_generic_sorter = true, -- override the generic sorter
+          override_file_sorter = true, -- override the file sorter
         },
       },
-      winblend = 0,
-    },
-    pickers = {
-      find_files = {
-        find_command = {
+      defaults = {
+        vimgrep_arguments = {
           "rg",
           "--hidden",
-          "--files",
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
           "--glob=!.git/*",
           "--glob=!node_modules/*",
         },
-      },
-      buffers = {
-        sort_lastused = true,
+        prompt_prefix = " ",
+        selection_caret = " ",
         mappings = {
           i = {
-            ["<c-d>"] = "delete_buffer",
+            ["<c-t>"] = function(...)
+              return require("trouble.providers.telescope").open_with_trouble(...)
+            end,
+            ["<C-i>"] = function()
+              Util.telescope("find_files", { no_ignore = true })()
+            end,
+            ["<C-h>"] = function()
+              Util.telescope("find_files", { hidden = true })()
+            end,
+            ["<C-Down>"] = function(...)
+              return require("telescope.actions").cycle_history_next(...)
+            end,
+            ["<C-Up>"] = function(...)
+              return require("telescope.actions").cycle_history_prev(...)
+            end,
           },
-          n = {
-            ["<c-d>"] = "delete_buffer",
+        },
+        winblend = 0,
+        layout_config = {
+          layout_strategy = "horizontal",
+          horizontal = {
+            width = 0.99,
+            height = 0.99,
+            preview_width = 0.5,
           },
         },
       },
-    },
-  },
-  config = function()
+      pickers = {
+        find_files = {
+          find_command = {
+            "rg",
+            "--hidden",
+            "--files",
+            "--glob=!.git/*",
+            "--glob=!node_modules/*",
+          },
+        },
+        buffers = {
+          sort_lastused = true,
+          mappings = {
+            i = {
+              ["<c-d>"] = "delete_buffer",
+            },
+            n = {
+              ["<c-d>"] = "delete_buffer",
+            },
+          },
+        },
+      },
+    })
     require("telescope").load_extension("fzf")
   end,
 }

@@ -36,6 +36,7 @@ dap.configurations.javascript = {
 
 dap.configurations.javascriptreact = { -- change this to javascript if needed
   {
+    name = "Attach to Chrome (JavaScript)",
     type = "chrome",
     request = "attach",
     program = "${file}",
@@ -49,6 +50,7 @@ dap.configurations.javascriptreact = { -- change this to javascript if needed
 
 dap.configurations.typescriptreact = { -- change to typescript if needed
   {
+    name = "Attach to Chrome (TypeScript)",
     type = "chrome",
     request = "attach",
     program = "${file}",

@@ -13,6 +13,7 @@ return {
       local treesitter_configs = require("nvim-treesitter.configs")
 
       treesitter_configs.setup({
+        auto_install = true,
         autotag = {
           enable = true,
         },
@@ -29,6 +30,7 @@ return {
           "lua",
           "markdown",
           "markdown_inline",
+          "python",
           "regex",
           "scss",
           "sql",

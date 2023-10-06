@@ -16,6 +16,11 @@ local plugins = {
           config = {
             ui = { border = "rounded" },
           },
+          opts = {
+            ensure_installed = {
+              "debugpy",
+            },
+          },
         },
       },
     },

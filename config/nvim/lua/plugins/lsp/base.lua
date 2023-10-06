@@ -19,6 +19,7 @@ mason_lsp.setup({
     "jsonls",
     "lua_ls",
     "ocamllsp",
+    "pyright",
     "rust_analyzer",
     "tailwindcss",
     "tsserver",
@@ -91,6 +92,12 @@ lspconfig.lua_ls.setup({
 lspconfig.ocamllsp.setup({
   on_attach = default_on_attach,
   capabilities = capabilities,
+})
+
+lspconfig.pyright.setup({
+  on_attach = default_on_attach,
+  capabilities = capabilities,
+  filetype = { "python" },
 })
 
 lspconfig.rust_analyzer.setup({

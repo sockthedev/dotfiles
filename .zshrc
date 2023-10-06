@@ -57,3 +57,7 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# python poetry package manager completions
+path+=~/.zfunc
+autoload -Uz compinit && compinit
