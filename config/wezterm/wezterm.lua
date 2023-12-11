@@ -8,8 +8,9 @@ local config = {
 	window_decorations = "RESIZE",
 	adjust_window_size_when_changing_font_size = false,
 	font = wezterm.font("Berkeley Mono", { weight = "Medium" }),
-	font_size = 14,
-	line_height = 1.2,
+	-- font = wezterm.font("Monaspace Neon Var", { weight = "Medium" }),
+	font_size = 15,
+	line_height = 1.3,
 	native_macos_fullscreen_mode = true,
 	keys = {
 		{

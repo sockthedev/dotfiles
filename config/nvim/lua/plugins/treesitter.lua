@@ -14,6 +14,9 @@ return {
 
       treesitter_configs.setup({
         auto_install = true,
+        sync_install = true,
+        ignore_install = {},
+        modules = {},
         autotag = {
           enable = true,
         },
@@ -40,10 +43,6 @@ return {
           "vim",
           "vimdoc",
           "yaml",
-        },
-        context_commentstring = {
-          enable = true,
-          enable_autocmd = false,
         },
         highlight = {
           enable = true,
@@ -106,7 +105,22 @@ return {
   },
 
   -- commenting
-  { "JoosepAlviste/nvim-ts-context-commentstring", lazy = true },
+  {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    lazy = true,
+    opts = {
+      hooks = {
+        pre = function()
+          vim.g.skip_ts_context_commentstring_module = true
+        end,
+      },
+    },
+    config = function()
+      require("ts_context_commentstring").setup({
+        enable_autocmd = false,
+      })
+    end,
+  },
   {
     "echasnovski/mini.comment",
     event = "VeryLazy",

@@ -56,8 +56,15 @@ case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-# pnpm end
 
 # python poetry package manager completions
 path+=~/.zfunc
 autoload -Uz compinit && compinit
+
+# AWSume alias to source the AWSume script
+alias awsume="source \$(pyenv which awsume)"
+
+# Auto-Complete function for AWSume
+# Auto-Complete function for AWSume
+fpath=(~/.awsume/zsh-autocomplete/ $fpath)
+. "$HOME/.cargo/env"

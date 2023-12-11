@@ -62,6 +62,7 @@ vim.api.nvim_create_autocmd("FileType", {
     "json",
     "log",
     "markdown",
+    "sh",
     "text",
     "typescript",
     "typescriptreact",

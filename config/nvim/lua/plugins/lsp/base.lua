@@ -189,9 +189,9 @@ vim.diagnostic.config({
 
 -- Shows progress of the current LSP server in the bottom right hand corner
 require("fidget").setup({
-  sources = {
-    ["null-ls"] = {
-      ignore = true,
+  progress = {
+    ignore = {
+      "null-ls",
     },
   },
 })

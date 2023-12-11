@@ -7,7 +7,7 @@ local plugins = {
       "hrsh7th/cmp-nvim-lsp",
       "MunifTanjim/prettier.nvim",
       "onsails/lspkind-nvim",
-      { "j-hui/fidget.nvim", version = "legacy" },
+      { "j-hui/fidget.nvim" },
       {
         "williamboman/mason-lspconfig.nvim",
         dependencies = {
