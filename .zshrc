@@ -1,5 +1,10 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
+
+# pyenv
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -22,6 +27,7 @@ plugins=(
   aws
   git
   nvm
+  pyenv
   zsh-syntax-highlighting
   zsh-autosuggestions
   starship
@@ -36,19 +42,11 @@ else
   export EDITOR='nvim'
 fi
 
-# pyenv
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-
 # fly through shell history
 eval "$(mcfly init zsh)"
 
 # rust
 source "$HOME/.cargo/env"
-
-# opam configuration
-[[ ! -r /Users/sock/.opam/opam-init/init.zsh ]] || source /Users/sock/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
 # pnpm
 export PNPM_HOME="/Users/sock/Library/pnpm"
@@ -65,6 +63,12 @@ autoload -Uz compinit && compinit
 alias awsume="source \$(pyenv which awsume)"
 
 # Auto-Complete function for AWSume
-# Auto-Complete function for AWSume
 fpath=(~/.awsume/zsh-autocomplete/ $fpath)
-. "$HOME/.cargo/env"
+
+# Neovim aliases
+alias v='nvim'
+
+# sdkman
+# THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

@@ -1,14 +1,20 @@
-local u = require("utils.keymaps")
-
-local plugins = {
+return {
+  { -- Adds git related signs to the gutter, as well as utilities for managing changes
+    'lewis6991/gitsigns.nvim',
+    opts = {
+      signs = {
+        add = { text = '+' },
+        change = { text = '~' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
+      },
+    },
+  },
   {
-    "tpope/vim-fugitive",
-    config = function()
-      u.set_keymaps("n", {
-        { "<leader>gf", "<cmd>tab +Git<cr>", "Open Fugitive" },
-      })
-    end,
+    'tpope/vim-fugitive',
+    keys = {
+      { '<leader>gf', '<cmd>tab +Git<cr>', 'Open Fugitive' },
+    },
   },
 }
-
-return plugins

@@ -1,8 +1,8 @@
 return {
-  "kevinhwang91/nvim-ufo",
-  dependencies = { "kevinhwang91/promise-async" },
+  'kevinhwang91/nvim-ufo',
+  dependencies = { 'kevinhwang91/promise-async' },
   init = function()
-    vim.o.foldcolumn = "0" -- '0' is not bad
+    vim.o.foldcolumn = '0' -- '0' is not bad
     vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
     vim.o.foldlevelstart = 99
     vim.o.foldenable = true
@@ -10,7 +10,7 @@ return {
   config = function()
     local fold_virt_text_handler = function(virtText, lnum, endLnum, width, truncate)
       local newVirtText = {}
-      local suffix = (" ↕ %d "):format(endLnum - lnum)
+      local suffix = (' ↕ %d '):format(endLnum - lnum)
       local sufWidth = vim.fn.strdisplaywidth(suffix)
       local targetWidth = width - sufWidth
       local curWidth = 0
@@ -26,32 +26,31 @@ return {
           chunkWidth = vim.fn.strdisplaywidth(chunkText)
           -- str width returned from truncate() may less than 2nd argument, need padding
           if curWidth + chunkWidth < targetWidth then
-            suffix = suffix .. (" "):rep(targetWidth - curWidth - chunkWidth)
+            suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
           end
           break
         end
         curWidth = curWidth + chunkWidth
       end
-      table.insert(newVirtText, { suffix, "MoreMsg" })
+      table.insert(newVirtText, { suffix, 'MoreMsg' })
       return newVirtText
     end
 
-    require("ufo").setup({
+    ---@diagnostic disable-next-line: missing-fields
+    require('ufo').setup {
       fold_virt_text_handler = fold_virt_text_handler,
-      provider_selector = function()
-        return { "treesitter", "indent" }
-      end,
-    })
+      -- We are using the LSP based config, with the capability enabled
+    }
 
-    vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open all folds" })
-    vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "Close all folds" })
-    vim.keymap.set("n", "zr", require("ufo").openFoldsExceptKinds, { desc = "Open folds except kinds" })
-    vim.keymap.set("n", "zm", require("ufo").closeFoldsWith, { desc = "Close folds with" })
-    vim.keymap.set("n", "zK", function()
-      local winid = require("ufo").peekFoldedLinesUnderCursor()
+    vim.keymap.set('n', 'zR', require('ufo').openAllFolds, { desc = 'Open all folds' })
+    vim.keymap.set('n', 'zM', require('ufo').closeAllFolds, { desc = 'Close all folds' })
+    vim.keymap.set('n', 'zr', require('ufo').openFoldsExceptKinds, { desc = 'Open folds except kinds' })
+    vim.keymap.set('n', 'zm', require('ufo').closeFoldsWith, { desc = 'Close folds with' })
+    vim.keymap.set('n', 'zK', function()
+      local winid = require('ufo').peekFoldedLinesUnderCursor()
       if not winid then
         vim.lsp.buf.hover()
       end
-    end, { desc = "Peek folded lines under cursor" })
+    end, { desc = 'Peek folded lines under cursor' })
   end,
 }
