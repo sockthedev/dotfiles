@@ -1,7 +1,6 @@
 return {
   { -- Autoformat
     'stevearc/conform.nvim',
-    cmd = { 'Format', 'FormatRange' },
     config = function()
       require('conform').setup {
         notify_on_error = false,
