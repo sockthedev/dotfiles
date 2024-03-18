@@ -49,11 +49,11 @@ eval "$(mcfly init zsh)"
 source "$HOME/.cargo/env"
 
 # pnpm
-export PNPM_HOME="/Users/sock/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
+# export PNPM_HOME="/Users/sock/Library/pnpm"
+# case ":$PATH:" in
+#   *":$PNPM_HOME:"*) ;;
+#   *) export PATH="$PNPM_HOME:$PATH" ;;
+# esac
 
 # python poetry package manager completions
 path+=~/.zfunc

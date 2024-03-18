@@ -46,6 +46,7 @@ return {
           },
         },
         filters = {
+          dotfiles = false,
           custom = { '^.git$' },
         },
         diagnostics = {

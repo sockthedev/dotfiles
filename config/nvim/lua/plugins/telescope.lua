@@ -36,6 +36,23 @@ return {
               preview_width = 0.5,
             },
           },
+          -- We override the ripgrep arguments to include hidden files and ignore files in .git directory
+          vimgrep_arguments = {
+            'rg',
+            '--color=never',
+            '--no-heading',
+            '--with-filename',
+            '--line-number',
+            '--column',
+            '--smart-case',
+            '--hidden', -- Include hidden files
+          },
+          file_ignore_patterns = { '^.git/' }, -- Ensure we always ignore the .git directory
+        },
+        pickers = {
+          find_files = {
+            hidden = true, -- Include hidden files when searching for files
+          },
         },
         extensions = {
           ['ui-select'] = {

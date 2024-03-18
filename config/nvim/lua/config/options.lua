@@ -17,6 +17,11 @@ vim.opt.relativenumber = true
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
 
+-- Tabs to spaces by default
+vim.opt.expandtab = true
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+
 -- Don't show the mode, since it's already in status line
 vim.opt.showmode = false
 

@@ -55,12 +55,14 @@ return {
         },
       }
 
-      -- Configure additional file extensions to parsers. Parser on left, file extensions on right
-      vim.treesitter.language.register('terraform', 'tf')
-      vim.treesitter.language.register('terraform', 'tfvars')
-      vim.treesitter.language.register('json', 'tfstate')
-      vim.treesitter.language.register('yaml', 'yml')
-      vim.treesitter.language.register('graphql', 'graphqls')
+      -- Add some autocmds to map files to the expected syntax
+      vim.cmd [[
+        autocmd BufRead,BufNewFile *.tf set filetype=terraform
+        autocmd BufRead,BufNewFile *.tfvars set filetype=terraform
+        autocmd BufRead,BufNewFile *.tfstate set filetype=json
+        autocmd BufRead,BufNewFile *.yml set filetype=yaml
+        autocmd BufRead,BufNewFile *.graphqls set filetype=graphql
+      ]]
     end,
   },
 
