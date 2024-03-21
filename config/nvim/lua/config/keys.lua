@@ -67,3 +67,15 @@ vim.keymap.set('n', 'x', '"_x', { silent = true })
 
 -- Select all
 vim.keymap.set('n', '<C-a>', 'gg<S-v>G', { silent = true })
+
+-- Toggle relative line numbers
+function ToggleRelativeLineNumber()
+  if vim.wo.relativenumber == true then
+    vim.wo.relativenumber = false
+    vim.wo.number = true -- Ensure absolute line numbers are enabled when relative is disabled
+  else
+    vim.wo.relativenumber = true
+    vim.wo.number = true -- Keep absolute line number for the current line
+  end
+end
+vim.keymap.set('n', '<leader>ct', '<cmd>lua ToggleRelativeLineNumber()<cr>', { desc = 'Toggle relative line numbers' })

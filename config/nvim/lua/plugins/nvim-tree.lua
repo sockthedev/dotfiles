@@ -18,13 +18,21 @@ return {
         view = {
           cursorline = false,
           side = 'left',
+          preserve_window_proportions = true,
+          number = true,
+          relativenumber = true,
           float = {
             enable = true,
-            open_win_config = {
-              width = 50,
-              height = 30,
-              border = 'none',
-            },
+            open_win_config = function()
+              return {
+                relative = 'editor',
+                width = 70,
+                height = vim.o.lines - 2,
+                border = 'none',
+                row = 0,
+                col = 0,
+              }
+            end,
           },
         },
         actions = {
