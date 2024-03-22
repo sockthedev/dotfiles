@@ -13,8 +13,8 @@ return {
   },
   {
     'tpope/vim-fugitive',
-    keys = {
-      { '<leader>gf', '<cmd>tab +Git<cr>', 'Open Fugitive' },
-    },
+    config = function()
+      vim.keymap.set('n', '<leader>gf', '<cmd>tab +Git<cr>', { noremap = true, silent = true, desc = 'Open Fugitive' })
+    end,
   },
 }
