@@ -137,7 +137,11 @@ return {
       }
 
       -- Ensure the servers and tools above are installed
-      require('mason').setup()
+      require('mason').setup {
+        ui = {
+          border = 'single',
+        },
+      }
 
       -- You can add other tools here that you want Mason to install for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
@@ -157,6 +161,18 @@ return {
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
           end,
+        },
+      }
+
+      -- Style the UI
+      vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
+      vim.lsp.handlers['textDocument/signatureHelp'] =
+        vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'single' })
+      vim.diagnostic.config {
+        update_in_insert = true,
+        severity_sort = true,
+        float = {
+          border = 'single',
         },
       }
     end,

@@ -26,11 +26,11 @@ return {
             open_win_config = function()
               return {
                 relative = 'editor',
+                border = 'single',
                 width = 70,
-                height = vim.o.lines - 2,
-                border = 'none',
+                height = vim.o.lines - 3,
                 row = 0,
-                col = 0,
+                col = vim.o.columns - 70,
               }
             end,
           },

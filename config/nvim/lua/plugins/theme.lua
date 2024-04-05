@@ -5,22 +5,21 @@ return {
     priority = 1000,
     config = function()
       require('tokyonight').setup {
-        style = 'moon',
+        style = 'night',
         styles = {
-          comments = { italic = false },
-          keywords = { italic = false },
           sidebars = 'transparent',
-          floats = 'dark',
+          floats = 'transparent',
         },
         on_highlights = function(hl, c)
-          local prompt = c.bg_dark
+          -- local prompt = c.bg_dark
+          local prompt = nil
           hl.TelescopeNormal = {
-            bg = c.bg_dark,
+            bg = prompt,
             fg = c.fg_dark,
           }
           hl.TelescopeBorder = {
-            bg = c.bg_dark,
-            fg = c.bg_dark,
+            bg = prompt,
+            fg = prompt,
           }
           hl.TelescopePromptNormal = {
             bg = prompt,
@@ -34,16 +33,19 @@ return {
             fg = prompt,
           }
           hl.TelescopePreviewTitle = {
-            bg = c.bg_dark,
-            fg = c.bg_dark,
+            bg = prompt,
+            fg = prompt,
           }
           hl.TelescopeResultsTitle = {
-            bg = c.bg_dark,
-            fg = c.bg_dark,
+            bg = prompt,
+            fg = prompt,
           }
         end,
       }
-      vim.cmd [[colorscheme tokyonight-moon]]
+      vim.cmd [[
+        colorscheme tokyonight-night
+        echo " "
+      ]]
     end,
   },
 }

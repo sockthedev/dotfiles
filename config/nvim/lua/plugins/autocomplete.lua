@@ -50,6 +50,14 @@ return {
             luasnip.lsp_expand(args.body)
           end,
         },
+        window = {
+          completion = cmp.config.window.bordered {
+            border = 'single',
+          },
+          documentation = cmp.config.window.bordered {
+            border = 'single',
+          },
+        },
         completion = { completeopt = 'menu,menuone,noinsert' },
 
         -- For an understanding of why these mappings were
