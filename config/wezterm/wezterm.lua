@@ -55,7 +55,9 @@ local config = {
 	-- tokyonight moon theme
 	colors = {
 		foreground = "#c0caf5",
-		background = "#1a1b26",
+		-- background = "#1a1b26",
+		background = "#09090B",
+		-- background = "#0C0A09",
 		cursor_bg = "#c0caf5",
 		cursor_border = "#c0caf5",
 		cursor_fg = "#1a1b26",

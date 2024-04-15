@@ -62,6 +62,7 @@ return {
         autocmd BufRead,BufNewFile *.tfstate set filetype=json
         autocmd BufRead,BufNewFile *.yml set filetype=yaml
         autocmd BufRead,BufNewFile *.graphqls set filetype=graphql
+        autocmd BufRead,BufNewFile yarn.lock set filetype=text
       ]]
     end,
   },
