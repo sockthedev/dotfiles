@@ -7,15 +7,14 @@ return {
 
       -- Document existing key chains
       require('which-key').register {
-        ['<leader>a'] = { name = '[A]I' },
-        ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-        ['<leader>cc'] = { name = '[C]hat', _ = 'which_key_ignore' },
-        ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-        ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
-        ['<leader>p'] = { name = '[P]ersistence', _ = 'which_key_ignore' },
-        ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-        ['<leader>t'] = { name = '[T]est', _ = 'which_key_ignore' },
-        ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
+        ['<C-g>'] = { name = '[G]pt', c = { name = '[C]hat' }, i = { name = '[I]nline' } },
+        ['<leader>c'] = { name = '[C]ode' },
+        ['<leader>d'] = { name = '[D]ocument' },
+        ['<leader>g'] = { name = '[G]it' },
+        ['<leader>p'] = { name = '[P]ersistence' },
+        ['<leader>s'] = { name = '[S]earch' },
+        ['<leader>t'] = { name = '[T]est' },
+        ['<leader>w'] = { name = '[W]orkspace' },
       }
     end,
   },

@@ -8,6 +8,9 @@ return {
       tabline = false,
       tabline_prefix = ' ',
       tabline_suffix = '  ',
+      menu = {
+        width = 120,
+      },
     }
 
     vim.keymap.set('n', '<C-M-j>', "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", { desc = 'Toggle' })
