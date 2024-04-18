@@ -3,11 +3,15 @@ return {
     'folke/which-key.nvim',
     event = 'VimEnter',
     config = function()
-      require('which-key').setup()
+      require('which-key').setup {
+        window = {
+          border = 'single',
+        },
+      }
 
       -- Document existing key chains
       require('which-key').register {
-        ['<C-g>'] = { name = '[G]pt', c = { name = '[C]hat' }, i = { name = '[I]nline' } },
+        ['<C-g>'] = { name = '[G]pt', c = { name = '[C]hat' } },
         ['<leader>c'] = { name = '[C]ode' },
         ['<leader>d'] = { name = '[D]ocument' },
         ['<leader>g'] = { name = '[G]it' },

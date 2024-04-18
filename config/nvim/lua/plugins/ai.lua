@@ -84,6 +84,29 @@ return {
               .. 'START AND END YOUR ANSWER WITH:\n\n```',
           },
         },
+        hooks = {
+          CodeExplain = function(gp, params)
+            local template = 'I have the following code from {{filename}}:\n\n'
+              .. '```{{filetype}}\n{{selection}}\n```\n\n'
+              .. 'Please respond by explaining the code above.'
+            local agent = gp.get_chat_agent()
+            gp.Prompt(params, gp.Target.vnew, nil, agent.model, template, agent.system_prompt)
+          end,
+          CodeReview = function(gp, params)
+            local template = 'I have the following code from {{filename}}:\n\n'
+              .. '```{{filetype}}\n{{selection}}\n```\n\n'
+              .. 'Please analyze for code smells and suggest improvements.'
+            local agent = gp.get_chat_agent()
+            gp.Prompt(params, gp.Target.vnew 'markdown', nil, agent.model, template, agent.system_prompt)
+          end,
+          UnitTests = function(gp, params)
+            local template = 'I have the following code from {{filename}}:\n\n'
+              .. '```{{filetype}}\n{{selection}}\n```\n\n'
+              .. 'Please respond by writing table driven unit tests for the code above.'
+            local agent = gp.get_command_agent()
+            gp.Prompt(params, gp.Target.enew, nil, agent.model, template, agent.system_prompt)
+          end,
+        },
       }
 
       local function keymapOptions(desc)
@@ -98,7 +121,7 @@ return {
       -- Chat commands
       vim.keymap.set({ 'n', 'i' }, '<C-g>cn', '<cmd>GpChatNew<cr>', keymapOptions '[N]ew')
       vim.keymap.set({ 'n', 'i' }, '<C-g>ct', '<cmd>GpChatToggle<cr>', keymapOptions '[T]oggle')
-      vim.keymap.set({ 'n', 'i' }, '<C-g>cf', '<cmd>GpChatFinder<cr>', keymapOptions '[F]inder')
+      vim.keymap.set({ 'n', 'i' }, '<C-g>ch', '<cmd>GpChatFinder<cr>', keymapOptions '[H]istory')
 
       vim.keymap.set({ 'n', 'i' }, '<C-g>ch', '<cmd>GpChatNew split<cr>', keymapOptions '[H]orizontal split')
       vim.keymap.set({ 'n', 'i' }, '<C-g>cv', '<cmd>GpChatNew vsplit<cr>', keymapOptions '[V]ertical split')
@@ -107,20 +130,25 @@ return {
       vim.keymap.set('v', '<C-g>cv', ":<C-u>'<,'>GpChatNew vsplit<cr>", keymapOptions '[V]ertical split')
 
       -- Prompt commands
-      vim.keymap.set({ 'n', 'i' }, '<C-g>ir', '<cmd>GpRewrite<cr>', keymapOptions '[R]ewrite')
-      vim.keymap.set({ 'n', 'i' }, '<C-g>ia', '<cmd>GpAppend<cr>', keymapOptions '[A]ppend')
-      vim.keymap.set({ 'n', 'i' }, '<C-g>ip', '<cmd>GpPrepend<cr>', keymapOptions '[P]repend')
+      vim.keymap.set({ 'n', 'i' }, '<C-g>r', '<cmd>GpRewrite<cr>', keymapOptions '[R]ewrite')
+      vim.keymap.set({ 'n', 'i' }, '<C-g>a', '<cmd>GpAppend<cr>', keymapOptions '[A]ppend')
+      vim.keymap.set({ 'n', 'i' }, '<C-g>p', '<cmd>GpPrepend<cr>', keymapOptions '[P]repend')
 
-      vim.keymap.set('v', '<C-g>ir', ":<C-u>'<,'>GpRewrite<cr>", keymapOptions '[R]ewrite')
-      vim.keymap.set('v', '<C-g>ia', ":<C-u>'<,'>GpAppend<cr>", keymapOptions '[A]ppend')
-      vim.keymap.set('v', '<C-g>ip', ":<C-u>'<,'>GpPrepend<cr>", keymapOptions '[P]repend')
-      vim.keymap.set('v', '<C-g>ii', ":<C-u>'<,'>GpImplement<cr>", keymapOptions '[I]mplement')
+      vim.keymap.set('v', '<C-g>r', ":<C-u>'<,'>GpRewrite<cr>", keymapOptions '[R]ewrite')
+      vim.keymap.set('v', '<C-g>a', ":<C-u>'<,'>GpAppend<cr>", keymapOptions '[A]ppend')
+      vim.keymap.set('v', '<C-g>p', ":<C-u>'<,'>GpPrepend<cr>", keymapOptions '[P]repend')
+      vim.keymap.set('v', '<C-g>i', ":<C-u>'<,'>GpImplement<cr>", keymapOptions '[I]mplement')
 
+      -- Global Commands
       vim.keymap.set({ 'n', 'i' }, '<C-g>x', '<cmd>GpContext<cr>', keymapOptions 'Conte[X]t')
       vim.keymap.set('v', '<C-g>x', ":<C-u>'<,'>GpContext<cr>", keymapOptions 'Conte[X]t')
-
       vim.keymap.set({ 'n', 'i', 'v', 'x' }, '<C-g>s', '<cmd>GpStop<cr>', keymapOptions '[S]top')
       vim.keymap.set({ 'n', 'i', 'v', 'x' }, '<C-g>n', '<cmd>GpNextAgent<cr>', keymapOptions '[N]ext Agent')
+
+      -- Custom commands
+      vim.keymap.set('v', '<C-g>e', ":<C-u>'<,'>GpCodeExplain<cr>", keymapOptions '[E]xplain')
+      vim.keymap.set('v', '<C-g>s', ":<C-u>'<,'>GpCodeReview<cr>", keymapOptions '[S]crutinize')
+      vim.keymap.set('v', '<C-g>t', ":<C-u>'<,'>GpUnitTests<cr>", keymapOptions '[T]ests')
     end,
   },
 }
