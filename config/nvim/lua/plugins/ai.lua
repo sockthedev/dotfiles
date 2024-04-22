@@ -145,9 +145,9 @@ return {
 
       -- Chat commands
       vim.keymap.set({ 'n', 'i' }, '<C-g>c', '<cmd>GpChatNew vsplit<cr>', keymapOptions '[C]hat')
-      vim.keymap.set({ 'n', 'i' }, '<C-g>t', '<cmd>GpChatToggle<cr>', keymapOptions '[T]oggle')
-      vim.keymap.set({ 'n', 'i' }, '<C-g>h', '<cmd>GpChatFinder<cr>', keymapOptions '[H]istory')
       vim.keymap.set('v', '<C-g>c', ":<C-u>'<,'>GpChatNew vsplit<cr>", keymapOptions '[C]hat')
+      vim.keymap.set({ 'n', 'i' }, '<C-g>t', '<cmd>GpChatToggle<cr>', keymapOptions '[T]oggle')
+      vim.keymap.set({ 'n', 'i' }, '<C-g>h', '<cmd>GpChatFinder<cr>', keymapOptions 'Chat [H]istory')
 
       -- Prompt commands
       vim.keymap.set({ 'n', 'i' }, '<C-g>a', '<cmd>GpAppend<cr>', keymapOptions '[A]ppend')
