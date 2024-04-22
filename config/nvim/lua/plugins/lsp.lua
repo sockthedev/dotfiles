@@ -136,7 +136,17 @@ return {
             },
           },
         },
-        yamlls = {},
+        yamlls = {
+          settings = {
+            yaml = {
+              schemaStore = {
+                enable = false,
+                url = '',
+              },
+              schemas = require('schemastore').yaml.schemas(),
+            },
+          },
+        },
       }
 
       -- Ensure the servers and tools above are installed
