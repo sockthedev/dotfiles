@@ -33,6 +33,7 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 -- Create splits
 vim.keymap.set('n', '<C-w>v', '<cmd>vsplit<cr>', { silent = true, desc = 'Vertical split' })
 vim.keymap.set('n', '<C-w>h', '<cmd>split<cr>', { silent = true, desc = 'Horizontal split' })
+vim.keymap.set('n', '<C-w>=', '<cmd>wincmd =<cr>', { silent = true, desc = 'Make all splits equal size' })
 
 -- Resize window using <ctrl> arrow keys
 vim.keymap.set('n', '<C-Up>', '<cmd>resize +2<cr>', { desc = 'Increase window height' })
