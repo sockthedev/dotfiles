@@ -18,6 +18,7 @@ return {
           javascript = { 'prettierd' },
           javascriptreact = { 'prettierd' },
           json = { 'prettierd' },
+          go = { 'goimports', 'gofmt' },
           lua = { 'stylua' },
           markdown = { 'prettierd' },
           python = { 'ruff_format' },

@@ -102,6 +102,7 @@ return {
             },
           },
         },
+        gopls = {},
         pyright = {
           filetype = { 'python' },
         },

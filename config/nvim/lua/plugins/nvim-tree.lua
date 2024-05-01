@@ -7,7 +7,7 @@ return {
       vim.g.loaded_netrwPlugin = 1
 
       -- configure nvim-tree
-      local base_nvim_tree_config = {
+      local base_config = {
         sort_by = 'case_sensitive',
         hijack_directories = {
           enable = false,
@@ -17,26 +17,10 @@ return {
         },
         view = {
           cursorline = false,
-          side = 'left',
-          preserve_window_proportions = true,
+          side = 'right',
+          preserve_window_proportions = false,
           number = true,
           relativenumber = true,
-          float = {
-            enable = true,
-            open_win_config = function()
-              local height = vim.o.lines - 6
-              local width = 70
-
-              return {
-                relative = 'editor',
-                border = 'single',
-                width = width,
-                height = height,
-                row = (vim.o.lines - height) / 2 - 2, -- Center vertically
-                col = (vim.o.columns - width) / 2, -- Center horizontally
-              }
-            end,
-          },
         },
         actions = {
           open_file = {
@@ -68,29 +52,45 @@ return {
       }
 
       local function toggle_nvim_tree_float()
-        base_nvim_tree_config.view.float.enable = true
-        base_nvim_tree_config.view.side = 'right'
-        require('nvim-tree').setup(base_nvim_tree_config)
+        local height = vim.o.lines - 20
+        local width = 120
+        local config = vim.deepcopy(base_config)
+        config.view.side = 'right'
+        config.view.float = {
+          enable = true,
+          open_win_config = {
+            relative = 'editor',
+            border = 'single',
+            width = width,
+            height = height,
+            row = (vim.o.lines - height) / 2 - 2, -- Center vertically
+            col = (vim.o.columns - width) / 2, -- Center horizontally
+          },
+        }
+        require('nvim-tree').setup(config)
         require('nvim-tree.api').tree.toggle { focus = true }
       end
 
       local function toggle_nvim_tree_fixed()
-        base_nvim_tree_config.view.float.enable = false
-        base_nvim_tree_config.view.viewport_ratios = nil -- Reset specific float settings if needed
-        base_nvim_tree_config.view.side = 'right'
-        base_nvim_tree_config.view.width = {
+        local config = vim.deepcopy(base_config)
+        config.view.float = {
+          enable = false,
+        }
+        config.view.viewport_ratios = nil
+        config.view.side = 'right'
+        config.view.width = {
           min = 70,
           max = 70,
         }
-        require('nvim-tree').setup(base_nvim_tree_config)
-        require('nvim-tree.api').tree.toggle { focus = true }
+        require('nvim-tree').setup(config)
+        require('nvim-tree.api').tree.toggle { focus = false }
       end
 
       -- keymaps
       vim.keymap.set('n', 'tt', toggle_nvim_tree_float, { silent = true, desc = 'Toggle Float' })
       vim.keymap.set('n', 'tr', toggle_nvim_tree_fixed, { silent = true, desc = 'Toggle Fixed' })
-      -- vim.keymap.set('n', 'tt', ':NvimTreeToggle<CR>', { silent = true, desc = 'Toggle' })
-      -- vim.keymap.set('n', 'tf', ':NvimTreeFocus<CR>', { silent = true, desc = 'Focus' })
+      vim.keymap.set('n', 'tf', ':NvimTreeFocus<CR>', { silent = true, desc = 'Focus' })
+      vim.keymap.set('n', 'tc', ':NvimTreeClose<CR>', { silent = true, desc = 'Close Tree' })
     end,
   },
 }
