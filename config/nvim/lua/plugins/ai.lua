@@ -88,7 +88,7 @@ return {
             name = 'ChatGPT4',
             chat = true,
             command = false,
-            model = { model = 'gpt-4-turbo', temperature = 1.1, top_p = 1 },
+            model = { model = 'gpt-4o', temperature = 1.1, top_p = 1 },
             system_prompt = 'You are a general AI assistant.\n\n'
               .. 'The user provided the additional info about how they would like you to respond:\n\n'
               .. "- If you're unsure don't guess and say you don't know instead.\n"
@@ -103,7 +103,7 @@ return {
             name = 'CodeGPT4',
             chat = false,
             command = true,
-            model = { model = 'gpt-4-turbo', temperature = 0.8, top_p = 1 },
+            model = { model = 'gpt-4o', temperature = 0.8, top_p = 1 },
             system_prompt = 'You are an AI working as a code editor.\n\n'
               .. 'Please AVOID COMMENTARY OUTSIDE OF THE SNIPPET RESPONSE.\n'
               .. 'START AND END YOUR ANSWER WITH:\n\n```',

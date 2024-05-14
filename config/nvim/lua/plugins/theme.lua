@@ -1,6 +1,7 @@
 return {
   {
     'folke/tokyonight.nvim',
+    enabled = false,
     lazy = false,
     priority = 1000,
     config = function()
@@ -52,6 +53,7 @@ return {
   {
     'rose-pine/neovim',
     name = 'rose-pine',
+    enabled = false,
     lazy = false,
     priority = 1000,
     config = function()
@@ -63,7 +65,45 @@ return {
         },
       }
 
-      vim.cmd 'colorscheme rose-pine'
+      -- vim.cmd 'colorscheme rose-pine'
+    end,
+  },
+
+  {
+    'catppuccin/nvim',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require('catppuccin').setup {
+        flavour = 'macchiato',
+        background = {
+          light = 'latte',
+          dark = 'macchiato',
+        },
+        transparent_background = true, -- disables setting the background color.
+        show_end_of_buffer = true, -- shows the '~' characters after the end of buffers
+        term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
+        no_italic = false, -- Force no italic
+        no_bold = false, -- Force no bold
+        no_underline = false, -- Force no underline
+        integrations = {
+          cmp = true,
+          fidget = true,
+          gitsigns = true,
+          harpoon = true,
+          nvimtree = true,
+          neotest = true,
+          treesitter = true,
+          notify = false,
+          mini = {
+            enabled = true,
+            indentscope_color = '',
+          },
+          which_key = true,
+        },
+      }
+
+      vim.cmd.colorscheme 'catppuccin-macchiato'
     end,
   },
 }

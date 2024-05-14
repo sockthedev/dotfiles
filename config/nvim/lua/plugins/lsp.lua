@@ -2,9 +2,26 @@ return {
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
+      -- NOTE: required for java
+      -- 'nvim-java/nvim-java',
+      -- 'nvim-java/lua-async-await',
+      -- 'nvim-java/nvim-java-refactor',
+      -- 'nvim-java/nvim-java-core',
+      -- 'nvim-java/nvim-java-test',
+      -- 'nvim-java/nvim-java-dap',
+      -- 'MunifTanjim/nui.nvim',
+      -- 'mfussenegger/nvim-dap',
+
       -- Automatically install LSPs and related tools to stdpath for neovim
       {
         'williamboman/mason.nvim',
+        -- NOTE: required for java
+        -- opts = {
+        --   registries = {
+        --     'github:nvim-java/mason-registry', -- required for nvim-java
+        --     'github:mason-org/mason-registry',
+        --   },
+        -- },
       },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
@@ -22,6 +39,14 @@ return {
       -- { 'ray-x/lsp_signature.nvim', opts = {} },
     },
     config = function()
+      -- NOTE: required for java
+      -- IMPORTANT: make sure to setup java BEFORE lspconfig
+      -- require('java').setup {
+      --   jdk = {
+      --     auto_install = false,
+      --   },
+      -- }
+
       -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
       require('neodev').setup {}
 
@@ -36,6 +61,7 @@ return {
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-T>.
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          -- map('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
 
           -- Find references for the word under your cursor.
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -91,9 +117,24 @@ return {
       -- Enable the following language servers
       local servers = {
         cssls = {},
-        emmet_ls = {},
         eslint = {},
         html = {},
+        -- NOTE: required for java
+        -- jdtls = {
+        --   settings = {
+        --     java = {
+        --       configuration = {
+        --         runtimes = {
+        --           {
+        --             name = 'JavaSE-17',
+        --             path = '/Users/sock/.sdkman/candidates/java/17-open/',
+        --             default = true,
+        --           },
+        --         },
+        --       },
+        --     },
+        --   },
+        -- },
         jsonls = {
           settings = {
             json = {
@@ -114,7 +155,7 @@ return {
         },
         tailwindcss = {},
         tsserver = {
-          root_dir = require('lspconfig').util.root_pattern '.git',
+          root_dir = require('lspconfig').util.root_pattern 'pnpm-workspace.yaml',
         },
         lua_ls = {
           settings = {

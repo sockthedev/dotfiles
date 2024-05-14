@@ -29,7 +29,7 @@ return {
               if vim.o.columns < 120 then
                 width = vim.o.columns - 20
               end
-              if vim.o.lines < 30 then
+              if vim.o.lines < 40 then
                 height = vim.o.lines - 8
               end
               return {

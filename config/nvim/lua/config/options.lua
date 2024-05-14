@@ -68,3 +68,6 @@ vim.opt.hlsearch = true
 
 -- block cursor on insert
 vim.opt.guicursor = 'i:block'
+
+-- never hide stuff, like the ticks in markdown files
+vim.opt.conceallevel = 0

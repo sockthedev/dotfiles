@@ -16,6 +16,7 @@ return {
           'bash',
           'comment',
           'css',
+          'diff',
           'git_config',
           'git_rebase',
           'gitcommit',

@@ -75,3 +75,18 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 # fzf
 eval "$(fzf --zsh)"
+
+# nuke node_modules relative to current directory (nested instances too)
+alias nukem="find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' +"
+
+# automatically run nvm use when entering a directory with a .nvmrc file
+autoload -U add-zsh-hook
+load-nvmrc() {
+  if [[ -f .nvmrc && -r .nvmrc ]]; then
+    nvm use
+  elif [[ -f .nvmrc && ! -r .nvmrc ]]; then
+    echo "nvmrc exists but is not readable"
+  fi
+}
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
