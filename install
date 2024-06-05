@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Clean up existing files
+# Remove any existing files
 rm -rf ~/.config/karabiner
 rm -rf ~/.config/nvim
 rm -rf ~/.config/wezterm
@@ -8,7 +8,7 @@ rm -rf ~/.config/zsh
 rm ~/.tmux.conf
 rm ~/.zshrc
 
-# Create symlinks
+# Create symlinks to files in here
 ln -s "$(pwd)/config/karabiner" ~/.config/karabiner
 ln -s "$(pwd)/config/nvim" ~/.config/nvim
 ln -s "$(pwd)/config/wezterm" ~/.config/wezterm

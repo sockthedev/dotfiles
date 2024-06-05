@@ -71,3 +71,5 @@ vim.opt.guicursor = 'i:block'
 
 -- never hide stuff, like the ticks in markdown files
 vim.opt.conceallevel = 0
+vim.opt_local.conceallevel = 0
+vim.opt_global.conceallevel = 0

@@ -52,7 +52,7 @@ local config = {
 		{ key = "PageDown", mods = "SHIFT|CTRL", action = act.MoveTabRelative(1) },
 	},
 	force_reverse_video_cursor = true,
-	-- tokyonight moon theme
+	-- tokyonight moon theme, with custom background
 	colors = {
 		foreground = "#c0caf5",
 		background = "#0F172A",

@@ -10,7 +10,7 @@ return {
       require('mini.surround').setup()
 
       -- Automatic highlighting of word under cursor
-      require('mini.cursorword').setup {}
+      -- require('mini.cursorword').setup {}
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,

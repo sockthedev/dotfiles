@@ -52,6 +52,7 @@ return {
 
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
+
         callback = function(event)
           local map = function(keys, func, desc)
             vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
@@ -98,6 +99,45 @@ return {
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+
+          -- The following two autocommands are used to highlight references of the
+          -- word under your cursor when your cursor rests there for a little while.
+          --    See `:help CursorHold` for information about when this is executed
+          --
+          -- When you move your cursor, the highlights will be cleared (the second autocommand).
+          local client = vim.lsp.get_client_by_id(event.data.client_id)
+          if client and client.server_capabilities.documentHighlightProvider then
+            local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
+            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+              buffer = event.buf,
+              group = highlight_augroup,
+              callback = vim.lsp.buf.document_highlight,
+            })
+
+            vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+              buffer = event.buf,
+              group = highlight_augroup,
+              callback = vim.lsp.buf.clear_references,
+            })
+
+            vim.api.nvim_create_autocmd('LspDetach', {
+              group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
+              callback = function(event4)
+                vim.lsp.buf.clear_references()
+                vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event4.buf }
+              end,
+            })
+          end
+
+          -- The following autocommand is used to enable inlay hints in your
+          -- code, if the language server you are using supports them
+          --
+          -- This may be unwanted, since they displace some of your code
+          if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+            map('<leader>th', function()
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+            end, '[T]oggle Inlay [H]ints')
+          end
         end,
       })
 
@@ -107,12 +147,19 @@ return {
       --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
-
-      -- Enables nvim-ufo folding (see folding.lua)
-      capabilities.textDocument.foldingRange = {
-        dynamicRegistration = false,
-        lineFoldingOnly = true,
-      }
+      capabilities = vim.tbl_deep_extend(
+        'force',
+        capabilities,
+        -- Required for nvim-ufo code folding (see folding.lua)
+        {
+          textDocument = {
+            foldingRange = {
+              dynamicRegistration = false,
+              lineFoldingOnly = true,
+            },
+          },
+        }
+      )
 
       -- Enable the following language servers
       local servers = {
@@ -126,8 +173,8 @@ return {
         --       configuration = {
         --         runtimes = {
         --           {
-        --             name = 'JavaSE-17',
-        --             path = '/Users/sock/.sdkman/candidates/java/17-open/',
+        --             name = 'JavaSE-15',
+        --             path = '/Users/sock/.sdkman/candidates/java/19-open/',
         --             default = true,
         --           },
         --         },
@@ -164,7 +211,7 @@ return {
               workspace = {
                 checkThirdParty = false,
                 library = {
-                  '${3rd}/luv/library',
+                  '${5rd}/luv/library',
                   unpack(vim.api.nvim_get_runtime_file('', true)),
                 },
                 -- If lua_ls is really slow on your computer, you can try this instead:
@@ -219,10 +266,11 @@ return {
         },
       }
 
-      -- Style the UI
-      vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
+      -- UI style configuration
+      vim.lsp.handlers['textDocument/hover'] =
+        vim.lsp.with(vim.lsp.handlers.hover, { border = 'single', stylize_markdown = false })
       vim.lsp.handlers['textDocument/signatureHelp'] =
-        vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'single' })
+        vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'single', stylize_markdown = false })
       vim.diagnostic.config {
         update_in_insert = true,
         severity_sort = true,

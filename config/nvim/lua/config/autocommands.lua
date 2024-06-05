@@ -1,5 +1,4 @@
--- [[ Basic Autocommands ]]
---  See :help lua-guide-autocommands
+-- :help lua-guide-autocommands
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
@@ -14,12 +13,3 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- Check if we need to reload the file when it changed
 vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, { command = 'checktime' })
-
--- Ensure that no symbols are concealed in markdown files, and that spelling is enabled for them
-vim.cmd [[
-augroup markdown!
-	autocmd!
-	au FileType markdown setlocal spell spelllang=en_us,en_gb
-	au FileType markdown set conceallevel=0
-	augroup END
-]]
