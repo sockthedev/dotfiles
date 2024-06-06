@@ -1,6 +1,17 @@
 # sockfiles 🧦
 
-The dotfiles. Mac OS / Linux based.
+The dotfiles.
+
+- neovim
+- tmux
+- zsh
+- wezterm
+
+Mac OS / Linux based.
+
+```bash
+./install
+```
 
 ## Keyboard
 
