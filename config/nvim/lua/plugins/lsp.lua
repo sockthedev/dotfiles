@@ -191,19 +191,6 @@ return {
           },
         },
         gopls = {},
-        pyright = {
-          filetype = { 'python' },
-        },
-        ruff_lsp = {
-          capabilities = {
-            -- Disable hover in favor of Pyright
-            hoverProvider = false,
-          },
-        },
-        tailwindcss = {},
-        tsserver = {
-          root_dir = require('lspconfig').util.root_pattern 'pnpm-workspace.yaml',
-        },
         lua_ls = {
           settings = {
             Lua = {
@@ -224,6 +211,19 @@ return {
               diagnostics = { disable = { 'missing-fields' } },
             },
           },
+        },
+        pyright = {
+          filetype = { 'python' },
+        },
+        ruff_lsp = {
+          capabilities = {
+            -- Disable hover in favor of Pyright
+            hoverProvider = false,
+          },
+        },
+        tailwindcss = {},
+        tsserver = {
+          root_dir = require('lspconfig').util.root_pattern 'pnpm-workspace.yaml',
         },
         yamlls = {
           settings = {

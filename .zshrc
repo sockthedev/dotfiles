@@ -1,6 +1,9 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 
+# Add GOBIN to PATH
+export PATH=$PATH:$HOME/go/bin
+
 # pyenv
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
@@ -58,16 +61,34 @@ alias awsume="source \$(pyenv which awsume)"
 # Auto-Complete function for AWSume
 fpath=(~/.awsume/zsh-autocomplete/ $fpath)
 
-# Neovim aliases
-alias v='nvim'
+
+# enable "z" - recent directory jumping
+. /opt/homebrew/etc/profile.d/z.sh
+
+# fzf shell integration
+source <(fzf --zsh)
+
+# fzf key bindings
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# find directory and cd into it
+function fcd() {
+  local dir
+  dir=$(fd -t d . | fzf) && cd "$dir"
+}
+
+# find recent directory and cd into it
+function fcz() {
+  local dir
+  dir=$(z -l 2>&1 | awk 'NR>1 {print substr($0, index($0,$2))}' | fzf) && cd "$dir"
+}
 
 # sdkman
 # THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-# fzf
-eval "$(fzf --zsh)"
+alias v='nvim'
 
 # nuke node_modules relative to current directory (nested instances too)
 alias nukem="find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' +"
@@ -83,3 +104,5 @@ load-nvmrc() {
 }
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
+
+
