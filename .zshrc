@@ -71,13 +71,19 @@ source <(fzf --zsh)
 # fzf key bindings
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# find directory and cd into it
+# find directory in current directory
 function fcd() {
   local dir
   dir=$(fd -t d . | fzf) && cd "$dir"
 }
 
-# find recent directory and cd into it
+  # find directory in "code/work" directory
+function fcw() {
+  local dir
+  dir=$(fd -t d . ~/code | fzf) && cd "$dir"
+}
+
+# find recent directory
 function fcz() {
   local dir
   dir=$(z -l 2>&1 | awk 'NR>1 {print substr($0, index($0,$2))}' | fzf) && cd "$dir"
@@ -97,9 +103,9 @@ alias nukem="find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' +"
 autoload -U add-zsh-hook
 load-nvmrc() {
   if [[ -f .nvmrc && -r .nvmrc ]]; then
-    nvm use
+    nvm use --silent
   elif [[ -f .nvmrc && ! -r .nvmrc ]]; then
-    echo "nvmrc exists but is not readable"
+    echo "🚨 nvmrc exists but is not readable"
   fi
 }
 add-zsh-hook chpwd load-nvmrc

@@ -77,7 +77,7 @@ return {
     'robitx/gp.nvim',
     config = function()
       require('gp').setup {
-        openai_api_key = { 'cat', '/Users/sock/.openai_api_key' },
+        openai_api_key = { 'cat', os.getenv 'HOME' .. '/.openai_api_key' },
         -- default command agents (model + persona)
         -- name, model and system_prompt are mandatory fields
         -- to use agent for chat set chat = true, for command set command = true
@@ -89,15 +89,12 @@ return {
             chat = true,
             command = false,
             model = { model = 'gpt-4o', temperature = 1.1, top_p = 1 },
-            system_prompt = 'You are a general AI assistant.\n\n'
+            system_prompt = 'You are an AI assistant to a senior full stack engineer.\n\n'
               .. 'The user provided the additional info about how they would like you to respond:\n\n'
+              .. '- Keep your answers concise. Only provide detail if requested to do so.\n'
+              .. '- If your answers includes adjusted code in response to a provided code sample, then prefer to show just the minimal differences needed to understand and apply the change. Only provide full code samples if requested to do so.\n'
               .. "- If you're unsure don't guess and say you don't know instead.\n"
-              .. '- Ask question if you need clarification to provide better answer.\n'
-              .. '- Think deeply and carefully from first principles step by step.\n'
-              .. '- Zoom out first to see the big picture and then zoom in to details.\n'
-              .. '- Use Socratic method to improve your thinking and coding skills.\n'
-              .. "- Don't elide any code from your output if the answer requires coding.\n"
-              .. "- Take a deep breath; You've got this!\n",
+              .. '- Ask questions if you need clarification to provide better answer.\n',
           },
           {
             name = 'CodeGPT4',
