@@ -25,11 +25,11 @@ return {
         gutter = false,
         dimInactive = false,
         terminalColors = true,
-        commentStyle = { italic = true },
-        functionStyle = { italic = false },
+        commentStyle = { italic = false, bold = false },
+        functionStyle = { italic = false, bold = false },
         keywordStyle = { italic = false, bold = false },
         statementStyle = { italic = false, bold = false },
-        typeStyle = { italic = false },
+        typeStyle = { italic = false, bold = false },
         colors = { theme = {}, palette = {} }, -- override default palette and theme colors
         overrides = function(colors)
           local theme = colors.theme
