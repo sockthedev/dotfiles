@@ -1,4 +1,21 @@
 return {
+  -- make screenshots of code
+  {
+    'mistricky/codesnap.nvim',
+    build = 'make',
+    cmd = 'CodeSnap',
+    keys = {
+      { '<leader>cp', '<cmd>CodeSnap<cr>', mode = 'x', desc = '[P]hoto' },
+    },
+    opts = {
+      has_breadcrumbs = false,
+      code_font_family = 'Berkeley Mono',
+      bg_color = '#00000000', -- transparent
+      watermark = '',
+      mac_window_bar = false,
+    },
+  },
+
   -- session management
   {
     'folke/persistence.nvim',

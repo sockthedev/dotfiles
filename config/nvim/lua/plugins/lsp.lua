@@ -2,10 +2,10 @@ return {
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
-      -- NOTE: required for java
-      -- 'nvim-java/nvim-java',
+      'nvim-java/nvim-java',
+      'nvim-java/nvim-java-refactor',
+      -- NOTE: I think the below are only needed for Java DAP
       -- 'nvim-java/lua-async-await',
-      -- 'nvim-java/nvim-java-refactor',
       -- 'nvim-java/nvim-java-core',
       -- 'nvim-java/nvim-java-test',
       -- 'nvim-java/nvim-java-dap',
@@ -15,7 +15,7 @@ return {
       -- Automatically install LSPs and related tools to stdpath for neovim
       {
         'williamboman/mason.nvim',
-        -- NOTE: required for java
+        -- NOTE: I think the below are only needed for Java DAP
         -- opts = {
         --   registries = {
         --     'github:nvim-java/mason-registry', -- required for nvim-java
@@ -35,17 +35,27 @@ return {
       -- Neovim setup for init.lua and plugin development with full signature help, docs and completion for the nvim lua API.
       { 'folke/neodev.nvim', opts = {} },
 
-      -- lsp signature as you type
-      -- { 'ray-x/lsp_signature.nvim', opts = {} },
+      -- Show LSP Signature during edits
+      -- Handy for seeing what the current argument to a function requires
+      -- Toggle it via the `toggle_key` (<C-M-k>). It doesn't show by default.
+      {
+        'ray-x/lsp_signature.nvim',
+        event = 'VeryLazy',
+        opts = {
+          floating_window = false,
+          hint_enable = false,
+          toggle_key = '<C-M-k>',
+        },
+      },
     },
     config = function()
       -- NOTE: required for java
       -- IMPORTANT: make sure to setup java BEFORE lspconfig
-      -- require('java').setup {
-      --   jdk = {
-      --     auto_install = false,
-      --   },
-      -- }
+      require('java').setup {
+        jdk = {
+          auto_install = false,
+        },
+      }
 
       -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
       require('neodev').setup {}
@@ -134,9 +144,9 @@ return {
           --
           -- This may be unwanted, since they displace some of your code
           if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-            map('<leader>th', function()
+            vim.keymap.set('n', '<leader>th', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-            end, '[T]oggle Inlay [H]ints')
+            end, { buffer = event.buf, desc = 'Inlay [H]ints' })
           end
         end,
       })
@@ -166,22 +176,21 @@ return {
         cssls = {},
         eslint = {},
         html = {},
-        -- NOTE: required for java
-        -- jdtls = {
-        --   settings = {
-        --     java = {
-        --       configuration = {
-        --         runtimes = {
-        --           {
-        --             name = 'JavaSE-15',
-        --             path = '/Users/sock/.sdkman/candidates/java/19-open/',
-        --             default = true,
-        --           },
-        --         },
-        --       },
-        --     },
-        --   },
-        -- },
+        jdtls = {
+          settings = {
+            java = {
+              configuration = {
+                runtimes = {
+                  {
+                    name = 'OpenJDK-17',
+                    path = '/Users/sock/.sdkman/candidates/java/17-open',
+                    default = true,
+                  },
+                },
+              },
+            },
+          },
+        },
         jsonls = {
           settings = {
             json = {
@@ -190,7 +199,21 @@ return {
             },
           },
         },
-        gopls = {},
+        gopls = {
+          settings = {
+            gopls = {
+              hints = {
+                assignVariableTypes = false,
+                compositeLiteralFields = false,
+                compositeLiteralTypes = false,
+                constantValues = false,
+                functionTypeParameters = true,
+                parameterNames = true,
+                rangeVariableTypes = false,
+              },
+            },
+          },
+        },
         lua_ls = {
           settings = {
             Lua = {
@@ -201,13 +224,11 @@ return {
                   '${5rd}/luv/library',
                   unpack(vim.api.nvim_get_runtime_file('', true)),
                 },
-                -- If lua_ls is really slow on your computer, you can try this instead:
-                -- library = { vim.env.VIMRUNTIME },
               },
               completion = {
                 callSnippet = 'Replace',
               },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+              -- disable noisy `missing-fields` warnings
               diagnostics = { disable = { 'missing-fields' } },
             },
           },
@@ -223,7 +244,32 @@ return {
         },
         tailwindcss = {},
         tsserver = {
+          -- TODO: Review this root_dir setting. We need a more robust pattern
           root_dir = require('lspconfig').util.root_pattern 'pnpm-workspace.yaml',
+          settings = {
+            javascript = {
+              inlayHints = {
+                includeInlayEnumMemberValueHints = false,
+                includeInlayFunctionLikeReturnTypeHints = false,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all';
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayPropertyDeclarationTypeHints = false,
+                includeInlayVariableTypeHints = false,
+              },
+            },
+            typescript = {
+              inlayHints = {
+                includeInlayEnumMemberValueHints = false,
+                includeInlayFunctionLikeReturnTypeHints = false,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all';
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayPropertyDeclarationTypeHints = false,
+                includeInlayVariableTypeHints = false,
+              },
+            },
+          },
         },
         yamlls = {
           settings = {
@@ -248,8 +294,9 @@ return {
       -- You can add other tools here that you want Mason to install for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'prettierd', -- Used to format javascript and typescript
-        'stylua', -- Used to format lua code
+        'goimports', -- Format imports in Go (gopls includes gofmt already)
+        'prettierd', -- Used to format JavaScript, TypeScript, HTML, JSON, etc.
+        'stylua', -- Used to format Lua code
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
