@@ -2,27 +2,9 @@ return {
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
-      'nvim-java/nvim-java',
-      'nvim-java/nvim-java-refactor',
-      -- NOTE: I think the below are only needed for Java DAP
-      -- 'nvim-java/lua-async-await',
-      -- 'nvim-java/nvim-java-core',
-      -- 'nvim-java/nvim-java-test',
-      -- 'nvim-java/nvim-java-dap',
-      -- 'MunifTanjim/nui.nvim',
-      -- 'mfussenegger/nvim-dap',
 
       -- Automatically install LSPs and related tools to stdpath for neovim
-      {
-        'williamboman/mason.nvim',
-        -- NOTE: I think the below are only needed for Java DAP
-        -- opts = {
-        --   registries = {
-        --     'github:nvim-java/mason-registry', -- required for nvim-java
-        --     'github:mason-org/mason-registry',
-        --   },
-        -- },
-      },
+      'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
@@ -35,9 +17,13 @@ return {
       -- Neovim setup for init.lua and plugin development with full signature help, docs and completion for the nvim lua API.
       { 'folke/neodev.nvim', opts = {} },
 
+      -- All in one Java setup for Neovim. It actually works.
+      'nvim-java/nvim-java',
+
       -- Show LSP Signature during edits
       -- Handy for seeing what the current argument to a function requires
-      -- Toggle it via the `toggle_key` (<C-M-k>). It doesn't show by default.
+      -- Toggle it via the `toggle_key` (<C-M-k>).
+      -- I've disabled it from auto showing as it is so noisy when it does.
       {
         'ray-x/lsp_signature.nvim',
         event = 'VeryLazy',
@@ -49,17 +35,6 @@ return {
       },
     },
     config = function()
-      -- NOTE: required for java
-      -- IMPORTANT: make sure to setup java BEFORE lspconfig
-      require('java').setup {
-        jdk = {
-          auto_install = false,
-        },
-      }
-
-      -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
-      require('neodev').setup {}
-
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
 
@@ -172,25 +147,11 @@ return {
       )
 
       -- Enable the following language servers
+      -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
       local servers = {
         cssls = {},
         eslint = {},
         html = {},
-        jdtls = {
-          settings = {
-            java = {
-              configuration = {
-                runtimes = {
-                  {
-                    name = 'OpenJDK-17',
-                    path = '/Users/sock/.sdkman/candidates/java/17-open',
-                    default = true,
-                  },
-                },
-              },
-            },
-          },
-        },
         jsonls = {
           settings = {
             json = {
@@ -245,7 +206,7 @@ return {
         tailwindcss = {},
         tsserver = {
           -- TODO: Review this root_dir setting. We need a more robust pattern
-          root_dir = require('lspconfig').util.root_pattern 'pnpm-workspace.yaml',
+          -- root_dir = require('lspconfig').util.root_pattern 'pnpm-workspace.yaml',
           settings = {
             javascript = {
               inlayHints = {
@@ -309,6 +270,29 @@ return {
             -- certain features of an LSP (for example, turning off formatting for tsserver)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
+          end,
+          jdtls = function()
+            require('java').setup {
+              jdk = {
+                auto_install = false,
+              },
+            }
+
+            require('lspconfig').jdtls.setup {
+              settings = {
+                java = {
+                  configuration = {
+                    runtimes = {
+                      {
+                        name = 'OpenJDK-17',
+                        path = '/Users/sock/.sdkman/candidates/java/17-open',
+                        default = true,
+                      },
+                    },
+                  },
+                },
+              },
+            }
           end,
         },
       }

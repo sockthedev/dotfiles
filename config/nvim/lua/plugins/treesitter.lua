@@ -24,6 +24,7 @@ return {
           'graphql',
           'html',
           'javascript',
+          'java',
           'json',
           'jsonc',
           'lua',

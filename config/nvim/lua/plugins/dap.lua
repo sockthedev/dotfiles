@@ -7,6 +7,9 @@ return {
     -- Installs the debug adapters for you
     'williamboman/mason.nvim',
     'jay-babu/mason-nvim-dap.nvim',
+
+    --golang
+    'leoluz/nvim-dap-go',
   },
   config = function()
     local dap = require 'dap'
@@ -26,6 +29,7 @@ return {
         -- Update this to ensure that you have the debuggers for the langs you want
         'node2',
         'chrome',
+        'delve', -- golang
       },
     }
 
@@ -66,6 +70,9 @@ return {
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
+    -- Install golang specific config
+    require('dap-go').setup {}
+
     -- Debugger configurations
     dap.configurations.javascript = {
       {
@@ -86,7 +93,6 @@ return {
         processId = require('dap.utils').pick_process,
       },
     }
-
     dap.configurations.javascriptreact = {
       {
         name = 'Attach to Chrome (JavaScript)',
@@ -100,7 +106,6 @@ return {
         webRoot = '${workspaceFolder}',
       },
     }
-
     dap.configurations.typescriptreact = {
       {
         name = 'Attach to Chrome (TypeScript)',

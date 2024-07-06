@@ -2,7 +2,8 @@ return {
   -- repl
   {
     'michaelb/sniprun',
-    build = 'bash ./install.sh',
+    branch = 'master',
+    build = 'sh ./install.sh',
     config = function()
       require('sniprun').setup {
         selected_interpreters = { 'JS_TS_bun', 'Go_original' },

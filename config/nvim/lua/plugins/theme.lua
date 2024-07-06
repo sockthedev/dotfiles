@@ -30,7 +30,9 @@ return {
         keywordStyle = { italic = false, bold = false },
         statementStyle = { italic = false, bold = false },
         typeStyle = { italic = false, bold = false },
-        colors = { theme = {}, palette = {} }, -- override default palette and theme colors
+        colors = { theme = {}, palette = {
+          dragonViolet = '#727169',
+        } }, -- override default palette and theme colors
         overrides = function(colors)
           local theme = colors.theme
           return {
@@ -100,7 +102,7 @@ return {
         },
       }
 
-      vim.cmd.colorscheme 'catppuccin-macchiato'
+      -- vim.cmd.colorscheme 'catppuccin-macchiato'
     end,
   },
 
