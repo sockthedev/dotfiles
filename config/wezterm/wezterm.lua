@@ -15,97 +15,104 @@ config.disable_default_key_bindings = true
 config.keys = {
 	-- create tabs
 	{
-		mods = "LEADER",
+		mods = "CTRL | SHIFT",
 		key = "t",
 		action = wezterm.action.SpawnTab("CurrentPaneDomain"),
 	},
+	-- close tab
+	{
+		mods = "CTRL | SHIFT",
+		key = "w",
+		action = wezterm.action.CloseCurrentTab({ confirm = false }),
+	},
 	-- navigate tabs
 	{
-		mods = "LEADER",
+		mods = "CTRL | SHIFT",
 		key = "[",
 		action = wezterm.action.ActivateTabRelative(-1),
 	},
 	{
-		mods = "LEADER",
+		mods = "CTRL | SHIFT",
 		key = "]",
 		action = wezterm.action.ActivateTabRelative(1),
 	},
 	{
-		mods = "LEADER",
-		key = "x",
-		action = wezterm.action.CloseCurrentTab({ confirm = false }),
-	},
-	{
-		mods = "LEADER",
+		mods = "CTRL | SHIFT",
 		key = "1",
 		action = wezterm.action.ActivateTab(0),
 	},
 	{
-		mods = "LEADER",
+		mods = "CTRL | SHIFT",
 		key = "2",
 		action = wezterm.action.ActivateTab(1),
 	},
 	{
-		mods = "LEADER",
+		mods = "CTRL | SHIFT",
 		key = "3",
 		action = wezterm.action.ActivateTab(2),
 	},
 	{
-		mods = "LEADER",
+		mods = "CTRL | SHIFT",
 		key = "4",
 		action = wezterm.action.ActivateTab(3),
 	},
 	{
-		mods = "LEADER",
+		mods = "CTRL | SHIFT",
 		key = "5",
 		action = wezterm.action.ActivateTab(4),
 	},
 	{
-		mods = "LEADER",
+		mods = "CTRL | SHIFT",
 		key = "6",
 		action = wezterm.action.ActivateTab(5),
 	},
 	{
-		mods = "LEADER",
+		mods = "CTRL | SHIFT",
 		key = "7",
 		action = wezterm.action.ActivateTab(6),
 	},
 	{
-		mods = "LEADER",
+		mods = "CTRL | SHIFT",
 		key = "8",
 		action = wezterm.action.ActivateTab(7),
 	},
 	{
-		mods = "LEADER",
+		mods = "CTRL | SHIFT",
 		key = "9",
 		action = wezterm.action.ActivateTab(8),
 	},
 	-- splitting panes
 	{
-		mods = "LEADER",
-		key = "h",
+		mods = "CTRL | SHIFT",
+		key = '"',
 		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
 	{
-		mods = "LEADER",
-		key = "v",
+		mods = "CTRL | SHIFT",
+		key = "|",
 		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 	},
 	-- focus pane
 	{
-		mods = "LEADER",
+		mods = "CTRL | SHIFT",
 		key = "z",
 		action = wezterm.action.TogglePaneZoomState,
 	},
+	-- close pane
+	{
+		mods = "CTRL | SHIFT",
+		key = "x",
+		action = wezterm.action.CloseCurrentPane({ confirm = false }),
+	},
 	-- rotate panes
 	{
-		mods = "LEADER",
+		mods = "CTRL | SHIFT",
 		key = "Space",
 		action = wezterm.action.RotatePanes("Clockwise"),
 	},
 	-- show the pane selection mode, but have it swap the active and selected panes
 	{
-		mods = "LEADER",
+		mods = "CTRL | SHIFT",
 		key = "0",
 		action = wezterm.action.PaneSelect({
 			mode = "SwapWithActive",

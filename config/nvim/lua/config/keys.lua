@@ -24,8 +24,8 @@ vim.keymap.set('v', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.keymap.set('v', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 -- Create splits
-vim.keymap.set('n', '<C-w>v', '<cmd>vsplit<cr>', { silent = true, desc = 'Vertical split' })
-vim.keymap.set('n', '<C-w>h', '<cmd>split<cr>', { silent = true, desc = 'Horizontal split' })
+vim.keymap.set('n', '<C-w>\\', '<cmd>vsplit<cr>', { silent = true, desc = 'Vertical split' })
+vim.keymap.set('n', "<C-w>'", '<cmd>split<cr>', { silent = true, desc = 'Horizontal split' })
 vim.keymap.set('n', '<C-w>=', '<cmd>wincmd =<cr>', { silent = true, desc = 'Make all splits equal size' })
 
 -- Insert empty lines without going into insert mode
