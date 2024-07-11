@@ -20,6 +20,12 @@ return {
       -- All in one Java setup for Neovim. It actually works.
       'nvim-java/nvim-java',
 
+      -- Better/faster/stronger TypeScript integration for Neovim
+      -- Drop in replacement for nvim-lspconfig's tsserver
+      -- Early beta though 🤭
+      -- Tried it, too buggy for now. Will revisit later.
+      -- 'pmizio/typescript-tools.nvim',
+
       -- Show LSP Signature during edits
       -- Handy for seeing what the current argument to a function requires
       -- Toggle it via the `toggle_key` (<C-M-k>).
@@ -35,6 +41,38 @@ return {
       },
     },
     config = function()
+      -- -- Too buggy for now. Will revisit later.
+      -- require('typescript-tools').setup {
+      --   settings = {
+      --     -- spawn additional tsserver instance to calculate diagnostics on it
+      --     separate_diagnostic_server = true,
+      --     -- "change"|"insert_leave" determine when the client asks the server about diagnostic
+      --     publish_diagnostic_on = 'insert_leave',
+      --     -- array of strings("fix_all"|"add_missing_imports"|"remove_unused"|
+      --     -- "remove_unused_imports"|"organize_imports") -- or string "all"
+      --     -- to include all supported code actions
+      --     -- specify commands exposed as code_actions
+      --     expose_as_code_action = 'all',
+      --     -- described below
+      --     tsserver_format_options = {},
+      --     tsserver_file_preferences = {
+      --       includeInlayEnumMemberValueHints = false,
+      --       includeInlayFunctionLikeReturnTypeHints = false,
+      --       includeInlayFunctionParameterTypeHints = true,
+      --       includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all';
+      --       includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+      --       includeInlayPropertyDeclarationTypeHints = false,
+      --       includeInlayVariableTypeHints = false,
+      --     },
+      --     -- mirror of VSCode's `typescript.suggest.completeFunctionCalls`
+      --     complete_function_calls = false,
+      --     include_completions_with_insert_text = true,
+      --     -- by default code lenses are displayed on all referencable values and for some of you it can
+      --     -- be too much this option reduce count of them by removing member references from lenses
+      --     disable_member_code_lens = true,
+      --   },
+      -- }
+
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
 
@@ -175,6 +213,7 @@ return {
             },
           },
         },
+        kotlin_language_server = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -205,8 +244,14 @@ return {
         },
         tailwindcss = {},
         tsserver = {
-          -- TODO: Review this root_dir setting. We need a more robust pattern
-          -- root_dir = require('lspconfig').util.root_pattern 'pnpm-workspace.yaml',
+          root_dir = require('lspconfig').util.root_pattern(
+            'pnpm-workspace.yaml',
+            'yarn.lock',
+            'pnpm-lock.yaml',
+            '.eslintrc.json',
+            '.eslintrc',
+            '.git'
+          ),
           settings = {
             javascript = {
               inlayHints = {
@@ -214,7 +259,7 @@ return {
                 includeInlayFunctionLikeReturnTypeHints = false,
                 includeInlayFunctionParameterTypeHints = true,
                 includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all';
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
                 includeInlayPropertyDeclarationTypeHints = false,
                 includeInlayVariableTypeHints = false,
               },
@@ -225,7 +270,7 @@ return {
                 includeInlayFunctionLikeReturnTypeHints = false,
                 includeInlayFunctionParameterTypeHints = true,
                 includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all';
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
                 includeInlayPropertyDeclarationTypeHints = false,
                 includeInlayVariableTypeHints = false,
               },
@@ -258,6 +303,7 @@ return {
         'goimports', -- Format imports in Go (gopls includes gofmt already)
         'prettierd', -- Used to format JavaScript, TypeScript, HTML, JSON, etc.
         'stylua', -- Used to format Lua code
+        'ktlint', -- Used to format Kotlin code
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -277,7 +323,6 @@ return {
                 auto_install = false,
               },
             }
-
             require('lspconfig').jdtls.setup {
               settings = {
                 java = {
@@ -315,7 +360,9 @@ return {
   -- TypeScript type checking
   {
     'dmmulroy/tsc.nvim',
-    opts = {},
+    opts = {
+      run_as_monorepo = true,
+    },
   },
 
   -- Translates obscure TypeScript errors into human-readable messages

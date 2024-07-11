@@ -1,5 +1,8 @@
 local wezterm = require("wezterm")
 
+-- TODO: How to switch from Tmux to Wezterm:
+-- https://www.florianbellmann.com/blog/switch-from-tmux-to-wezterm
+
 local act = wezterm.action
 
 local config = {
@@ -24,30 +27,26 @@ local config = {
 		},
 		{ key = "+", mods = "SHIFT|CTRL", action = act.IncreaseFontSize },
 		{ key = "-", mods = "SHIFT|CTRL", action = act.DecreaseFontSize },
+		{ key = "_", mods = "SHIFT|CTRL", action = act.DecreaseFontSize },
 		{ key = "0", mods = "SHIFT|CTRL", action = act.ResetFontSize },
 		{ key = "C", mods = "CTRL", action = act.CopyTo("Clipboard") },
 		{ key = "C", mods = "SHIFT|CTRL", action = act.CopyTo("Clipboard") },
-		{ key = "F", mods = "CTRL", action = act.Search("CurrentSelectionOrEmptyString") },
-		{ key = "F", mods = "SHIFT|CTRL", action = act.Search("CurrentSelectionOrEmptyString") },
-		{ key = "L", mods = "SHIFT|CTRL", action = act.ShowDebugOverlay },
-		{ key = "P", mods = "SHIFT|CTRL", action = act.ActivateCommandPalette },
-		{ key = "Q", mods = "SHIFT|CTRL", action = act.QuitApplication },
-		{ key = "R", mods = "SHIFT|CTRL", action = act.ReloadConfiguration },
 		{ key = "V", mods = "SHIFT|CTRL", action = act.PasteFrom("Clipboard") },
-		{ key = "X", mods = "SHIFT|CTRL", action = act.ActivateCopyMode },
-		{ key = "Z", mods = "SHIFT|CTRL", action = act.TogglePaneZoomState },
-		{ key = "_", mods = "SHIFT|CTRL", action = act.DecreaseFontSize },
-		{ key = "c", mods = "SHIFT|CTRL", action = act.CopyTo("Clipboard") },
-		{ key = "h", mods = "SHIFT|CTRL", action = act.HideApplication },
-		{ key = "n", mods = "SUPER", action = act.SpawnWindow },
-		{ key = "p", mods = "SHIFT|CTRL", action = act.ActivateCommandPalette },
-		{ key = "q", mods = "SHIFT|CTRL", action = act.QuitApplication },
-		{ key = "r", mods = "SHIFT|CTRL", action = act.ReloadConfiguration },
 		{ key = "v", mods = "CTRL", action = act.PasteFrom("Clipboard") },
 		{ key = "v", mods = "SHIFT|CTRL", action = act.PasteFrom("Clipboard") },
+		{ key = "F", mods = "CTRL", action = act.Search("CurrentSelectionOrEmptyString") },
+		{ key = "F", mods = "SHIFT|CTRL", action = act.Search("CurrentSelectionOrEmptyString") },
+		{ key = "P", mods = "SHIFT|CTRL", action = act.ActivateCommandPalette },
+		{ key = "p", mods = "SHIFT|CTRL", action = act.ActivateCommandPalette },
+		{ key = "Q", mods = "SHIFT|CTRL", action = act.QuitApplication },
+		{ key = "q", mods = "SHIFT|CTRL", action = act.QuitApplication },
+		{ key = "R", mods = "SHIFT|CTRL", action = act.ReloadConfiguration },
+		{ key = "r", mods = "SHIFT|CTRL", action = act.ReloadConfiguration },
+		{ key = "X", mods = "SHIFT|CTRL", action = act.ActivateCopyMode },
 		{ key = "x", mods = "SHIFT|CTRL", action = act.ActivateCopyMode },
+		{ key = "c", mods = "SHIFT|CTRL", action = act.CopyTo("Clipboard") },
+		{ key = "n", mods = "SUPER", action = act.SpawnWindow },
 		{ key = "z", mods = "SHIFT|CTRL", action = act.TogglePaneZoomState },
-		{ key = "phys:Space", mods = "SHIFT|CTRL", action = act.QuickSelect },
 		{ key = "PageUp", mods = "SHIFT|CTRL", action = act.MoveTabRelative(-1) },
 		{ key = "PageDown", mods = "SHIFT|CTRL", action = act.MoveTabRelative(1) },
 	},

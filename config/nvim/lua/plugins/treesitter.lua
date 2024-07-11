@@ -27,6 +27,7 @@ return {
           'java',
           'json',
           'jsonc',
+          'kotlin',
           'lua',
           'markdown',
           'markdown_inline',
