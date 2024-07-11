@@ -115,24 +115,29 @@ return {
     opts = { signs = false },
   },
 
-  -- Navigate across tmux and nvim panes seamlessly with <C-hjkl>
-  -- NOTE: This requires a sister configuration in tmux
+  -- Enables navigation between splits with support for wezterm pane navigation
   {
-    'christoomey/vim-tmux-navigator',
-    cmd = {
-      'TmuxNavigateLeft',
-      'TmuxNavigateDown',
-      'TmuxNavigateUp',
-      'TmuxNavigateRight',
-      'TmuxNavigatePrevious',
-    },
-    keys = {
-      { '<c-h>', '<cmd><C-U>TmuxNavigateLeft<cr>' },
-      { '<c-j>', '<cmd><C-U>TmuxNavigateDown<cr>' },
-      { '<c-k>', '<cmd><C-U>TmuxNavigateUp<cr>' },
-      { '<c-l>', '<cmd><C-U>TmuxNavigateRight<cr>' },
-      { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
-    },
+    lazy = false,
+    'mrjones2014/smart-splits.nvim',
+    config = function()
+      local splits = require 'smart-splits'
+      splits.setup {
+        wezterm = true,
+      }
+
+      -- navigate splits
+      vim.keymap.set('n', '<C-h>', splits.move_cursor_left)
+      vim.keymap.set('n', '<C-j>', splits.move_cursor_down)
+      vim.keymap.set('n', '<C-k>', splits.move_cursor_up)
+      vim.keymap.set('n', '<C-l>', splits.move_cursor_right)
+      vim.keymap.set('n', '<C-\\>', splits.move_cursor_previous)
+
+      -- resize splits
+      vim.keymap.set('n', '<C-A-h>', require('smart-splits').resize_left)
+      vim.keymap.set('n', '<C-A-j>', require('smart-splits').resize_down)
+      vim.keymap.set('n', '<C-A-k>', require('smart-splits').resize_up)
+      vim.keymap.set('n', '<C-A-l>', require('smart-splits').resize_right)
+    end,
   },
 
   -- Detect tabstop and shiftwidth automatically

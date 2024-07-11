@@ -1,8 +1,6 @@
 # sockfiles 🧦
 
-neovim, tmux, zsh, wezterm
-
-unix based.
+neovim, zsh, wezterm.
 
 ```bash
 ./install

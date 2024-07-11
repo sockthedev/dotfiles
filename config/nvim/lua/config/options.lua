@@ -66,8 +66,8 @@ vim.opt.scrolloff = 10
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 
--- block cursor on insert
-vim.opt.guicursor = 'i:block'
+-- stop neovim from overriding the wezterm cursor
+vim.opt.guicursor = ''
 
 -- never hide stuff, like the ticks in markdown files
 vim.opt.conceallevel = 0
