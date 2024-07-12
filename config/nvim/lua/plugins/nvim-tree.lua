@@ -24,13 +24,10 @@ return {
           float = {
             enable = true,
             open_win_config = function()
-              local height = vim.o.lines - 20
-              local width = 120
-              if vim.o.columns < 120 then
-                width = vim.o.columns - 20
-              end
-              if vim.o.lines < 40 then
-                height = vim.o.lines - 8
+              local height = vim.o.lines - 6
+              local width = 100
+              if vim.o.columns < 100 then
+                width = vim.o.columns - 10
               end
               return {
                 relative = 'editor',
