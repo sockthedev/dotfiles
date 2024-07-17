@@ -4,6 +4,9 @@ export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 # Add GOBIN to PATH
 export PATH=$PATH:$HOME/go/bin
 
+# Add postgres client utils (pgql) to PATH
+export PATH=/opt/homebrew/opt/libpq/bin:$PATH
+
 # pyenv
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"

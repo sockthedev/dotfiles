@@ -4,22 +4,23 @@ return {
     event = 'VimEnter',
     config = function()
       require('which-key').setup {
-        window = {
+        notify = false,
+        win = {
           border = 'single',
         },
       }
 
       -- Document existing key chains
       require('which-key').register {
-        ['<C-c>'] = { name = '[C]opilot' },
-        ['<C-g>'] = { name = '[G]pt' },
-        ['<leader>c'] = { name = '[C]ode' },
-        ['<leader>d'] = { name = '[D]ocument' },
-        ['<leader>g'] = { name = '[G]it' },
-        ['<leader>p'] = { name = '[P]ersistence' },
-        ['<leader>s'] = { name = '[S]earch' },
-        ['<leader>t'] = { name = '[T]est' },
-        ['<leader>w'] = { name = '[W]orkspace' },
+        { '<C-c>', group = '[C]opilot' },
+        { '<C-g>', group = '[G]pt' },
+        { '<leader>c', group = '[C]ode' },
+        { '<leader>d', group = '[D]ocument' },
+        { '<leader>g', group = '[G]it' },
+        { '<leader>p', group = '[P]ersistence' },
+        { '<leader>s', group = '[S]earch' },
+        { '<leader>t', group = '[T]est' },
+        { '<leader>w', group = '[W]orkspace' },
       }
     end,
   },

@@ -1,3 +1,5 @@
+-- Note to self. NEVER try to add Java support again. DON'T do it. It's a rabbit hole that will consume you.
+
 return {
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -17,15 +19,6 @@ return {
       -- Neovim setup for init.lua and plugin development with full signature help, docs and completion for the nvim lua API.
       { 'folke/neodev.nvim', opts = {} },
 
-      -- All in one Java setup for Neovim. It actually works.
-      'nvim-java/nvim-java',
-
-      -- Better/faster/stronger TypeScript integration for Neovim
-      -- Drop in replacement for nvim-lspconfig's tsserver
-      -- Early beta though 🤭
-      -- Tried it, too buggy for now. Will revisit later.
-      -- 'pmizio/typescript-tools.nvim',
-
       -- Show LSP Signature during edits
       -- Handy for seeing what the current argument to a function requires
       -- Toggle it via the `toggle_key` (<C-M-k>).
@@ -41,38 +34,6 @@ return {
       },
     },
     config = function()
-      -- -- Too buggy for now. Will revisit later.
-      -- require('typescript-tools').setup {
-      --   settings = {
-      --     -- spawn additional tsserver instance to calculate diagnostics on it
-      --     separate_diagnostic_server = true,
-      --     -- "change"|"insert_leave" determine when the client asks the server about diagnostic
-      --     publish_diagnostic_on = 'insert_leave',
-      --     -- array of strings("fix_all"|"add_missing_imports"|"remove_unused"|
-      --     -- "remove_unused_imports"|"organize_imports") -- or string "all"
-      --     -- to include all supported code actions
-      --     -- specify commands exposed as code_actions
-      --     expose_as_code_action = 'all',
-      --     -- described below
-      --     tsserver_format_options = {},
-      --     tsserver_file_preferences = {
-      --       includeInlayEnumMemberValueHints = false,
-      --       includeInlayFunctionLikeReturnTypeHints = false,
-      --       includeInlayFunctionParameterTypeHints = true,
-      --       includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all';
-      --       includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-      --       includeInlayPropertyDeclarationTypeHints = false,
-      --       includeInlayVariableTypeHints = false,
-      --     },
-      --     -- mirror of VSCode's `typescript.suggest.completeFunctionCalls`
-      --     complete_function_calls = false,
-      --     include_completions_with_insert_text = true,
-      --     -- by default code lenses are displayed on all referencable values and for some of you it can
-      --     -- be too much this option reduce count of them by removing member references from lenses
-      --     disable_member_code_lens = true,
-      --   },
-      -- }
-
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
 
@@ -213,7 +174,6 @@ return {
             },
           },
         },
-        kotlin_language_server = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -234,6 +194,12 @@ return {
           },
         },
         pyright = {
+          root_dir = require('lspconfig').util.root_pattern(
+            'pyproject.toml',
+            'requirements.txt',
+            'Pipfile',
+            'pyrightconfig.json'
+          ),
           filetype = { 'python' },
         },
         ruff_lsp = {
@@ -303,7 +269,6 @@ return {
         'goimports', -- Format imports in Go (gopls includes gofmt already)
         'prettierd', -- Used to format JavaScript, TypeScript, HTML, JSON, etc.
         'stylua', -- Used to format Lua code
-        'ktlint', -- Used to format Kotlin code
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -316,28 +281,6 @@ return {
             -- certain features of an LSP (for example, turning off formatting for tsserver)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
-          end,
-          jdtls = function()
-            require('java').setup {
-              jdk = {
-                auto_install = false,
-              },
-            }
-            require('lspconfig').jdtls.setup {
-              settings = {
-                java = {
-                  configuration = {
-                    runtimes = {
-                      {
-                        name = 'OpenJDK-17',
-                        path = '/Users/sock/.sdkman/candidates/java/17-open',
-                        default = true,
-                      },
-                    },
-                  },
-                },
-              },
-            }
           end,
         },
       }

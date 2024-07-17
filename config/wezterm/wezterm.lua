@@ -273,9 +273,13 @@ wezterm.on("format-tab-title", function(tab)
 		{ Text = get_current_working_dir(tab) },
 	})
 	local process = get_process(tab)
-	local title = process and string.format("| %s  %s ", process, cwd) or " [?] "
+	if tab.tab_index == 0 then
+		return {
+			{ Text = process and string.format("  %s  %s (1) ", process, cwd) or " [?] " },
+		}
+	end
 	return {
-		{ Text = title },
+		{ Text = process and string.format("|  %s  %s (%s) ", process, cwd, tab.tab_index + 1) or " [?] " },
 	}
 end)
 

@@ -25,11 +25,11 @@ return {
         gutter = false,
         dimInactive = false,
         terminalColors = true,
-        commentStyle = { italic = false, bold = false },
-        functionStyle = { italic = false, bold = false },
-        keywordStyle = { italic = false, bold = false },
-        statementStyle = { italic = false, bold = false },
-        typeStyle = { italic = false, bold = false },
+        commentStyle = { italic = false, bold = true },
+        functionStyle = { italic = false, bold = true },
+        keywordStyle = { italic = false, bold = true },
+        statementStyle = { italic = false, bold = true },
+        typeStyle = { italic = false, bold = true },
         colors = { theme = {}, palette = {
           dragonViolet = '#727169',
         } }, -- override default palette and theme colors
