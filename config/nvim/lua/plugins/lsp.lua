@@ -148,6 +148,7 @@ return {
       -- Enable the following language servers
       -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
       local servers = {
+        bashls = {},
         cssls = {},
         eslint = {},
         html = {},

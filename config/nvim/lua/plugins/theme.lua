@@ -43,12 +43,14 @@ return {
             -- Save a hlgroup with dark background and dimmed foreground
             -- so that you can use it where you still want darker windows.
             -- E.g.: autocmd TermOpen * setlocal winhighlight=Normal:NormalDark
-            NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
+            -- NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
 
             -- Popular plugins that open floats will link to NormalFloat by default;
             -- set their background accordingly if you wish to keep them dark and borderless
             LazyNormal = { bg = theme.ui.bg, fg = theme.ui.fg },
             MasonNormal = { bg = theme.ui.bg, fg = theme.ui.fg },
+            WhichKeyBorder = { bg = theme.ui.bg, fg = theme.ui.fg },
+            WhichKeyNormal = { bg = theme.ui.bg, fg = theme.ui.fg },
             TelescopeNormal = { bg = theme.ui.bg, fg = theme.ui.fg },
             TelescopeBorder = { bg = theme.ui.bg, fg = theme.ui.bg },
             TelescopePromptNormal = { bg = theme.ui.bg, fg = theme.ui.fg },

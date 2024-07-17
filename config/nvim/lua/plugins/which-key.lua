@@ -7,6 +7,7 @@ return {
         notify = false,
         win = {
           border = 'single',
+          padding = { 1, 1 },
         },
       }
 
