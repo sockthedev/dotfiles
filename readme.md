@@ -2,6 +2,4 @@
 
 neovim, zsh, wezterm.
 
-```bash
-./install
-```
+<img src="./assets/screen.jpeg" alt="terminal screenshot" />
