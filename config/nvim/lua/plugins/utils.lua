@@ -54,7 +54,7 @@ return {
     opts = {
       has_breadcrumbs = false,
       code_font_family = 'Berkeley Mono',
-      bg_color = '#00000000', -- transparent
+      bg_color = '#cccccc', -- transparent
       watermark = '',
       mac_window_bar = false,
     },

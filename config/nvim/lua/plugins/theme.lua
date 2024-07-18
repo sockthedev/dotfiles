@@ -30,36 +30,49 @@ return {
         keywordStyle = { italic = false, bold = true },
         statementStyle = { italic = false, bold = true },
         typeStyle = { italic = false, bold = true },
-        colors = { theme = {}, palette = {
-          dragonViolet = '#727169',
-        } }, -- override default palette and theme colors
+        colors = {
+          theme = {},
+          palette = {
+            -- dragonViolet = '#727169',
+            dragonViolet = '#000000',
+          },
+        }, -- override default palette and theme colors
         overrides = function(colors)
           local theme = colors.theme
+          -- local background = theme.ui.bg
+          local background = '#000000'
+          local foreground_dim = '#808080'
           return {
-            NormalFloat = { bg = theme.ui.bg },
+            NormalFloat = { bg = background },
             FloatBorder = { bg = 'none' },
-            FloatTitle = { bg = theme.ui.bg },
+            FloatTitle = { bg = background },
 
             -- Save a hlgroup with dark background and dimmed foreground
             -- so that you can use it where you still want darker windows.
             -- E.g.: autocmd TermOpen * setlocal winhighlight=Normal:NormalDark
-            -- NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
+            -- NormalDark = { fg = theme.ui.fg_dim, bg = background_m3 },
 
             -- Popular plugins that open floats will link to NormalFloat by default;
             -- set their background accordingly if you wish to keep them dark and borderless
-            LazyNormal = { bg = theme.ui.bg, fg = theme.ui.fg },
-            MasonNormal = { bg = theme.ui.bg, fg = theme.ui.fg },
-            WhichKeyBorder = { bg = theme.ui.bg, fg = theme.ui.fg },
-            WhichKeyNormal = { bg = theme.ui.bg, fg = theme.ui.fg },
-            TelescopeNormal = { bg = theme.ui.bg, fg = theme.ui.fg },
-            TelescopeBorder = { bg = theme.ui.bg, fg = theme.ui.bg },
-            TelescopePromptNormal = { bg = theme.ui.bg, fg = theme.ui.fg },
-            TelescopePromptBorder = { bg = theme.ui.bg, fg = theme.ui.fg },
-            TelescopePromptTitle = { bg = theme.ui.bg, fg = theme.ui.fg },
-            TelescopePreviewTitle = { bg = theme.ui.bg, fg = theme.ui.fg },
-            TelescopeResultsTitle = { bg = theme.ui.bg, fg = theme.ui.fg },
-            TelescopeResultsNormal = { bg = theme.ui.bg, fg = theme.ui.fg },
-            TelescopeResultsBorder = { bg = theme.ui.bg, fg = theme.ui.fg },
+            LazyNormal = { bg = background, fg = theme.ui.fg },
+            MasonNormal = { bg = background, fg = theme.ui.fg },
+            WhichKeyBorder = { bg = background, fg = theme.ui.fg },
+            WhichKeyNormal = { bg = background, fg = theme.ui.fg },
+            TelescopeNormal = { bg = background, fg = theme.ui.fg },
+            TelescopeBorder = { bg = background, fg = theme.ui.fg },
+            TelescopePromptNormal = { bg = background, fg = theme.ui.fg },
+            TelescopePromptBorder = { bg = background, fg = theme.ui.fg },
+            TelescopePromptTitle = { bg = background, fg = theme.ui.fg },
+            TelescopePreviewBorder = { bg = background, fg = theme.ui.fg },
+            TelescopePreviewNormal = { bg = background, fg = theme.ui.fg },
+            TelescopePreviewTitle = { bg = background, fg = theme.ui.fg },
+            TelescopeResultsTitle = { bg = background, fg = theme.ui.fg },
+            TelescopeResultsNormal = { bg = background, fg = theme.ui.fg },
+            TelescopeResultsBorder = { bg = background, fg = theme.ui.fg },
+            MiniStatuslineDevinfo = { bg = background, fg = foreground_dim },
+            MiniStatuslineFileinfo = { bg = background, fg = foreground_dim },
+            MiniStatuslineFilename = { bg = background, fg = foreground_dim },
+            MiniStatuslineInactive = { bg = background, fg = foreground_dim },
           }
         end,
       }

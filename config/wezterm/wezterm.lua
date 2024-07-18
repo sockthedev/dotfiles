@@ -141,13 +141,13 @@ config.keys = {
 		action = wezterm.action.IncreaseFontSize,
 	},
 }
-config.font = wezterm.font("Berkeley Mono", { weight = "Medium" })
-config.font_size = 15
-config.line_height = 1.3
+config.font = wezterm.font("Berkeley Mono")
+config.font_size = 13
+config.line_height = 1.2
 config.scrollback_lines = 10000
 config.max_fps = 120
 config.default_cursor_style = "BlinkingBlock"
-config.cursor_blink_rate = 400
+config.cursor_blink_rate = 500
 config.animation_fps = 1
 config.cursor_blink_ease_in = "Constant"
 config.cursor_blink_ease_out = "Constant"
@@ -168,6 +168,11 @@ config.window_padding = {
 }
 config.window_decorations = "RESIZE"
 config.adjust_window_size_when_changing_font_size = false
+
+-- background = "#1F1F28"
+local background = "#000000"
+local foreground = "#DCD7BA"
+
 config.colors = {
 	ansi = {
 		"#0d0c0c",
@@ -189,10 +194,11 @@ config.colors = {
 		"#7AA89F",
 		"#c5c9c5",
 	},
-	background = "#1F1F28",
-	foreground = "#DCD7BA",
+	-- background = "#1F1F28",
+	background = background,
+	foreground = foreground,
 	cursor_bg = "#c8c093",
-	cursor_fg = "#1f1f28",
+	cursor_fg = background,
 	cursor_border = "#c8c093",
 	selection_bg = "#658594",
 	selection_fg = "#c8c093",
@@ -203,18 +209,18 @@ config.colors = {
 	scrollbar_thumb = "#393836",
 	split = "#8992a7",
 	tab_bar = {
-		background = "#1f1f28",
+		background = background,
 		inactive_tab_edge = "rgba(28, 28, 28, 0.9)",
 		active_tab = {
-			bg_color = "#1f1f28",
+			bg_color = background,
 			fg_color = "#c0c0c0",
 		},
 		inactive_tab = {
-			bg_color = "#1f1f28",
+			bg_color = background,
 			fg_color = "#808080",
 		},
 		inactive_tab_hover = {
-			bg_color = "#1f1f28",
+			bg_color = background,
 			fg_color = "#808080",
 		},
 	},
@@ -225,33 +231,33 @@ config.colors = {
 }
 
 local process_icons = {
+	["bash"] = wezterm.nerdfonts.cod_terminal_bash,
+	["cargo"] = wezterm.nerdfonts.dev_rust,
+	["curl"] = wezterm.nerdfonts.mdi_flattr,
 	["docker"] = wezterm.nerdfonts.linux_docker,
 	["docker-compose"] = wezterm.nerdfonts.linux_docker,
-	["mysql"] = "󱤢",
-	["psql"] = "󱤢",
-	["ssh"] = wezterm.nerdfonts.fa_exchange,
-	["ssh-add"] = wezterm.nerdfonts.fa_exchange,
-	["nvim"] = wezterm.nerdfonts.custom_vim,
-	["make"] = wezterm.nerdfonts.seti_makefile,
-	["vim"] = wezterm.nerdfonts.dev_vim,
-	["node"] = wezterm.nerdfonts.mdi_hexagon,
+	["gh"] = wezterm.nerdfonts.dev_github_badge,
+	["git"] = wezterm.nerdfonts.dev_git,
 	["go"] = wezterm.nerdfonts.seti_go,
+	["htop"] = wezterm.nerdfonts.mdi_chart_donut_variant,
+	["lazydocker"] = wezterm.nerdfonts.linux_docker,
+	["lazygit"] = wezterm.nerdfonts.dev_git,
+	["lua"] = wezterm.nerdfonts.seti_lua,
+	["make"] = wezterm.nerdfonts.seti_makefile,
+	["mysql"] = "󱤢",
+	["node"] = wezterm.nerdfonts.md_hexagon,
+	["nvim"] = wezterm.nerdfonts.custom_vim,
+	["psql"] = "󱤢",
 	["python"] = "",
 	["python2"] = "",
 	["python3"] = "",
-	["zsh"] = wezterm.nerdfonts.dev_terminal,
-	["bash"] = wezterm.nerdfonts.cod_terminal_bash,
-	["htop"] = wezterm.nerdfonts.mdi_chart_donut_variant,
-	["cargo"] = wezterm.nerdfonts.dev_rust,
-	["sudo"] = wezterm.nerdfonts.fa_hashtag,
-	["lazydocker"] = wezterm.nerdfonts.linux_docker,
-	["lazygit"] = wezterm.nerdfonts.dev_git,
-	["git"] = wezterm.nerdfonts.dev_git,
-	["lua"] = wezterm.nerdfonts.seti_lua,
-	["wget"] = wezterm.nerdfonts.mdi_arrow_down_box,
-	["curl"] = wezterm.nerdfonts.mdi_flattr,
-	["gh"] = wezterm.nerdfonts.dev_github_badge,
 	["ruby"] = wezterm.nerdfonts.cod_ruby,
+	["ssh"] = wezterm.nerdfonts.fa_exchange,
+	["ssh-add"] = wezterm.nerdfonts.fa_exchange,
+	["sudo"] = wezterm.nerdfonts.fa_hashtag,
+	["vim"] = wezterm.nerdfonts.dev_vim,
+	["wget"] = wezterm.nerdfonts.mdi_arrow_down_box,
+	["zsh"] = wezterm.nerdfonts.dev_terminal,
 }
 
 local function get_current_working_dir(tab)
