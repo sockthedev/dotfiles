@@ -5,7 +5,6 @@ rm -rf ~/.config/karabiner
 rm -rf ~/.config/nvim
 rm -rf ~/.config/wezterm
 rm -rf ~/.config/zsh
-rm ~/.tmux.conf
 rm ~/.zshrc
 
 # Create symlinks to files in here
@@ -13,6 +12,5 @@ ln -s "$(pwd)/config/karabiner" ~/.config/karabiner
 ln -s "$(pwd)/config/nvim" ~/.config/nvim
 ln -s "$(pwd)/config/wezterm" ~/.config/wezterm
 ln -s "$(pwd)/config/zsh" ~/.config/zsh
-ln -s "$(pwd)/.tmux.conf" ~/.tmux.conf
 ln -s "$(pwd)/.zshrc" ~/.zshrc
 
