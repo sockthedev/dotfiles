@@ -213,7 +213,7 @@ config.colors = {
 		inactive_tab_edge = "rgba(28, 28, 28, 0.9)",
 		active_tab = {
 			bg_color = background,
-			fg_color = "#c0c0c0",
+			fg_color = "#c4b28a",
 		},
 		inactive_tab = {
 			bg_color = background,
@@ -281,11 +281,11 @@ wezterm.on("format-tab-title", function(tab)
 	local process = get_process(tab)
 	if tab.tab_index == 0 then
 		return {
-			{ Text = process and string.format("  %s  %s (1) ", process, cwd) or " [?] " },
+			{ Text = process and string.format("  %s  %s ", process, cwd) or " [?] " },
 		}
 	end
 	return {
-		{ Text = process and string.format("|  %s  %s (%s) ", process, cwd, tab.tab_index + 1) or " [?] " },
+		{ Text = process and string.format("  %s  %s ", process, cwd) or " [?] " },
 	}
 end)
 
