@@ -103,10 +103,10 @@ return {
           swap = {
             enable = true,
             swap_next = {
-              ['<leader>cs'] = { query = '@parameter.inner', desc = 'Swap with next parameter' },
+              ['<leader>csn'] = { query = '@parameter.inner', desc = 'With [N]ext Parameter' },
             },
             swap_previous = {
-              ['<leader>cS'] = { query = '@parameter.inner', desc = 'Swap with previous parameter' },
+              ['<leader>csp'] = { query = '@parameter.inner', desc = 'With [P]revious Parameter' },
             },
           },
           move = {

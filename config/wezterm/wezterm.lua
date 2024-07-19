@@ -230,62 +230,18 @@ config.colors = {
 	},
 }
 
-local process_icons = {
-	["bash"] = wezterm.nerdfonts.cod_terminal_bash,
-	["cargo"] = wezterm.nerdfonts.dev_rust,
-	["curl"] = wezterm.nerdfonts.mdi_flattr,
-	["docker"] = wezterm.nerdfonts.linux_docker,
-	["docker-compose"] = wezterm.nerdfonts.linux_docker,
-	["gh"] = wezterm.nerdfonts.dev_github_badge,
-	["git"] = wezterm.nerdfonts.dev_git,
-	["go"] = wezterm.nerdfonts.seti_go,
-	["htop"] = wezterm.nerdfonts.mdi_chart_donut_variant,
-	["lazydocker"] = wezterm.nerdfonts.linux_docker,
-	["lazygit"] = wezterm.nerdfonts.dev_git,
-	["lua"] = wezterm.nerdfonts.seti_lua,
-	["make"] = wezterm.nerdfonts.seti_makefile,
-	["mysql"] = "󱤢",
-	["node"] = wezterm.nerdfonts.md_hexagon,
-	["nvim"] = wezterm.nerdfonts.custom_vim,
-	["psql"] = "󱤢",
-	["python"] = "",
-	["python2"] = "",
-	["python3"] = "",
-	["ruby"] = wezterm.nerdfonts.cod_ruby,
-	["ssh"] = wezterm.nerdfonts.fa_exchange,
-	["ssh-add"] = wezterm.nerdfonts.fa_exchange,
-	["sudo"] = wezterm.nerdfonts.fa_hashtag,
-	["vim"] = wezterm.nerdfonts.dev_vim,
-	["wget"] = wezterm.nerdfonts.mdi_arrow_down_box,
-	["zsh"] = wezterm.nerdfonts.dev_terminal,
-}
-
 local function get_current_working_dir(tab)
 	local current_dir = tab.active_pane and tab.active_pane.current_working_dir or { file_path = "" }
 	local HOME_DIR = os.getenv("HOME")
 	return current_dir.file_path == HOME_DIR and "~" or string.gsub(current_dir.file_path, "(.*[/\\])(.*)", "%2")
 end
 
-local function get_process(tab)
-	if not tab.active_pane or tab.active_pane.foreground_process_name == "" then
-		return nil
-	end
-	local process_name = string.gsub(tab.active_pane.foreground_process_name, "(.*[/\\])(.*)", "%2")
-	return process_icons[process_name] or string.format("[%s]", process_name)
-end
-
 wezterm.on("format-tab-title", function(tab)
 	local cwd = wezterm.format({
 		{ Text = get_current_working_dir(tab) },
 	})
-	local process = get_process(tab)
-	if tab.tab_index == 0 then
-		return {
-			{ Text = process and string.format("  %s  %s ", process, cwd) or " [?] " },
-		}
-	end
 	return {
-		{ Text = process and string.format("  %s  %s ", process, cwd) or " [?] " },
+		{ Text = string.format(" %s ", cwd) },
 	}
 end)
 

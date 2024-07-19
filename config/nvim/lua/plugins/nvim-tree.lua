@@ -27,7 +27,7 @@ return {
               local height = vim.o.lines - 6
               local width = 100
               if vim.o.columns < 100 then
-                width = vim.o.columns - 10
+                width = vim.o.columns - 20
               end
               return {
                 relative = 'editor',
@@ -61,8 +61,9 @@ return {
           },
         },
         filters = {
-          dotfiles = false,
-          custom = { '^.git$' },
+          enable = false,
+          -- dotfiles = false,
+          -- custom = { '^.git$' },
         },
         diagnostics = {
           enable = false,

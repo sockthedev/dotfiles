@@ -33,8 +33,7 @@ return {
         colors = {
           theme = {},
           palette = {
-            -- dragonViolet = '#727169',
-            dragonViolet = '#000000',
+            dragonViolet = '#727169',
           },
         }, -- override default palette and theme colors
         overrides = function(colors)
