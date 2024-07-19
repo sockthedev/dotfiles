@@ -9,18 +9,14 @@ return {
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
+      signs_staged_enable = false,
     },
   },
 
   {
     'tpope/vim-fugitive',
     config = function()
-      vim.keymap.set(
-        'n',
-        '<leader>gf',
-        '<cmd>tab Git<cr>',
-        { noremap = true, silent = true, desc = 'Open Fugitive in Tab' }
-      )
+      vim.keymap.set('n', '<leader>cf', '<cmd>Git<cr>', { noremap = true, silent = true, desc = 'Open [f]ugitive' })
     end,
   },
 }

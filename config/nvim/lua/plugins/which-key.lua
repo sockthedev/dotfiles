@@ -21,7 +21,6 @@ return {
         { '<leader>c', group = '[C]ode' },
         { '<leader>cs', group = '[S]wap' },
         { '<leader>d', group = '[D]ocument' },
-        { '<leader>g', group = '[G]it' },
         { '<leader>l', group = '[L]sp' },
         { '<leader>p', group = '[P]ersistence' },
         { '<leader>s', group = '[S]earch' },
