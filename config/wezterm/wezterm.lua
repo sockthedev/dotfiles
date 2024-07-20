@@ -169,9 +169,10 @@ config.window_padding = {
 config.window_decorations = "RESIZE"
 config.adjust_window_size_when_changing_font_size = false
 
--- background = "#1F1F28"
 local background = "#000000"
 local foreground = "#DCD7BA"
+local foreground_dim = "#525252"
+local highlight = "#c4b28a"
 
 config.colors = {
 	ansi = {
@@ -207,21 +208,21 @@ config.colors = {
 	quick_select_match_bg = { Color = "#c07d9e" },
 	quick_select_match_fg = { Color = "#ffffff" },
 	scrollbar_thumb = "#393836",
-	split = "#8992a7",
+	split = foreground_dim,
 	tab_bar = {
 		background = background,
 		inactive_tab_edge = "rgba(28, 28, 28, 0.9)",
 		active_tab = {
-			bg_color = background,
-			fg_color = "#c4b28a",
+			bg_color = highlight,
+			fg_color = background,
 		},
 		inactive_tab = {
 			bg_color = background,
-			fg_color = "#808080",
+			fg_color = foreground_dim,
 		},
 		inactive_tab_hover = {
 			bg_color = background,
-			fg_color = "#808080",
+			fg_color = foreground_dim,
 		},
 	},
 	indexed = {

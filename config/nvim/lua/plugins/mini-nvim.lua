@@ -47,7 +47,7 @@ return {
               { hl = 'MiniStatuslineFilename', strings = { '%.30F' } },
               '%=', -- End left alignment
               { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
-              { hl = mode_hl, strings = { search, location } },
+              { hl = 'MiniStatuslineFileinfo', strings = { search, location } },
             }
           end,
           inactive = function()

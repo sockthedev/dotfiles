@@ -40,7 +40,8 @@ return {
           local theme = colors.theme
           -- local background = theme.ui.bg
           local background = '#000000'
-          local foreground_dim = '#808080'
+          -- local foreground_dim = '#808080'
+          local foreground_dim = '#525252'
           return {
             NormalFloat = { bg = background },
             FloatBorder = { bg = 'none' },
