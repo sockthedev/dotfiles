@@ -43,6 +43,7 @@ return {
           -- local foreground_dim = '#808080'
           local foreground_dim = '#525252'
           return {
+            LineNr = { fg = foreground_dim },
             NormalFloat = { bg = background },
             FloatBorder = { bg = 'none' },
             FloatTitle = { bg = background },

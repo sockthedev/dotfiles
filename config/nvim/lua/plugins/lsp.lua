@@ -150,6 +150,8 @@ return {
       local servers = {
         bashls = {},
         cssls = {},
+        docker_compose_language_service = {},
+        dockerls = {},
         eslint = {},
         html = {},
         jsonls = {

@@ -39,36 +39,36 @@ return {
       },
     }
 
-    vim.keymap.set('n', '<leader>tt', function()
+    vim.keymap.set('n', '<leader>ur', function()
       require('neotest').run.run()
-    end, { desc = 'Run nearest test' })
+    end, { desc = '[r]un nearest test' })
 
-    vim.keymap.set('n', '<leader>tf', function()
+    vim.keymap.set('n', '<leader>uf', function()
       require('neotest').run.run(vim.fn.expand '%')
-    end, { desc = 'Run current file' })
+    end, { desc = 'Run [f]ile' })
 
-    vim.keymap.set('n', '<leader>td', function()
+    vim.keymap.set('n', '<leader>ud', function()
       require('neotest').run.run { strategy = 'dap' }
-    end, { desc = 'Debug nearest test' })
+    end, { desc = '[d]ebug nearest test' })
 
-    vim.keymap.set('n', '<leader>ts', function()
+    vim.keymap.set('n', '<leader>us', function()
       require('neotest').run.stop()
-    end, { desc = 'Stop nearest test' })
+    end, { desc = '[s]top nearest test' })
 
-    vim.keymap.set('n', '<leader>ta', function()
+    vim.keymap.set('n', '<leader>ua', function()
       require('neotest').run.attach()
-    end, { desc = 'Attach to nearest test' })
+    end, { desc = '[a]ttach nearest test' })
 
-    vim.keymap.set('n', '<leader>tl', function()
+    vim.keymap.set('n', '<leader>ul', function()
       require('neotest').run.run_last()
-    end, { desc = 'Run last test' })
+    end, { desc = 'Run [l]ast test' })
 
-    vim.keymap.set('n', '<leader>to', function()
+    vim.keymap.set('n', '<leader>uo', function()
       require('neotest').output.open { enter = true }
-    end, { desc = 'Open test output' })
+    end, { desc = 'Test [o]utput' })
 
-    vim.keymap.set('n', '<leader>tp', function()
+    vim.keymap.set('n', '<leader>up', function()
       require('neotest').output_panel.toggle()
-    end, { desc = 'Toggle output panel' })
+    end, { desc = 'Toggle [p]anel' })
   end,
 }
