@@ -114,4 +114,5 @@ load-nvmrc() {
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
 
-
+# increase file watch limit for development
+ulimit -n 61440
