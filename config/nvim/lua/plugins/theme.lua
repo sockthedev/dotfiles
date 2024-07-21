@@ -38,23 +38,14 @@ return {
         }, -- override default palette and theme colors
         overrides = function(colors)
           local theme = colors.theme
-          -- local background = theme.ui.bg
           local background = '#000000'
-          -- local foreground_dim = '#808080'
-          local foreground_dim = '#525252'
+          local foreground_dim = '#333333'
+          local highlight = '#c4b28a'
           return {
             LineNr = { fg = foreground_dim },
             NormalFloat = { bg = background },
             FloatBorder = { bg = 'none' },
             FloatTitle = { bg = background },
-
-            -- Save a hlgroup with dark background and dimmed foreground
-            -- so that you can use it where you still want darker windows.
-            -- E.g.: autocmd TermOpen * setlocal winhighlight=Normal:NormalDark
-            -- NormalDark = { fg = theme.ui.fg_dim, bg = background_m3 },
-
-            -- Popular plugins that open floats will link to NormalFloat by default;
-            -- set their background accordingly if you wish to keep them dark and borderless
             LazyNormal = { bg = background, fg = theme.ui.fg },
             MasonNormal = { bg = background, fg = theme.ui.fg },
             WhichKeyBorder = { bg = background, fg = theme.ui.fg },
@@ -74,6 +65,10 @@ return {
             MiniStatuslineFileinfo = { bg = background, fg = foreground_dim },
             MiniStatuslineFilename = { bg = background, fg = foreground_dim },
             MiniStatuslineInactive = { bg = background, fg = foreground_dim },
+            NeoTreeDimTexta = { fg = foreground_dim },
+            NeoTreeFileName = { fg = theme.ui.fg },
+            NeoTreeDirectoryName = { fg = highlight },
+            NeoTreeRootName = { fg = highlight },
           }
         end,
       }
