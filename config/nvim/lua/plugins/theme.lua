@@ -41,16 +41,17 @@ return {
           local background = '#000000'
           local foreground_dim = '#333333'
           local highlight = '#c4b28a'
+          local mega_highlight = '#DB2777'
           return {
             LineNr = { fg = foreground_dim },
             NormalFloat = { bg = background },
             FloatBorder = { bg = 'none' },
             FloatTitle = { bg = background },
             UfoFoldedBg = { bg = 'none' },
-            UfoFoldedFg = { fg = highlight },
-            UfoCursorFoldedLine = { fg = highlight },
-            Folded = { fg = highlight, bg = 'none' },
-            UfoFoldedMoreMsg = { fg = highlight },
+            UfoFoldedFg = { fg = 'none' },
+            UfoCursorFoldedLine = { fg = 'none' },
+            Folded = { fg = 'none', bg = 'none' },
+            UfoFoldedMoreMsg = { fg = mega_highlight },
             LazyNormal = { bg = background, fg = theme.ui.fg },
             MasonNormal = { bg = background, fg = theme.ui.fg },
             WhichKeyBorder = { bg = background, fg = theme.ui.fg },

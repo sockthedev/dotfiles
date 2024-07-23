@@ -12,6 +12,13 @@ return {
           border = 'single',
           padding = { 1, 1 },
         },
+        layout = {
+          spacing = 2,
+        },
+        icons = {
+          mappings = false,
+          colors = false,
+        },
       }
 
       -- Document existing key chains
@@ -20,10 +27,11 @@ return {
         { '<C-g>', group = '[G]pt' },
         { '<leader>c', group = '[c]ode' },
         { '<leader>cs', group = '[s]wap' },
+        { '<leader>d', group = '[d]ap' },
         { '<leader>f', group = '[f]ind and replace' },
         { '<leader>g', group = '[g]it' },
         { '<leader>l', group = '[l]sp' },
-        { '<leader>p', group = '[p]ersistence' },
+        { '<leader>s', group = '[s]ession' },
         { '<leader>t', group = '[t]elescope' },
         { '<leader>u', group = '[u]nit tests' },
       }

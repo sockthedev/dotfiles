@@ -21,13 +21,13 @@ return {
       )
       vim.keymap.set(
         'n',
-        '<leader>sc',
+        '<leader>fc',
         "<cmd>lua require('spectre').open_file_search({ is_insert_mode = true })<cr>",
         { desc = '[c]urrent file' }
       )
       vim.keymap.set(
         'n',
-        '<leader>ssw',
+        '<leader>ff',
         "<cmd>lua require('spectre').open_file_search({select_word=true})<cr>",
         { desc = 'Replace word current [f]ile' }
       )
@@ -57,14 +57,22 @@ return {
     config = function()
       require('persistence').setup { options = { 'buffers', 'curdir', 'tabpages', 'winsize', 'help' } }
 
-      vim.keymap.set('n', '<leader>pl', "<cmd>lua require('persistence').load()<cr>", { desc = 'Restore Session' })
+      vim.keymap.set('n', '<leader>sr', function()
+        require('persistence').load()
+      end, { desc = '[r]estore session' })
 
-      vim.keymap.set(
-        'n',
-        '<leader>pd',
-        "<cmd>lua require('persistence').stop()<cr>",
-        { desc = "Don't Save Current Session" }
-      )
+      vim.keymap.set('n', '<leader>ss', function()
+        require('persistence').select()
+      end, { desc = '[s]elect session' })
+
+      vim.keymap.set('n', '<leader>sd', function()
+        require('persistence').stop()
+      end, { desc = '[d]isable session saving' })
+
+      -- load the last session
+      vim.keymap.set('n', '<leader>sl', function()
+        require('persistence').load { last = true }
+      end, { desc = 'restore [l]ast session' })
     end,
   },
 
