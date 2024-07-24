@@ -151,10 +151,9 @@ return {
       require('ccc').setup {
         highlighter = {
           auto_enable = true,
-          lsp = true,
+          lsp = false, -- i think doing this would enable tailwindcss colorizer, which is buggy
           filetypes = {
             'css',
-            -- 'tailwind',
             'typescript',
             'typescriptreact',
             'html',

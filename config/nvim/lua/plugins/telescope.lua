@@ -21,9 +21,6 @@ return {
 
       -- File browser
       'nvim-telescope/telescope-file-browser.nvim',
-
-      -- Declare Harpoon so we can use it in the telescope configuration
-      'ThePrimeagen/harpoon',
     },
     config = function()
       -- Two important keymaps to use while in telescope are:
@@ -71,9 +68,6 @@ return {
       -- File browser extension
       require('telescope').load_extension 'file_browser'
 
-      -- Harpoon extension
-      require('telescope').load_extension 'harpoon'
-
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>tB', ':Telescope file_browser<CR>', { desc = 'File [B]rowser (root)' })
@@ -90,7 +84,6 @@ return {
       vim.keymap.set('n', '<leader>tw', builtin.grep_string, { desc = '[w]ord' })
       vim.keymap.set('n', '<leader>tg', builtin.live_grep, { desc = '[g]rep' })
       vim.keymap.set('n', '<leader>td', builtin.diagnostics, { desc = '[d]iagnostics' })
-      vim.keymap.set('n', '<leader>tm', '<cmd>Telescope harpoon marks<cr>', { desc = '[m]arks' })
       vim.keymap.set('n', '<leader>tr', builtin.resume, { desc = '[R]esume' })
       vim.keymap.set('n', '<leader>t.', builtin.oldfiles, { desc = 'Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader>.', builtin.oldfiles, { desc = 'Recent Files ("." for repeat)' })

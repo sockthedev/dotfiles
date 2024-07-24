@@ -148,7 +148,14 @@ return {
       -- Enable the following language servers
       -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
       local servers = {
-        bashls = {},
+        bashls = {
+          filetypes = { 'sh', 'zsh' },
+          settings = {
+            bash = {
+              filetypes = { 'sh', 'zsh' },
+            },
+          },
+        },
         cssls = {},
         docker_compose_language_service = {},
         dockerls = {},
@@ -288,6 +295,16 @@ return {
           end,
         },
       }
+
+      -- disable the diagnostics for .env files
+      local group = vim.api.nvim_create_augroup('__env', { clear = true })
+      vim.api.nvim_create_autocmd('BufEnter', {
+        pattern = { '.env', '.env.*' },
+        group = group,
+        callback = function(args)
+          vim.diagnostic.disable(args.buf)
+        end,
+      })
 
       -- UI style configuration
       vim.lsp.handlers['textDocument/hover'] =
