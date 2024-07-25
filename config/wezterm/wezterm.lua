@@ -159,7 +159,7 @@ config.tab_max_width = 80
 -- WARN: Keep this inline with the tint.nvim config
 config.inactive_pane_hsb = {
 	saturation = 1,
-	brightness = 0.6,
+	brightness = 0.7,
 }
 config.window_padding = {
 	left = 0,
