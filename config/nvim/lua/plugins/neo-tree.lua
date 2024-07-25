@@ -24,10 +24,6 @@ return {
         enable_git_status = false,
         enable_diagnostics = false,
         default_component_configs = {
-          indent = {
-            expander_collapsed = '+',
-            expander_expanded = '-',
-          },
           file_size = { enabled = false },
           type = { enabled = false },
           last_modified = { enabled = false },

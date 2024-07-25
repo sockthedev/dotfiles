@@ -302,6 +302,7 @@ return {
         pattern = { '.env', '.env.*' },
         group = group,
         callback = function(args)
+          ---@diagnostic disable-next-line: deprecated
           vim.diagnostic.disable(args.buf)
         end,
       })

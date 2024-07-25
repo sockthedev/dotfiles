@@ -34,6 +34,7 @@ return {
         { '<leader>s', group = '[s]ession' },
         { '<leader>t', group = '[t]elescope' },
         { '<leader>u', group = '[u]nit tests' },
+        { '<leader>x', group = 'diagnosti[x]' },
       }
     end,
   },

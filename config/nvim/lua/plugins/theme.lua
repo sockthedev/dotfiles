@@ -13,6 +13,19 @@ return {
     end,
   },
 
+  -- tint inactive
+  -- WARN: Keep this inline with the wezterm config
+  {
+    'levouh/tint.nvim',
+    config = function()
+      require('tint').setup {
+        tint = -40,
+        saturation = 1,
+      }
+    end,
+  },
+
+  -- theme
   {
     'sho-87/kanagawa-paper.nvim',
     enabled = true,
@@ -45,7 +58,10 @@ return {
           return {
             LineNr = { fg = foreground_dim },
             NormalFloat = { bg = background },
-            FloatBorder = { bg = 'none' },
+            FloatBorder = { bg = background, fg = theme.ui.fg },
+            WinSeparator = { fg = foreground_dim },
+            BufferLineSeparator = { fg = foreground_dim },
+            VertSplit = { fg = foreground_dim },
             FloatTitle = { bg = background },
             UfoFoldedBg = { bg = 'none' },
             UfoFoldedFg = { fg = 'none' },
@@ -73,6 +89,8 @@ return {
             MiniStatuslineInactive = { bg = background, fg = foreground_dim },
             NeoTreeDimTexta = { fg = foreground_dim },
             NeoTreeFileName = { fg = theme.ui.fg },
+            -- NeoTreeDotfile = { fg = 'none' },
+            -- NeoTreeDimText = { fg = 'none' },
             NeoTreeDirectoryName = { fg = highlight },
             NeoTreeRootName = { fg = highlight },
           }
@@ -81,115 +99,6 @@ return {
 
       -- setup must be called before loading
       vim.cmd 'colorscheme kanagawa-paper'
-    end,
-  },
-
-  {
-    'catppuccin/nvim',
-    enabled = false,
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require('catppuccin').setup {
-        flavour = 'macchiato',
-        background = {
-          light = 'latte',
-          dark = 'macchiato',
-        },
-        transparent_background = true, -- disables setting the background color.
-        show_end_of_buffer = true, -- shows the '~' characters after the end of buffers
-        term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
-        no_italic = false, -- Force no italic
-        no_bold = false, -- Force no bold
-        no_underline = false, -- Force no underline
-        integrations = {
-          cmp = true,
-          fidget = true,
-          gitsigns = true,
-          harpoon = true,
-          nvimtree = true,
-          neotest = true,
-          treesitter = true,
-          notify = false,
-          mini = {
-            enabled = true,
-            indentscope_color = '',
-          },
-          which_key = true,
-        },
-      }
-
-      -- vim.cmd.colorscheme 'catppuccin-macchiato'
-    end,
-  },
-
-  {
-    'folke/tokyonight.nvim',
-    enabled = false,
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require('tokyonight').setup {
-        style = 'night',
-        styles = {
-          sidebars = 'transparent',
-          floats = 'transparent',
-        },
-        on_highlights = function(hl, c)
-          -- local prompt = c.bg_dark
-          local prompt = nil
-          hl.TelescopeNormal = {
-            bg = prompt,
-            fg = c.fg_dark,
-          }
-          hl.TelescopeBorder = {
-            bg = prompt,
-            fg = prompt,
-          }
-          hl.TelescopePromptNormal = {
-            bg = prompt,
-          }
-          hl.TelescopePromptBorder = {
-            bg = prompt,
-            fg = prompt,
-          }
-          hl.TelescopePromptTitle = {
-            bg = prompt,
-            fg = prompt,
-          }
-          hl.TelescopePreviewTitle = {
-            bg = prompt,
-            fg = prompt,
-          }
-          hl.TelescopeResultsTitle = {
-            bg = prompt,
-            fg = prompt,
-          }
-        end,
-      }
-      -- vim.cmd [[
-      --   colorscheme tokyonight-night
-      --   echo " "
-      -- ]]
-    end,
-  },
-
-  {
-    'rose-pine/neovim',
-    name = 'rose-pine',
-    enabled = false,
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require('rose-pine').setup {
-        disable_background = true,
-        styles = {
-          italic = false,
-          transparency = true,
-        },
-      }
-
-      -- vim.cmd 'colorscheme rose-pine'
     end,
   },
 }
