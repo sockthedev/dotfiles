@@ -1,6 +1,9 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 
+# Add MySQL client to PATH
+export PATH="/opt/homebrew/opt/mysql-client@8.4/bin:$PATH"
+
 # Add GOBIN to PATH
 export PATH=$PATH:$HOME/go/bin
 
@@ -34,8 +37,6 @@ plugins=(
   git
   nvm
   pyenv
-  zsh-syntax-highlighting
-  zsh-autosuggestions
   starship
 )
 
@@ -61,10 +62,6 @@ autoload -Uz compinit && compinit
 # AWSume alias to source the AWSume script
 alias awsume="source \$(pyenv which awsume)"
 
-# Auto-Complete function for AWSume
-fpath=(~/.awsume/zsh-autocomplete/ $fpath)
-
-
 # enable "z" - recent directory jumping
 . /opt/homebrew/etc/profile.d/z.sh
 
@@ -74,13 +71,22 @@ source <(fzf --zsh)
 # fzf key bindings
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# list processes listening on ports
+alias check_ports="sudo lsof -iTCP -sTCP:LISTEN -n -P | awk 'NR>1 {print \$9, \$1, \$2}' | sed 's/.*://' | while read port process pid; do echo \"Port \$port: \$(ps -p \$pid -o command= | sed 's/^-//') (PID: \$pid)\"; done | sort -n"
+
 # find directory in current directory
 function fcd() {
   local dir
   dir=$(fd -t d . | fzf) && cd "$dir"
 }
 
-  # find directory in "code/work" directory
+# find directory in user directory
+function fcu() {
+  local dir
+  dir=$(fd -t d ~/ | fzf) && cd "$dir"
+}
+
+  # find directory in "code" directory
 function fcw() {
   local dir
   dir=$(fd -t d . ~/code | fzf) && cd "$dir"
@@ -91,12 +97,6 @@ function fcz() {
   local dir
   dir=$(z -l 2>&1 | awk 'NR>1 {print substr($0, index($0,$2))}' | fzf) && cd "$dir"
 }
-
-# sdkman
-# THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
 alias v='nvim'
 
 # nuke node_modules relative to current directory (nested instances too)
@@ -116,3 +116,8 @@ load-nvmrc
 
 # increase file watch limit for development
 ulimit -n 61440
+
+# sdkman
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+

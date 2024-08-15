@@ -6,6 +6,16 @@ return {
       require('spectre').setup {
         is_open_target_win = false,
         is_close = true,
+        replace_engine = {
+          ['sed'] = {
+            -- This will stop "-E" files being created
+            args = {
+              '-i',
+              '',
+              '-E',
+            },
+          },
+        },
       }
       vim.keymap.set(
         'n',

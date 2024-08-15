@@ -6,6 +6,25 @@ local config = wezterm.config_builder()
 config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 2500 }
 config.disable_default_key_bindings = true
 config.keys = {
+	-- create window
+	{
+		mods = "CTRL | SHIFT",
+		key = "n",
+		action = wezterm.action.SpawnWindow,
+	},
+	-- toggle window level
+	{
+		mods = "CTRL | SHIFT",
+		key = "o",
+		action = wezterm.action_callback(function(window, pane)
+			local level = window:get_window_level()
+			if level == "Normal" then
+				window:set_window_level("AlwaysOnTop")
+			else
+				window:set_window_level("Normal")
+			end
+		end),
+	},
 	-- create tabs
 	{
 		mods = "CTRL | SHIFT",
@@ -91,10 +110,10 @@ config.keys = {
 		key = "z",
 		action = wezterm.action.TogglePaneZoomState,
 	},
-	-- close pane
+	-- quite / close pane
 	{
 		mods = "CTRL | SHIFT",
-		key = "x",
+		key = "q",
 		action = wezterm.action.CloseCurrentPane({ confirm = false }),
 	},
 	-- rotate panes
@@ -141,7 +160,13 @@ config.keys = {
 		action = wezterm.action.IncreaseFontSize,
 	},
 }
-config.font = wezterm.font("Berkeley Mono")
+-- config.font = wezterm.font("3270SemiCondensed Nerd Font Mono")
+-- config.font = wezterm.font("Operator Mono SSm", { weight = "Book" })
+-- config.font = wezterm.font("MonoLisa")
+-- config.font = wezterm.font("JetBrains Mono", { weight = "Regular" })
+-- config.font = wezterm.font("IntelOne Mono", { weight = "Regular" })
+-- config.font = wezterm.font("Andale Mono", { weight = "Regular" })
+config.font = wezterm.font("Berkeley Mono", { weight = "Regular" })
 config.font_size = 13
 config.line_height = 1.2
 config.scrollback_lines = 10000

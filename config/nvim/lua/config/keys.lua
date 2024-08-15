@@ -25,7 +25,9 @@ vim.keymap.set('v', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 
 -- Create splits
 vim.keymap.set('n', '<C-w>\\', '<cmd>vsplit<cr>', { silent = true, desc = 'Vertical split' })
+vim.keymap.set('n', '\\', '<cmd>vsplit<cr>', { silent = true, desc = 'Vertical split' })
 vim.keymap.set('n', "<C-w>'", '<cmd>split<cr>', { silent = true, desc = 'Horizontal split' })
+vim.keymap.set('n', "'", '<cmd>split<cr>', { silent = true, desc = 'Horizontal split' })
 vim.keymap.set('n', '<C-w>=', '<cmd>wincmd =<cr>', { silent = true, desc = 'Make all splits equal size' })
 
 -- Insert empty lines without going into insert mode
@@ -71,7 +73,7 @@ function ToggleRelativeLineNumber()
 end
 vim.keymap.set(
   'n',
-  '<leader>cl',
+  '<leader>cr',
   '<cmd>lua ToggleRelativeLineNumber()<cr>',
-  { desc = 'Toggle relative [l]ine numbers' }
+  { desc = 'Toggle [r]elative line numbers' }
 )

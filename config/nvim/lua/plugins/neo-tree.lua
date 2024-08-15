@@ -31,7 +31,7 @@ return {
         },
         filesystem = {
           filtered_items = {
-            visible = false,
+            visible = true,
           },
           -- follow_current_file = true,
           components = {

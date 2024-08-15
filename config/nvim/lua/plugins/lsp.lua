@@ -291,6 +291,17 @@ return {
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for tsserver)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+
+            -- FIXME: workaround for https://github.com/neovim/neovim/issues/28058
+            for _, v in pairs(server) do
+              if type(v) == 'table' and v.workspace then
+                v.workspace.didChangeWatchedFiles = {
+                  dynamicRegistration = false,
+                  relativePatternSupport = false,
+                }
+              end
+            end
+
             require('lspconfig')[server_name].setup(server)
           end,
         },

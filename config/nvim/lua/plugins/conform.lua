@@ -13,7 +13,8 @@ return {
         end,
         formatters_by_ft = {
           css = { 'prettierd' },
-          go = { 'goimports', 'gofmt' },
+          -- go = { 'gofmt' },
+          go = { 'goimports' }, -- goimports does the same as gofmt and manages imports
           graphql = { 'prettierd' },
           html = { 'prettierd' },
           javascript = { 'prettierd' },
