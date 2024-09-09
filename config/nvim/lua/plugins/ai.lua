@@ -88,19 +88,20 @@ return {
             name = 'ChatGPT4',
             chat = true,
             command = false,
-            model = { model = 'gpt-4o', temperature = 1.1, top_p = 1 },
+            model = { model = 'chatgpt-4o-latest', temperature = 1.1, top_p = 1 },
             system_prompt = 'You are an AI assistant to a senior full stack engineer.\n\n'
               .. 'The user provided the additional info about how they would like you to respond:\n\n'
               .. '- Keep your answers concise. Only provide detail if requested to do so.\n'
               .. '- If your answers includes adjusted code in response to a provided code sample, then prefer to show just the minimal differences needed to understand and apply the change. Only provide full code samples if requested to do so.\n'
               .. "- If you're unsure don't guess and say you don't know instead.\n"
-              .. '- Ask questions if you need clarification to provide better answer.\n',
+              .. '- Ask questions if you need clarification to provide better answer.\n'
+              .. '- DO NOT HALLUCINATE.\n',
           },
           {
             name = 'CodeGPT4',
             chat = false,
             command = true,
-            model = { model = 'gpt-4o', temperature = 0.8, top_p = 1 },
+            model = { model = 'chatgpt-4o-latest', temperature = 0.8, top_p = 1 },
             system_prompt = 'You are an AI working as a code editor.\n\n'
               .. 'Please AVOID COMMENTARY OUTSIDE OF THE SNIPPET RESPONSE.\n'
               .. 'START AND END YOUR ANSWER WITH:\n\n```',
