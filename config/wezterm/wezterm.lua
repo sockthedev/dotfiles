@@ -180,11 +180,16 @@ config.enable_tab_bar = true
 config.use_fancy_tab_bar = false
 config.show_new_tab_button_in_tab_bar = false
 config.switch_to_last_active_tab_when_closing_tab = true
+config.send_composed_key_when_left_alt_is_pressed = false
 config.tab_max_width = 80
--- WARN: Keep this inline with the tint.nvim config
+-- WARN: If using this, keep this inline with the tint.nvim config
+-- config.inactive_pane_hsb = {
+-- 	saturation = 1,
+-- 	brightness = 0.7,
+-- }
 config.inactive_pane_hsb = {
 	saturation = 1,
-	brightness = 0.7,
+	brightness = 1,
 }
 config.window_padding = {
 	left = 0,

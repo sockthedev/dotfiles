@@ -275,7 +275,9 @@ return {
       }
 
       -- You can add other tools here that you want Mason to install for you, so that they are available from within Neovim.
-      local ensure_installed = vim.tbl_keys(servers or {})
+      local ensure_installed = vim.tbl_map(function(key)
+        return key == 'tsserver' and 'ts_ls' or key
+      end, vim.tbl_keys(servers or {}))
       vim.list_extend(ensure_installed, {
         'goimports', -- Format imports in Go (gopls includes gofmt already)
         'prettierd', -- Used to format JavaScript, TypeScript, HTML, JSON, etc.

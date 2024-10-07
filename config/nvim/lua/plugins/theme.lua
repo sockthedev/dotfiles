@@ -14,16 +14,16 @@ return {
   },
 
   -- tint inactive
-  -- WARN: Keep this inline with the wezterm config
-  {
-    'levouh/tint.nvim',
-    config = function()
-      require('tint').setup {
-        tint = -30,
-        saturation = 1,
-      }
-    end,
-  },
+  -- WARN: If using this, keep this inline with the wezterm config
+  -- {
+  --   'levouh/tint.nvim',
+  --   config = function()
+  --     require('tint').setup {
+  --       tint = -30,
+  --       saturation = 1,
+  --     }
+  --   end,
+  -- },
 
   -- theme
   {
@@ -60,8 +60,12 @@ return {
             NormalFloat = { bg = background },
             FloatBorder = { bg = background, fg = theme.ui.fg },
             WinSeparator = { fg = foreground_dim },
+            VertSplit = { link = 'WinSeparator' },
             BufferLineSeparator = { fg = foreground_dim },
-            VertSplit = { fg = foreground_dim },
+            BufferLineSeparatorActive = { fg = foreground_dim },
+            BufferlineTabSeparator = { fg = foreground_dim },
+            BufferlineTabSeparatorSelected = { fg = foreground_dim },
+            BufferlineSelectedSeparator = { fg = foreground_dim },
             FloatTitle = { bg = background },
             UfoFoldedBg = { bg = 'none' },
             UfoFoldedFg = { fg = 'none' },

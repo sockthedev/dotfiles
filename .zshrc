@@ -1,6 +1,9 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 
+# Add Docker to PATH
+export PATH="$HOME/.docker/bin:$PATH"
+
 # Add MySQL client to PATH
 export PATH="/opt/homebrew/opt/mysql-client@8.4/bin:$PATH"
 
