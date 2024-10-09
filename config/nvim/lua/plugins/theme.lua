@@ -13,18 +13,6 @@ return {
     end,
   },
 
-  -- tint inactive
-  -- WARN: If using this, keep this inline with the wezterm config
-  -- {
-  --   'levouh/tint.nvim',
-  --   config = function()
-  --     require('tint').setup {
-  --       tint = -30,
-  --       saturation = 1,
-  --     }
-  --   end,
-  -- },
-
   -- theme
   {
     'sho-87/kanagawa-paper.nvim',
@@ -51,7 +39,7 @@ return {
         }, -- override default palette and theme colors
         overrides = function(colors)
           local theme = colors.theme
-          local background = '#000000'
+          local background = '#191919'
           local foreground_dim = '#333333'
           local highlight = '#c4b28a'
           local mega_highlight = '#DB2777'
