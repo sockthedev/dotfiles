@@ -4,7 +4,7 @@ return {
     branch = 'v3.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      -- 'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
+      'nvim-tree/nvim-web-devicons',
       'MunifTanjim/nui.nvim',
       {
         's1n7ax/nvim-window-picker',
@@ -34,14 +34,14 @@ return {
             visible = true,
           },
           -- follow_current_file = true,
-          components = {
-            icon = function(config, node, state)
-              if node.type == 'file' or node.type == 'directory' then
-                return {}
-              end
-              return require('neo-tree.sources.common.components').icon(config, node, state)
-            end,
-          },
+          -- components = {
+          --   icon = function(config, node, state)
+          --     if node.type == 'file' or node.type == 'directory' then
+          --       return {}
+          --     end
+          --     return require('neo-tree.sources.common.components').icon(config, node, state)
+          --   end,
+          -- },
         },
       }
 

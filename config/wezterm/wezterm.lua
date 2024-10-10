@@ -202,8 +202,8 @@ config.adjust_window_size_when_changing_font_size = false
 
 local background = "#191919"
 local foreground = "#DCD7BA"
-local foreground_dim = "#333333"
-local highlight = "#c4b28a"
+local foreground_dim = "#333"
+local highlight = "#aaa"
 
 config.colors = {
 	ansi = {

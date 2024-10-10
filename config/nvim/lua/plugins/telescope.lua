@@ -18,9 +18,6 @@ return {
 
       -- Pretty icons
       { 'nvim-tree/nvim-web-devicons' },
-
-      -- File browser
-      'nvim-telescope/telescope-file-browser.nvim',
     },
     config = function()
       -- Two important keymaps to use while in telescope are:
@@ -65,26 +62,18 @@ return {
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
 
-      -- File browser extension
-      require('telescope').load_extension 'file_browser'
+      -- NOTE: There are other Telescope key mappings in other files, like the LSP.
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
-      vim.keymap.set('n', '<leader>tB', ':Telescope file_browser<CR>', { desc = 'File [B]rowser (root)' })
-      vim.keymap.set(
-        'n',
-        '<leader>tb',
-        ':Telescope file_browser path=%:p:h select_buffer=true<CR>',
-        { desc = 'File [B]rowser (buffer)' }
-      )
+      vim.keymap.set('n', '<leader>td', builtin.diagnostics, { desc = '[d]iagnostics' })
+      vim.keymap.set('n', '<leader>tf', builtin.find_files, { desc = '[f]iles' })
+      vim.keymap.set('n', '<leader>tg', builtin.live_grep, { desc = '[g]rep' })
       vim.keymap.set('n', '<leader>th', builtin.help_tags, { desc = '[h]elp' })
       vim.keymap.set('n', '<leader>tk', builtin.keymaps, { desc = '[k]eymaps' })
-      vim.keymap.set('n', '<leader>tf', builtin.find_files, { desc = '[f]iles' })
-      vim.keymap.set('n', '<leader>tc', builtin.builtin, { desc = '[c]hoose telescope type' })
-      vim.keymap.set('n', '<leader>tw', builtin.grep_string, { desc = '[w]ord' })
-      vim.keymap.set('n', '<leader>tg', builtin.live_grep, { desc = '[g]rep' })
-      vim.keymap.set('n', '<leader>td', builtin.diagnostics, { desc = '[d]iagnostics' })
       vim.keymap.set('n', '<leader>tr', builtin.resume, { desc = '[R]esume' })
+      vim.keymap.set('n', '<leader>tt', builtin.builtin, { desc = 'choose [t]elescope type' })
+      vim.keymap.set('n', '<leader>tw', builtin.grep_string, { desc = 'current [w]ord' })
       vim.keymap.set('n', '<leader>t.', builtin.oldfiles, { desc = 'Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader>.', builtin.oldfiles, { desc = 'Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
