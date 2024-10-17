@@ -25,9 +25,6 @@ return {
 
       -- VSCode-like pictograms
       'onsails/lspkind-nvim',
-
-      -- Tailwind color support
-      { 'roobert/tailwindcss-colorizer-cmp.nvim', config = true },
     },
     config = function()
       -- See `:help cmp`
@@ -119,9 +116,13 @@ return {
           { name = 'buffer' },
         },
         formatting = {
-          format = function(entry, item)
-            format_kinds(entry, item)
-            return require('tailwindcss-colorizer-cmp').formatter(entry, item)
+          fields = { 'kind', 'abbr', 'menu' },
+          format = function(entry, vim_item)
+            local kind = require('lspkind').cmp_format { mode = 'symbol_text', maxwidth = 50 }(entry, vim_item)
+            local strings = vim.split(kind.kind, '%s', { trimempty = true })
+            kind.kind = ' ' .. (strings[1] or '') .. ' '
+            kind.menu = '    (' .. (strings[2] or '') .. ')'
+            return kind
           end,
         },
       }

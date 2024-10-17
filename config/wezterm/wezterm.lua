@@ -4,8 +4,14 @@ local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smar
 local config = wezterm.config_builder()
 
 config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 2500 }
-config.disable_default_key_bindings = true
+config.disable_default_key_bindings = false
 config.keys = {
+	-- Disable Ctrl-Shift-L (default action: ShowDebugOverlay)
+	{
+		key = "Enter",
+		mods = "ALT",
+		action = wezterm.action.DisableDefaultAssignment,
+	},
 	-- create window
 	{
 		mods = "CTRL | SHIFT",
@@ -27,104 +33,104 @@ config.keys = {
 	},
 	-- create tabs
 	{
-		mods = "CTRL | SHIFT",
+		mods = "LEADER",
 		key = "t",
 		action = wezterm.action.SpawnTab("CurrentPaneDomain"),
 	},
 	-- close tab
 	{
-		mods = "CTRL | SHIFT",
+		mods = "LEADER",
 		key = "w",
 		action = wezterm.action.CloseCurrentTab({ confirm = false }),
 	},
 	-- navigate tabs
 	{
-		mods = "CTRL | SHIFT",
+		mods = "LEADER",
 		key = "[",
 		action = wezterm.action.ActivateTabRelative(-1),
 	},
 	{
-		mods = "CTRL | SHIFT",
+		mods = "LEADER",
 		key = "]",
 		action = wezterm.action.ActivateTabRelative(1),
 	},
 	{
-		mods = "CTRL | SHIFT",
+		mods = "LEADER",
 		key = "1",
 		action = wezterm.action.ActivateTab(0),
 	},
 	{
-		mods = "CTRL | SHIFT",
+		mods = "LEADER",
 		key = "2",
 		action = wezterm.action.ActivateTab(1),
 	},
 	{
-		mods = "CTRL | SHIFT",
+		mods = "LEADER",
 		key = "3",
 		action = wezterm.action.ActivateTab(2),
 	},
 	{
-		mods = "CTRL | SHIFT",
+		mods = "LEADER",
 		key = "4",
 		action = wezterm.action.ActivateTab(3),
 	},
 	{
-		mods = "CTRL | SHIFT",
+		mods = "LEADER",
 		key = "5",
 		action = wezterm.action.ActivateTab(4),
 	},
 	{
-		mods = "CTRL | SHIFT",
+		mods = "LEADER",
 		key = "6",
 		action = wezterm.action.ActivateTab(5),
 	},
 	{
-		mods = "CTRL | SHIFT",
+		mods = "LEADER",
 		key = "7",
 		action = wezterm.action.ActivateTab(6),
 	},
 	{
-		mods = "CTRL | SHIFT",
+		mods = "LEADER",
 		key = "8",
 		action = wezterm.action.ActivateTab(7),
 	},
 	{
-		mods = "CTRL | SHIFT",
+		mods = "LEADER",
 		key = "9",
 		action = wezterm.action.ActivateTab(8),
 	},
 	-- splitting panes
 	{
-		mods = "CTRL | SHIFT",
-		key = '"',
+		mods = "LEADER",
+		key = "'",
 		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
 	{
-		mods = "CTRL | SHIFT",
-		key = "|",
+		mods = "LEADER",
+		key = "\\",
 		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 	},
 	-- focus pane
 	{
-		mods = "CTRL | SHIFT",
+		mods = "LEADER",
 		key = "z",
 		action = wezterm.action.TogglePaneZoomState,
 	},
 	-- quite / close pane
 	{
-		mods = "CTRL | SHIFT",
+		mods = "LEADER",
 		key = "q",
 		action = wezterm.action.CloseCurrentPane({ confirm = false }),
 	},
 	-- rotate panes
 	{
-		mods = "CTRL | SHIFT",
+		mods = "LEADER",
 		key = "Space",
 		action = wezterm.action.RotatePanes("Clockwise"),
 	},
 	-- show the pane selection mode, but have it swap the active and selected panes
 	{
-		mods = "CTRL | SHIFT",
+		mods = "LEADER",
 		key = "0",
 		action = wezterm.action.PaneSelect({
 			mode = "SwapWithActive",
@@ -132,30 +138,30 @@ config.keys = {
 	},
 	-- activate copy mode or vim mode
 	{
-		mods = "CTRL | SHIFT",
+		mods = "LEADER",
 		key = "Enter",
 		action = wezterm.action.ActivateCopyMode,
 	},
 	-- copy and paste
 	-- NOTE: in copy mode you don't need the modifiers
 	{
-		mods = "CTRL | SHIFT",
+		mods = "LEADER",
 		key = "y",
 		action = wezterm.action.CopyTo("Clipboard"),
 	},
 	{
-		mods = "CTRL | SHIFT",
+		mods = "LEADER",
 		key = "p",
 		action = wezterm.action.PasteFrom("Clipboard"),
 	},
 	-- Font size
 	{
-		mods = "CTRL | SHIFT",
+		mods = "LEADER|SHIFT",
 		key = "-",
 		action = wezterm.action.DecreaseFontSize,
 	},
 	{
-		mods = "CTRL | SHIFT",
+		mods = "LEADER|SHIFT",
 		key = "+",
 		action = wezterm.action.IncreaseFontSize,
 	},
