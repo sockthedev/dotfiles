@@ -22,6 +22,7 @@ return {
       { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
+      'nvim-java/nvim-java',
 
       -- Displays LSP loading status
       { 'j-hui/fidget.nvim', opts = {} },
@@ -98,33 +99,34 @@ return {
           --  See `:help K` for why this keymap
           map('K', vim.lsp.buf.hover, 'Do[k]umentation')
 
-          -- The following two autocommands are used to highlight references of the
-          -- word under your cursor when your cursor rests there for a little while.
-          --    See `:help CursorHold` for information about when this is executed
-          --
-          -- When you move your cursor, the highlights will be cleared (the second autocommand).
+          -- The following is our configuration to enable highlighting words under cursor based on the LSP
           local client = vim.lsp.get_client_by_id(event.data.client_id)
           if client and client.server_capabilities.documentHighlightProvider then
-            local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
-            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-              buffer = event.buf,
-              group = highlight_augroup,
-              callback = vim.lsp.buf.document_highlight,
-            })
+            -- vim.api.nvim_create_autocmd('LspDetach', {
+            --   group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
+            --   callback = function(event4)
+            --     vim.lsp.buf.clear_references()
+            --     vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event4.buf }
+            --   end,
+            -- })
 
-            vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-              buffer = event.buf,
-              group = highlight_augroup,
-              callback = vim.lsp.buf.clear_references,
-            })
+            local function highlight_word()
+              vim.lsp.buf.clear_references()
+              vim.lsp.buf.document_highlight()
+            end
 
-            vim.api.nvim_create_autocmd('LspDetach', {
-              group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
-              callback = function(event4)
-                vim.lsp.buf.clear_references()
-                vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event4.buf }
-              end,
-            })
+            vim.keymap.set(
+              'n',
+              '<leader>ch',
+              highlight_word,
+              { noremap = true, silent = true, buffer = event.buf, desc = '[h]ighlight' }
+            )
+            vim.keymap.set(
+              'n',
+              '<leader>cx',
+              vim.lsp.buf.clear_references,
+              { noremap = true, silent = true, buffer = event.buf, desc = 'Clear Highlight [x]' }
+            )
           end
 
           -- The following autocommand is used to enable inlay hints in your
@@ -132,9 +134,9 @@ return {
           --
           -- This may be unwanted, since they displace some of your code
           if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-            vim.keymap.set('n', '<leader>ch', function()
+            vim.keymap.set('n', '<leader>ci', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-            end, { buffer = event.buf, desc = 'Inlay [h]ints' })
+            end, { buffer = event.buf, desc = 'Toggle [I]nlays' })
           end
         end,
       })
@@ -198,6 +200,7 @@ return {
             },
           },
         },
+        kotlin_language_server = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -288,6 +291,7 @@ return {
         'goimports', -- Format imports in Go (gopls includes gofmt already)
         'prettierd', -- Used to format JavaScript, TypeScript, HTML, JSON, etc.
         'stylua', -- Used to format Lua code
+        'ktlint', -- Used to format (and lint) Kotlin code
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -312,6 +316,15 @@ return {
             end
 
             require('lspconfig')[server_name].setup(server)
+          end,
+          jdtls = function()
+            require('java').setup {
+              -- Your custom jdtls settings goes here
+            }
+
+            require('lspconfig').jdtls.setup {
+              -- Your custom nvim-java configuration goes here
+            }
           end,
         },
       }

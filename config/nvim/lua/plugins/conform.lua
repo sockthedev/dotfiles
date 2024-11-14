@@ -9,7 +9,7 @@ return {
           if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
             return
           end
-          return { timeout_ms = 500, lsp_fallback = true }
+          return { timeout_ms = 1000, lsp_fallback = true }
         end,
         formatters_by_ft = {
           css = { 'prettierd' },
@@ -20,6 +20,7 @@ return {
           javascript = { 'prettierd' },
           javascriptreact = { 'prettierd' },
           json = { 'prettierd' },
+          kotlin = { 'ktlint' },
           lua = { 'stylua' },
           markdown = { 'prettierd' },
           python = { 'ruff_format' },

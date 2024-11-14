@@ -100,7 +100,10 @@ function fcz() {
   local dir
   dir=$(z -l 2>&1 | awk 'NR>1 {print substr($0, index($0,$2))}' | fzf) && cd "$dir"
 }
+
 alias v='nvim'
+
+alias g='./gradlew'
 
 # nuke node_modules relative to current directory (nested instances too)
 alias nukem="find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' +"
