@@ -76,8 +76,31 @@ return {
   {
     'robitx/gp.nvim',
     config = function()
+      local chat_system_prompt = 'You are an AI assistant to an experienced full stack web developer.\n\n'
+        .. 'The user provided the additional info about how they would like you to respond:\n\n'
+        .. '- Keep your answers concise, unless explicitly asked to do so.\n'
+        .. '- Do not provide explanations, unless explicitly asked to do so.\n'
+        .. '- When helping to modify or understand existing code only show the minimal changes needed\n'
+        .. '- Do not make guesses - rather say you are unsure.\n'
+        .. '- Ask questions if you need clarification.\n'
+        .. '- DO NOT HALLUCINATE.\n'
+        .. '- Think about your answers.\n'
+
+      local code_system_prompt = 'You are an AI working as a code editor.\n\n'
+        .. 'Please AVOID COMMENTARY OUTSIDE OF THE SNIPPET RESPONSE.\n'
+        .. 'START AND END YOUR ANSWER WITH:\n\n```'
+
       require('gp').setup {
-        openai_api_key = { 'cat', os.getenv 'HOME' .. '/.openai_api_key' },
+        providers = {
+          openai = {
+            disable = false,
+            secret = { 'cat', os.getenv 'HOME' .. '/.openai_api_key' },
+          },
+          anthropic = {
+            disable = false,
+            secret = { 'cat', os.getenv 'HOME' .. '/.anthropic_api_key' },
+          },
+        },
         -- default command agents (model + persona)
         -- name, model and system_prompt are mandatory fields
         -- to use agent for chat set chat = true, for command set command = true
@@ -85,26 +108,36 @@ return {
         -- agents = {  { name = "ChatGPT4" }, ... },
         agents = {
           {
-            name = 'ChatGPT4',
+            provider = 'anthropic',
+            name = 'ChatAnthropic',
             chat = true,
             command = false,
-            model = { model = 'chatgpt-4o-latest', temperature = 1.1, top_p = 1 },
-            system_prompt = 'You are an AI assistant to a senior full stack engineer.\n\n'
-              .. 'The user provided the additional info about how they would like you to respond:\n\n'
-              .. '- Keep your answers concise. Only provide detail if requested to do so.\n'
-              .. '- If your answers includes adjusted code in response to a provided code sample, then prefer to show just the minimal differences needed to understand and apply the change. Only provide full code samples if requested to do so.\n'
-              .. "- If you're unsure don't guess and say you don't know instead.\n"
-              .. '- Ask questions if you need clarification to provide better answer.\n'
-              .. '- DO NOT HALLUCINATE.\n',
+            model = { model = 'claude-3-5-sonnet-20241022', temperature = 0.8, top_p = 1 },
+            system_prompt = chat_system_prompt,
           },
           {
-            name = 'CodeGPT4',
+            provider = 'anthropic',
+            name = 'CodeAnthropic',
+            chat = false,
+            command = true,
+            model = { model = 'claude-3-5-sonnet-20241022', temperature = 0.8, top_p = 1 },
+            system_prompt = code_system_prompt,
+          },
+          {
+            provider = 'openai',
+            name = 'ChatOpenAI',
+            chat = true,
+            command = false,
+            model = { model = 'chatgpt-4o-latest', temperature = 0.8, top_p = 1 },
+            system_prompt = chat_system_prompt,
+          },
+          {
+            provider = 'openai',
+            name = 'CodeOpenAI',
             chat = false,
             command = true,
             model = { model = 'chatgpt-4o-latest', temperature = 0.8, top_p = 1 },
-            system_prompt = 'You are an AI working as a code editor.\n\n'
-              .. 'Please AVOID COMMENTARY OUTSIDE OF THE SNIPPET RESPONSE.\n'
-              .. 'START AND END YOUR ANSWER WITH:\n\n```',
+            system_prompt = code_system_prompt,
           },
         },
         hooks = {
