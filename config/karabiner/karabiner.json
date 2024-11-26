@@ -197,7 +197,8 @@
                     "ignore": true
                 }
             ],
-            "name": "neovim"
+            "name": "neovim",
+            "selected": true
         },
         {
             "devices": [
@@ -211,7 +212,6 @@
                 }
             ],
             "name": "sc",
-            "selected": true,
             "simple_modifications": [
                 {
                     "from": { "key_code": "caps_lock" },
