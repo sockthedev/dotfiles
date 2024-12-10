@@ -9,7 +9,6 @@ return {
         selected_interpreters = { 'JS_TS_bun', 'Go_original' },
         display = {
           'Terminal',
-          -- 'VirtualTextOk',
         },
         live_mode_toggle = 'off',
         live_display = { 'Terminal' },
