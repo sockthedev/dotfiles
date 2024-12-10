@@ -175,7 +175,9 @@ return {
         cssls = {},
         docker_compose_language_service = {},
         dockerls = {},
-        eslint = {},
+        eslint = {
+          root_dir = require('lspconfig').util.root_pattern('.eslintrc.json', '.eslintrc'),
+        },
         html = {},
         jsonls = {
           settings = {
@@ -367,5 +369,14 @@ return {
   {
     'dmmulroy/ts-error-translator.nvim',
     opts = {},
+  },
+
+  -- A panel to view the logs from your LSP servers.
+  {
+    'mhanberg/output-panel.nvim',
+    event = 'VeryLazy',
+    config = function()
+      require('output_panel').setup()
+    end,
   },
 }

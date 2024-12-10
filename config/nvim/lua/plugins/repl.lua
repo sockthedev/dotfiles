@@ -3,18 +3,16 @@ return {
   {
     'michaelb/sniprun',
     branch = 'master',
-    build = 'sh ./install.sh',
+    build = 'sh install.sh',
     config = function()
       require('sniprun').setup {
         selected_interpreters = { 'JS_TS_bun', 'Go_original' },
-        repl_enable = { 'JS_TS_bun' },
-        live_mode_toggle = 'enable',
-        live_display = { 'Terminal' },
-        display = { 'Classic' },
-        display_options = {
-          terminal_position = 'horizontal',
-          terminal_height = 3,
+        display = {
+          'Terminal',
+          -- 'VirtualTextOk',
         },
+        live_mode_toggle = 'off',
+        live_display = { 'Terminal' },
       }
 
       -- We wrap the call to SnipRun in a function that saves the cursor position

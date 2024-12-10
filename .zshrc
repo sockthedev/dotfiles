@@ -103,6 +103,11 @@ function fcz() {
 
 alias v='nvim'
 
+alias vm='XDG_DATA_HOME=~/.local/share/nvim-marks \
+XDG_STATE_HOME=~/.local/state/nvim-marks \
+XDG_CACHE_HOME=~/.cache/nvim-marks \
+nvim'
+
 alias g='./gradlew'
 
 # nuke node_modules relative to current directory (nested instances too)

@@ -8,6 +8,7 @@ return {
     'haydenmeade/neotest-jest',
     'nvim-neotest/nvim-nio',
     'nvim-neotest/neotest-go',
+    'codymikol/neotest-kotlin',
   },
   config = function()
     -- get neotest namespace (api call creates or returns namespace)
@@ -33,6 +34,7 @@ return {
           end,
         },
         require 'neotest-go',
+        require 'neotest-kotest',
       },
       quickfix = {
         enabled = false,

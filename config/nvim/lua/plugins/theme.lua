@@ -1,4 +1,9 @@
 return {
+  -- nice ui elements
+  {
+    'stevearc/dressing.nvim',
+    opts = {},
+  },
   -- icons
   {
     'nvim-tree/nvim-web-devicons',
