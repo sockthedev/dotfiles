@@ -230,36 +230,43 @@ return {
           },
         },
         tailwindcss = {},
-        tsserver = {
+        -- typescript lsp based off of the vscode one
+        vtsls = {
           root_dir = require('lspconfig').util.root_pattern(
             'pnpm-workspace.yaml',
-            'yarn.lock',
             'pnpm-lock.yaml',
-            '.eslintrc.json',
-            '.eslintrc',
+            'package-lock.json',
+            'yarn.lock',
+            'bun.lockb',
             '.git'
           ),
           settings = {
+            vtsls = {
+              autoUseWorkspaceTsdk = true,
+            },
             javascript = {
               inlayHints = {
-                includeInlayEnumMemberValueHints = false,
-                includeInlayFunctionLikeReturnTypeHints = false,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all';
-                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                includeInlayPropertyDeclarationTypeHints = false,
-                includeInlayVariableTypeHints = false,
+                parameterNames = {
+                  enabled = 'all',
+                  suppressWhenArgumentMatchesName = false,
+                },
+                parameterTypes = {
+                  enabled = true,
+                },
               },
             },
             typescript = {
+              tsserver = {
+                maxTsServerMemory = 6144,
+              },
               inlayHints = {
-                includeInlayEnumMemberValueHints = false,
-                includeInlayFunctionLikeReturnTypeHints = false,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all';
-                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                includeInlayPropertyDeclarationTypeHints = false,
-                includeInlayVariableTypeHints = false,
+                parameterNames = {
+                  enabled = 'all',
+                  suppressWhenArgumentMatchesName = false,
+                },
+                parameterTypes = {
+                  enabled = true,
+                },
               },
             },
           },
