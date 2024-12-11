@@ -265,7 +265,7 @@ return {
                   suppressWhenArgumentMatchesName = false,
                 },
                 parameterTypes = {
-                  enabled = true,
+                  enabled = false,
                 },
               },
             },

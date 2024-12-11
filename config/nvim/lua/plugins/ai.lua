@@ -1,5 +1,18 @@
 return {
   {
+    'supermaven-inc/supermaven-nvim',
+    config = function()
+      require('supermaven-nvim').setup {
+        keymaps = {
+          accept_suggestion = '<M-CR>',
+          clear_suggestion = '<M-[>',
+          accept_word = '<M-]>',
+        },
+      }
+    end,
+  },
+
+  {
     'robitx/gp.nvim',
     config = function()
       local chat_system_prompt = 'You are an AI assistant to an experienced full stack web developer.\n\n'
@@ -128,78 +141,78 @@ return {
     end,
   },
 
-  {
-    'zbirenbaum/copilot.lua',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    },
-    cmd = 'Copilot',
-    event = 'VimEnter',
-    config = function()
-      require('copilot').setup {
-        suggestion = {
-          auto_trigger = true,
-          keymap = {
-            accept = '<M-CR>',
-            accept_word = '<M-Right>',
-            accept_line = '<M-Down>',
-            prev = '<M-[>',
-            next = '<M-]>',
-            dismiss = '<C-]>',
-          },
-        },
-        panel = {
-          auto_refresh = false,
-          keymap = {
-            accept = '<CR>',
-            jump_prev = '<M-[>',
-            jump_next = '<M-]>',
-            refresh = 'gr',
-            open = '<M-CR>',
-          },
-        },
-      }
-    end,
-  },
+  -- {
+  --   'zbirenbaum/copilot.lua',
+  --   dependencies = {
+  --     'nvim-lua/plenary.nvim',
+  --   },
+  --   cmd = 'Copilot',
+  --   event = 'VimEnter',
+  --   config = function()
+  --     require('copilot').setup {
+  --       suggestion = {
+  --         auto_trigger = true,
+  --         keymap = {
+  --           accept = '<M-CR>',
+  --           accept_word = '<M-Right>',
+  --           accept_line = '<M-Down>',
+  --           prev = '<M-[>',
+  --           next = '<M-]>',
+  --           dismiss = '<C-]>',
+  --         },
+  --       },
+  --       panel = {
+  --         auto_refresh = false,
+  --         keymap = {
+  --           accept = '<CR>',
+  --           jump_prev = '<M-[>',
+  --           jump_next = '<M-]>',
+  --           refresh = 'gr',
+  --           open = '<M-CR>',
+  --         },
+  --       },
+  --     }
+  --   end,
+  -- },
 
-  {
-    'CopilotC-Nvim/CopilotChat.nvim',
-    branch = 'main',
-    dependencies = {
-      { 'zbirenbaum/copilot.lua' }, -- or github/copilot.vim
-      { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper
-    },
-    build = 'make tiktoken',
-    config = function()
-      require('CopilotChat').setup {
-        -- See Configuration section for rest
-      }
-
-      local function keymapOptions(desc)
-        return {
-          noremap = true,
-          silent = true,
-          nowait = true,
-          desc = desc,
-        }
-      end
-
-      -- Chat commands
-      vim.keymap.set({ 'n', 'i' }, '<C-c>c', '<cmd>CopilotChatOpen<cr>', keymapOptions '[C]hat')
-      vim.keymap.set({ 'n', 'i' }, '<C-c>t', '<cmd>CopilotChatToggle<cr>', keymapOptions '[T]oggle Chat')
-      vim.keymap.set({ 'n', 'i' }, '<C-c>r', '<cmd>CopilotChatReset<cr>', keymapOptions '[R]reset')
-      vim.keymap.set({ 'n', 'i' }, '<C-c>x', '<cmd>CopilotChatClose<cr>', keymapOptions 'Close [X]')
-
-      -- Selection commands
-      vim.keymap.set('v', '<C-c>c', ":<C-u>'<,'>CopilotChatCommit<cr>", keymapOptions '[C]ommit Message')
-      vim.keymap.set('v', '<C-c>s', ":<C-u>'<,'>CopilotChatCommitStaged<cr>", keymapOptions 'Commit Message [S]taged')
-      vim.keymap.set('v', '<C-c>e', ":<C-u>'<,'>CopilotChatExplain<cr>", keymapOptions '[E]xplain')
-      vim.keymap.set('v', '<C-c>f', ":<C-u>'<,'>CopilotChatFix<cr>", keymapOptions '[F]ix')
-      vim.keymap.set('v', '<C-c>x', ":<C-u>'<,'>CopilotChatFix<cr>", keymapOptions 'Fi[X] Diagnostic')
-      vim.keymap.set('v', '<C-c>d', ":<C-u>'<,'>CopilotChatDocs<cr>", keymapOptions '[D]ocs')
-      vim.keymap.set('v', '<C-c>r', ":<C-u>'<,'>CopilotChatReview<cr>", keymapOptions '[R]eview')
-      vim.keymap.set('v', '<C-c>o', ":<C-u>'<,'>CopilotChatOptimize<cr>", keymapOptions '[O]ptimize')
-      vim.keymap.set('v', '<C-c>t', ":<C-u>'<,'>CopilotChatTests<cr>", keymapOptions '[T]ests')
-    end,
-  },
+  -- {
+  --   'CopilotC-Nvim/CopilotChat.nvim',
+  --   branch = 'main',
+  --   dependencies = {
+  --     { 'zbirenbaum/copilot.lua' }, -- or github/copilot.vim
+  --     { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper
+  --   },
+  --   build = 'make tiktoken',
+  --   config = function()
+  --     require('CopilotChat').setup {
+  --       -- See Configuration section for rest
+  --     }
+  --
+  --     local function keymapOptions(desc)
+  --       return {
+  --         noremap = true,
+  --         silent = true,
+  --         nowait = true,
+  --         desc = desc,
+  --       }
+  --     end
+  --
+  --     -- Chat commands
+  --     vim.keymap.set({ 'n', 'i' }, '<C-c>c', '<cmd>CopilotChatOpen<cr>', keymapOptions '[C]hat')
+  --     vim.keymap.set({ 'n', 'i' }, '<C-c>t', '<cmd>CopilotChatToggle<cr>', keymapOptions '[T]oggle Chat')
+  --     vim.keymap.set({ 'n', 'i' }, '<C-c>r', '<cmd>CopilotChatReset<cr>', keymapOptions '[R]reset')
+  --     vim.keymap.set({ 'n', 'i' }, '<C-c>x', '<cmd>CopilotChatClose<cr>', keymapOptions 'Close [X]')
+  --
+  --     -- Selection commands
+  --     vim.keymap.set('v', '<C-c>c', ":<C-u>'<,'>CopilotChatCommit<cr>", keymapOptions '[C]ommit Message')
+  --     vim.keymap.set('v', '<C-c>s', ":<C-u>'<,'>CopilotChatCommitStaged<cr>", keymapOptions 'Commit Message [S]taged')
+  --     vim.keymap.set('v', '<C-c>e', ":<C-u>'<,'>CopilotChatExplain<cr>", keymapOptions '[E]xplain')
+  --     vim.keymap.set('v', '<C-c>f', ":<C-u>'<,'>CopilotChatFix<cr>", keymapOptions '[F]ix')
+  --     vim.keymap.set('v', '<C-c>x', ":<C-u>'<,'>CopilotChatFix<cr>", keymapOptions 'Fi[X] Diagnostic')
+  --     vim.keymap.set('v', '<C-c>d', ":<C-u>'<,'>CopilotChatDocs<cr>", keymapOptions '[D]ocs')
+  --     vim.keymap.set('v', '<C-c>r', ":<C-u>'<,'>CopilotChatReview<cr>", keymapOptions '[R]eview')
+  --     vim.keymap.set('v', '<C-c>o', ":<C-u>'<,'>CopilotChatOptimize<cr>", keymapOptions '[O]ptimize')
+  --     vim.keymap.set('v', '<C-c>t', ":<C-u>'<,'>CopilotChatTests<cr>", keymapOptions '[T]ests')
+  --   end,
+  -- },
 }
