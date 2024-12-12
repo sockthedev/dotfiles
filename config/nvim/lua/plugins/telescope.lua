@@ -24,8 +24,18 @@ return {
       --  - Insert mode: <c-/>
       --  - Normal mode: ?
 
+      local open_with_trouble = require('trouble.sources.telescope').open
+
       require('telescope').setup {
         defaults = {
+          mappings = {
+            i = {
+              ['<c-t>'] = open_with_trouble,
+            },
+            n = {
+              ['<c-t>'] = open_with_trouble,
+            },
+          },
           layout_config = {
             horizontal = {
               width = 0.90,

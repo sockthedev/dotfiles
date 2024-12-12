@@ -1,6 +1,9 @@
 return {
   'folke/trouble.nvim',
-  opts = {}, -- for default options, refer to the configuration section for custom setup.
+  opts = {
+    focus = true,
+    win = { position = 'right', size = 0.5 },
+  },
   cmd = 'Trouble',
   keys = {
     {
@@ -15,12 +18,12 @@ return {
     },
     {
       '<leader>xs',
-      '<cmd>Trouble symbols toggle focus=false<cr>',
+      '<cmd>Trouble symbols toggle<cr>',
       desc = '[s]ymbols',
     },
     {
       '<leader>xl',
-      '<cmd>Trouble lsp toggle focus=false win.position=right<cr>',
+      '<cmd>Trouble lsp toggle<cr>',
       desc = '[l]SP definitions / references / ...',
     },
     {
