@@ -7,14 +7,6 @@ return {
         notify = true,
         size = 1.5 * 1024 * 1024, -- 1.5MB
       },
-      lazygit = {},
-    },
-    keys = {
-      {
-        '<leader>gz',
-        '<cmd>lua require("snacks").lazygit()<cr>',
-        desc = 'La[z]ygit',
-      },
     },
   },
 }

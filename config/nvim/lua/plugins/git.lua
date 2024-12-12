@@ -1,7 +1,7 @@
 return {
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
-    config = function(opts)
+    config = function()
       local gitsigns = require 'gitsigns'
       gitsigns.setup {
         signs = {
@@ -11,35 +11,51 @@ return {
           topdelete = { text = '‾' },
           changedelete = { text = '~' },
         },
-        signcolumn = false,
-        signs_staged_enable = false,
+        signcolumn = true,
+        signs_staged_enable = true,
       }
       vim.keymap.set(
         'n',
-        '<leader>gs',
+        '<leader>gt',
         ':Gitsigns toggle_signs<cr>',
-        { noremap = true, silent = true, desc = '[s]igns' }
+        { noremap = true, silent = true, desc = '[t]oggle signs column' }
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>gb',
+        ':Gitsigns blame<cr>',
+        { noremap = true, silent = true, desc = 'Toggle [b]lame' }
       )
       vim.keymap.set(
         'n',
         '<leader>gl',
         ':Gitsigns toggle_current_line_blame<cr>',
-        { noremap = true, silent = true, desc = '[l]ine blame' }
+        { noremap = true, silent = true, desc = 'Toggle [l]ine blame' }
       )
       vim.keymap.set(
         'n',
-        '<leader>gh',
+        '<leader>gs',
         ':Gitsigns stage_hunk<cr>',
-        { noremap = true, silent = true, desc = 'Stage [h]unk' }
+        { noremap = true, silent = true, desc = '[s]tage hunk' }
       )
     end,
   },
 
   {
-    'tpope/vim-fugitive',
-    config = function()
-      vim.keymap.set('n', '<leader>go', ':Git<cr>', { noremap = true, silent = true, desc = '[o]pen' })
-      vim.keymap.set('n', '<leader>gb', ':Git blame<cr>', { noremap = true, silent = true, desc = '[b]lame' })
-    end,
+    'NeogitOrg/neogit',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'sindrets/diffview.nvim',
+      'nvim-telescope/telescope.nvim',
+    },
+    lazy = false,
+    config = true,
+    keys = {
+      {
+        '<leader>gn',
+        '<cmd>Neogit<cr>',
+        desc = '[n]eogit',
+      },
+    },
   },
 }
