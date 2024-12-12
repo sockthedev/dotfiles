@@ -357,21 +357,7 @@ return {
     'dmmulroy/tsc.nvim',
     opts = {
       run_as_monorepo = true,
+      use_trouble_qflist = true,
     },
   },
-
-  -- Translates obscure TypeScript errors into human-readable messages
-  -- {
-  --   'dmmulroy/ts-error-translator.nvim',
-  --   opts = {},
-  -- },
-
-  -- A panel to view the logs from your LSP servers.
-  -- {
-  --   'mhanberg/output-panel.nvim',
-  --   event = 'VeryLazy',
-  --   config = function()
-  --     require('output_panel').setup()
-  --   end,
-  -- },
 }

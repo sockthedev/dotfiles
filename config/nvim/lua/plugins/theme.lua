@@ -2,7 +2,14 @@ return {
   -- nice ui elements
   {
     'stevearc/dressing.nvim',
-    opts = {},
+    opts = {
+      input = {
+        enabled = true,
+      },
+      select = {
+        enabled = true,
+      },
+    },
   },
   -- icons
   {

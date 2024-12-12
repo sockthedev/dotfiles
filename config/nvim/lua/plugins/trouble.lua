@@ -14,12 +14,12 @@ return {
       desc = '[b]uffer Diagnostics',
     },
     {
-      '<leader>cs',
+      '<leader>xs',
       '<cmd>Trouble symbols toggle focus=false<cr>',
       desc = '[s]ymbols',
     },
     {
-      '<leader>cl',
+      '<leader>xl',
       '<cmd>Trouble lsp toggle focus=false win.position=right<cr>',
       desc = '[l]SP definitions / references / ...',
     },
