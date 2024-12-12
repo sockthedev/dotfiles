@@ -9,7 +9,7 @@ return {
     },
     config = function()
       require('leetcode').setup {
-        lang = 'kotlin', -- 'golang',
+        lang = 'golang',
       }
     end,
   },

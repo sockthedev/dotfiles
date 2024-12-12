@@ -22,7 +22,6 @@ return {
       { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-      'nvim-java/nvim-java',
 
       -- Displays LSP loading status
       { 'j-hui/fidget.nvim', opts = {} },
@@ -202,7 +201,6 @@ return {
             },
           },
         },
-        kotlin_language_server = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -300,7 +298,6 @@ return {
         'goimports', -- Format imports in Go (gopls includes gofmt already)
         'prettierd', -- Used to format JavaScript, TypeScript, HTML, JSON, etc.
         'stylua', -- Used to format Lua code
-        'ktlint', -- Used to format (and lint) Kotlin code
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -325,15 +322,6 @@ return {
             end
 
             require('lspconfig')[server_name].setup(server)
-          end,
-          jdtls = function()
-            require('java').setup {
-              -- Your custom jdtls settings goes here
-            }
-
-            require('lspconfig').jdtls.setup {
-              -- Your custom nvim-java configuration goes here
-            }
           end,
         },
       }
@@ -373,17 +361,17 @@ return {
   },
 
   -- Translates obscure TypeScript errors into human-readable messages
-  {
-    'dmmulroy/ts-error-translator.nvim',
-    opts = {},
-  },
+  -- {
+  --   'dmmulroy/ts-error-translator.nvim',
+  --   opts = {},
+  -- },
 
   -- A panel to view the logs from your LSP servers.
-  {
-    'mhanberg/output-panel.nvim',
-    event = 'VeryLazy',
-    config = function()
-      require('output_panel').setup()
-    end,
-  },
+  -- {
+  --   'mhanberg/output-panel.nvim',
+  --   event = 'VeryLazy',
+  --   config = function()
+  --     require('output_panel').setup()
+  --   end,
+  -- },
 }

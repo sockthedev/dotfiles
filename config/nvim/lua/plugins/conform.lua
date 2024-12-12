@@ -20,7 +20,6 @@ return {
           javascript = { 'prettierd' },
           javascriptreact = { 'prettierd' },
           json = { 'prettierd' },
-          kotlin = { 'ktlint' },
           lua = { 'stylua' },
           markdown = { 'prettierd' },
           python = { 'ruff_format' },
