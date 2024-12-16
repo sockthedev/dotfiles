@@ -39,15 +39,17 @@ return {
     priority = 1000,
     init = function()
       local lackluster = require 'lackluster'
+      -- local background = '#191919'
+      local background = '#000000'
       lackluster.setup {
         tweak_syntax = {
           comment = lackluster.color.gray5,
         },
         tweak_background = {
-          normal = '#191919',
-          telescope = '#191919',
-          menu = '#191919', -- nvim_cmp, wildmenu
-          popup = '#191919', -- lazy, mason, whichkey
+          normal = background,
+          telescope = background,
+          menu = background, -- nvim_cmp, wildmenu
+          popup = background, -- lazy, mason, whichkey
         },
       }
       vim.cmd.colorscheme 'lackluster-mint' -- types are green

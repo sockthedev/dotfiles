@@ -1,5 +1,88 @@
 return {
   {
+    'olimorris/codecompanion.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-telescope/telescope.nvim',
+    },
+    config = function()
+      require('codecompanion').setup {
+        display = {
+          diff = {
+            provider = 'mini_diff',
+          },
+        },
+        opts = {
+          log_level = 'DEBUG',
+        },
+        adapters = {
+          anthropic = function()
+            local file = io.open(os.getenv 'HOME' .. '/.anthropic_api_key', 'r')
+            local api_key = ''
+            if file then
+              api_key = file:read('*all'):gsub('%s+', '')
+              file:close()
+            end
+            return require('codecompanion.adapters').extend('anthropic', {
+              env = {
+                api_key = api_key,
+              },
+              schema = {
+                model = {
+                  default = 'claude-3-5-sonnet-20241022',
+                },
+              },
+            })
+          end,
+        },
+        strategies = {
+          chat = {
+            adapter = 'anthropic',
+          },
+          inline = {
+            adapter = 'copilot',
+          },
+        },
+      }
+
+      vim.api.nvim_set_keymap(
+        'n',
+        '<C-c>a',
+        '<cmd>CodeCompanionActions<cr>',
+        { noremap = true, silent = true, desc = '[a]ctions' }
+      )
+      vim.api.nvim_set_keymap(
+        'v',
+        '<C-c>a',
+        '<cmd>CodeCompanionActions<cr>',
+        { noremap = true, silent = true, desc = '[a]ctions' }
+      )
+      vim.api.nvim_set_keymap(
+        'n',
+        '<C-c>t',
+        '<cmd>CodeCompanionChat Toggle<cr>',
+        { noremap = true, silent = true, desc = '[t]oggle' }
+      )
+      vim.api.nvim_set_keymap(
+        'v',
+        '<C-c>t',
+        '<cmd>CodeCompanionChat Toggle<cr>',
+        { noremap = true, silent = true, desc = '[t]oggle' }
+      )
+      vim.api.nvim_set_keymap(
+        'v',
+        '<C-c>y',
+        '<cmd>CodeCompanionChat Add<cr>',
+        { noremap = true, silent = true, desc = '[y] Add' }
+      )
+
+      -- Expand 'cc' into 'CodeCompanion' in the command line
+      vim.cmd [[cab cc CodeCompanion]]
+    end,
+  },
+
+  {
     'supermaven-inc/supermaven-nvim',
     config = function()
       require('supermaven-nvim').setup {

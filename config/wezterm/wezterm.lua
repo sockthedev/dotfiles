@@ -188,11 +188,6 @@ config.show_new_tab_button_in_tab_bar = false
 config.switch_to_last_active_tab_when_closing_tab = true
 config.send_composed_key_when_left_alt_is_pressed = false
 config.tab_max_width = 80
--- WARN: If using this, keep this inline with the tint.nvim config
--- config.inactive_pane_hsb = {
--- 	saturation = 1,
--- 	brightness = 0.7,
--- }
 config.inactive_pane_hsb = {
 	saturation = 1,
 	brightness = 1,
@@ -203,10 +198,11 @@ config.window_padding = {
 	top = 0,
 	bottom = 0,
 }
-config.window_decorations = "RESIZE"
+config.window_decorations = "RESIZE | MACOS_FORCE_DISABLE_SHADOW"
 config.adjust_window_size_when_changing_font_size = false
 
-local background = "#191919"
+-- local background = "#191919"
+local background = "#000"
 local foreground = "#DCD7BA"
 local foreground_dim = "#333"
 local highlight = "#aaa"
