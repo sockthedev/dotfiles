@@ -33,15 +33,6 @@ return {
           filtered_items = {
             visible = true,
           },
-          -- follow_current_file = true,
-          -- components = {
-          --   icon = function(config, node, state)
-          --     if node.type == 'file' or node.type == 'directory' then
-          --       return {}
-          --     end
-          --     return require('neo-tree.sources.common.components').icon(config, node, state)
-          --   end,
-          -- },
         },
       }
 

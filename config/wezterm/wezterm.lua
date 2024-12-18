@@ -3,9 +3,27 @@ local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smar
 
 local config = wezterm.config_builder()
 
+wezterm.on("toggle-tabbar", function(window, _)
+	local overrides = window:get_config_overrides() or {}
+	if overrides.enable_tab_bar == false then
+		wezterm.log_info("tab bar shown")
+		overrides.enable_tab_bar = true
+	else
+		wezterm.log_info("tab bar hidden")
+		overrides.enable_tab_bar = false
+	end
+	window:set_config_overrides(overrides)
+end)
+
 config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 2500 }
 config.disable_default_key_bindings = false
 config.keys = {
+	-- Toggle tab bar
+	{
+		mods = "CTRL | SHIFT",
+		key = "T",
+		action = wezterm.action.EmitEvent("toggle-tabbar"),
+	},
 	-- Disable Ctrl-Shift-L (default action: ShowDebugOverlay)
 	{
 		key = "Enter",
@@ -174,7 +192,7 @@ config.keys = {
 -- config.font = wezterm.font("Andale Mono", { weight = "Regular" })
 config.font = wezterm.font("Berkeley Mono", { weight = "Regular" })
 config.font_size = 13
-config.line_height = 1.2
+config.line_height = 1.1
 config.scrollback_lines = 10000
 config.max_fps = 120
 config.default_cursor_style = "BlinkingBlock"
@@ -182,7 +200,7 @@ config.cursor_blink_rate = 500
 config.animation_fps = 1
 config.cursor_blink_ease_in = "Constant"
 config.cursor_blink_ease_out = "Constant"
-config.enable_tab_bar = true
+config.enable_tab_bar = false -- CTRL + SHIFT + T to toggle it
 config.use_fancy_tab_bar = false
 config.show_new_tab_button_in_tab_bar = false
 config.switch_to_last_active_tab_when_closing_tab = true
