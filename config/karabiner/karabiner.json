@@ -6,6 +6,27 @@
             "complex_modifications": {
                 "rules": [
                     {
+                        "description": "Change left_command+enter to backspace",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "return_or_enter",
+                                    "modifiers": {
+                                        "mandatory": ["left_command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_or_backspace",
+                                        "modifiers": []
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Change right_command+hjkl to arrow keys",
                         "manipulators": [
                             {

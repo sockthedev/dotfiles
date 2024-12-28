@@ -132,3 +132,6 @@ ulimit -n 61440
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/sock/.cache/lm-studio/bin"

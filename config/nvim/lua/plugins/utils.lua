@@ -130,9 +130,7 @@ return {
     'mrjones2014/smart-splits.nvim',
     config = function()
       local splits = require 'smart-splits'
-      splits.setup {
-        wezterm = true,
-      }
+      splits.setup {}
 
       -- navigate splits
       vim.keymap.set('n', '<C-h>', splits.move_cursor_left)
@@ -152,25 +150,6 @@ return {
   -- Detect tabstop and shiftwidth automatically
   {
     'tpope/vim-sleuth',
-  },
-
-  -- Shows color inline for the various colour codes
-  {
-    'uga-rosa/ccc.nvim',
-    config = function()
-      require('ccc').setup {
-        highlighter = {
-          auto_enable = true,
-          lsp = false, -- i think doing this would enable tailwindcss colorizer, which is buggy
-          filetypes = {
-            'css',
-            'typescript',
-            'typescriptreact',
-            'html',
-          },
-        },
-      }
-    end,
   },
 
   -- Code Folding

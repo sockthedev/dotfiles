@@ -18,6 +18,18 @@ return {
 
       -- Pretty icons
       { 'nvim-tree/nvim-web-devicons' },
+
+      -- Visualize your undo tree and fuzzy-search changes in it.
+      'debugloop/telescope-undo.nvim',
+
+      -- Open and preview the current file at any previous commit
+      {
+        'isak102/telescope-git-file-history.nvim',
+        dependencies = {
+          'nvim-lua/plenary.nvim',
+          'tpope/vim-fugitive',
+        },
+      },
     },
     config = function()
       -- Two important keymaps to use while in telescope are:
@@ -25,6 +37,8 @@ return {
       --  - Normal mode: ?
 
       local open_with_trouble = require('trouble.sources.telescope').open
+
+      local gfh_actions = require('telescope').extensions.git_file_history.actions
 
       require('telescope').setup {
         defaults = {
@@ -43,21 +57,27 @@ return {
               preview_width = 0.5,
             },
           },
-          -- We override the ripgrep arguments to include hidden files and ignore files in .git directory
-          vimgrep_arguments = {
-            'rg',
-            '--color=never',
-            '--no-heading',
-            '--with-filename',
-            '--line-number',
-            '--column',
-            '--smart-case',
-            '--hidden', -- Include hidden files
+          file_ignore_patterns = {
+            '^.git/',
+            'node_modules/*',
           },
-          file_ignore_patterns = { '^.git/' }, -- Ensure we always ignore the .git directory
+          -- We override the ripgrep arguments to include hidden files and ignore files in .git directory
+          -- vimgrep_arguments = {
+          --   'rg',
+          --   '--color=never',
+          --   '--no-heading',
+          --   '--with-filename',
+          --   '--line-number',
+          --   '--column',
+          --   '--smart-case',
+          --   '--hidden', -- Include hidden files
+          -- },
         },
         pickers = {
           find_files = {
+            hidden = true, -- Include hidden files when searching for files
+          },
+          git_files = {
             hidden = true, -- Include hidden files when searching for files
           },
         },
@@ -65,20 +85,43 @@ return {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
+          fzf = {},
+          git_file_history = {
+            -- Keymaps inside the picker
+            mappings = {
+              i = {
+                ['<C-g>'] = gfh_actions.open_in_browser,
+              },
+              n = {
+                ['<C-g>'] = gfh_actions.open_in_browser,
+              },
+            },
+
+            -- The command to use for opening the browser (nil or string)
+            -- If nil, it will check if xdg-open, open, start, wslview are available, in that order.
+            browser_command = nil,
+          },
         },
       }
 
       -- Enable telescope extensions, if they are installed
+      pcall(require('telescope').load_extension, 'undo')
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
+      pcall(require('telescope').load_extension, 'git_file_history')
 
       -- NOTE: There are other Telescope key mappings in other files, like the LSP.
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>td', builtin.diagnostics, { desc = '[d]iagnostics' })
-      vim.keymap.set('n', '<leader>tf', builtin.find_files, { desc = '[f]iles' })
+      vim.keymap.set('n', '<leader>ta', builtin.find_files, { desc = '[a]ll files' })
+      vim.keymap.set('n', '<leader>tb', function()
+        require('telescope').extensions.git_file_history.git_file_history()
+      end, { desc = '[b]lame' })
+      vim.keymap.set('n', '<leader>tf', builtin.find_files, { desc = 'git [f]iles' })
       vim.keymap.set('n', '<leader>tg', builtin.live_grep, { desc = '[g]rep' })
+      vim.keymap.set('n', '<leader>th', builtin.help_tags, { desc = '[h]elp' })
       vim.keymap.set('n', '<leader>th', builtin.help_tags, { desc = '[h]elp' })
       vim.keymap.set('n', '<leader>tk', builtin.keymaps, { desc = '[k]eymaps' })
       vim.keymap.set('n', '<leader>tr', builtin.resume, { desc = '[R]esume' })

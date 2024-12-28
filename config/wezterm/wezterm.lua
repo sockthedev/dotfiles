@@ -186,13 +186,20 @@ config.keys = {
 }
 -- config.font = wezterm.font("3270SemiCondensed Nerd Font Mono")
 -- config.font = wezterm.font("Operator Mono SSm", { weight = "Book" })
--- config.font = wezterm.font("MonoLisa")
 -- config.font = wezterm.font("JetBrains Mono", { weight = "Regular" })
 -- config.font = wezterm.font("IntelOne Mono", { weight = "Regular" })
 -- config.font = wezterm.font("Andale Mono", { weight = "Regular" })
+
+-- config.font = wezterm.font("MonoLisa")
+-- config.font_size = 20
+-- config.line_height = 1
+-- config.cell_width = 0.9
+
 config.font = wezterm.font("Berkeley Mono", { weight = "Regular" })
-config.font_size = 13
-config.line_height = 1.1
+config.font_size = 20
+config.line_height = 1
+config.cell_width = 0.9
+
 config.scrollback_lines = 10000
 config.max_fps = 120
 config.default_cursor_style = "BlinkingBlock"

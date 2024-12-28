@@ -1,101 +1,5 @@
 return {
   {
-    'olimorris/codecompanion.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-treesitter/nvim-treesitter',
-      'nvim-telescope/telescope.nvim',
-    },
-    config = function()
-      require('codecompanion').setup {
-        display = {
-          diff = {
-            provider = 'mini_diff',
-          },
-        },
-        opts = {
-          log_level = 'DEBUG',
-        },
-        adapters = {
-          anthropic = function()
-            local file = io.open(os.getenv 'HOME' .. '/.anthropic_api_key', 'r')
-            local api_key = ''
-            if file then
-              api_key = file:read('*all'):gsub('%s+', '')
-              file:close()
-            end
-            return require('codecompanion.adapters').extend('anthropic', {
-              env = {
-                api_key = api_key,
-              },
-              schema = {
-                model = {
-                  default = 'claude-3-5-sonnet-20241022',
-                },
-              },
-            })
-          end,
-        },
-        strategies = {
-          chat = {
-            adapter = 'anthropic',
-          },
-          inline = {
-            adapter = 'copilot',
-          },
-        },
-      }
-
-      vim.api.nvim_set_keymap(
-        'n',
-        '<C-c>a',
-        '<cmd>CodeCompanionActions<cr>',
-        { noremap = true, silent = true, desc = '[a]ctions' }
-      )
-      vim.api.nvim_set_keymap(
-        'v',
-        '<C-c>a',
-        '<cmd>CodeCompanionActions<cr>',
-        { noremap = true, silent = true, desc = '[a]ctions' }
-      )
-      vim.api.nvim_set_keymap(
-        'n',
-        '<C-c>t',
-        '<cmd>CodeCompanionChat Toggle<cr>',
-        { noremap = true, silent = true, desc = '[t]oggle' }
-      )
-      vim.api.nvim_set_keymap(
-        'v',
-        '<C-c>t',
-        '<cmd>CodeCompanionChat Toggle<cr>',
-        { noremap = true, silent = true, desc = '[t]oggle' }
-      )
-      vim.api.nvim_set_keymap(
-        'v',
-        '<C-c>y',
-        '<cmd>CodeCompanionChat Add<cr>',
-        { noremap = true, silent = true, desc = '[y] Add' }
-      )
-
-      -- Expand 'cc' into 'CodeCompanion' in the command line
-      vim.cmd [[cab cc CodeCompanion]]
-    end,
-  },
-
-  {
-    'supermaven-inc/supermaven-nvim',
-    config = function()
-      require('supermaven-nvim').setup {
-        keymaps = {
-          accept_suggestion = '<M-CR>',
-          clear_suggestion = '<M-[>',
-          accept_word = '<M-]>',
-        },
-      }
-    end,
-  },
-
-  {
     'robitx/gp.nvim',
     config = function()
       local chat_system_prompt = 'You are an AI assistant to an experienced full stack web developer.\n\n'
@@ -113,6 +17,8 @@ return {
         .. 'START AND END YOUR ANSWER WITH:\n\n```'
 
       require('gp').setup {
+        chat_free_cursor = true, -- don't make cursor follow the response stream
+        chat_template = require('gp.defaults').short_chat_template,
         providers = {
           openai = {
             disable = false,
@@ -121,6 +27,10 @@ return {
           anthropic = {
             disable = false,
             secret = { 'cat', os.getenv 'HOME' .. '/.anthropic_api_key' },
+          },
+          -- Run via LMStudio
+          ollama = {
+            endpoint = 'http://localhost:1234/v1/chat/completions',
           },
         },
         -- default command agents (model + persona)
@@ -134,7 +44,7 @@ return {
             name = 'ChatAnthropic',
             chat = true,
             command = false,
-            model = { model = 'claude-3-5-sonnet-20241022', temperature = 0.8, top_p = 1 },
+            model = { model = 'claude-3-5-sonnet-20241022', temperature = 0, top_p = 1 },
             system_prompt = chat_system_prompt,
           },
           {
@@ -142,7 +52,7 @@ return {
             name = 'CodeAnthropic',
             chat = false,
             command = true,
-            model = { model = 'claude-3-5-sonnet-20241022', temperature = 0.8, top_p = 1 },
+            model = { model = 'claude-3-5-sonnet-20241022', temperature = 0, top_p = 1 },
             system_prompt = code_system_prompt,
           },
           {
@@ -150,7 +60,7 @@ return {
             name = 'ChatOpenAI',
             chat = true,
             command = false,
-            model = { model = 'chatgpt-4o-latest', temperature = 0.8, top_p = 1 },
+            model = { model = 'chatgpt-4o-latest', temperature = 0, top_p = 1 },
             system_prompt = chat_system_prompt,
           },
           {
@@ -158,7 +68,23 @@ return {
             name = 'CodeOpenAI',
             chat = false,
             command = true,
-            model = { model = 'chatgpt-4o-latest', temperature = 0.8, top_p = 1 },
+            model = { model = 'chatgpt-4o-latest', temperature = 0, top_p = 1 },
+            system_prompt = code_system_prompt,
+          },
+          {
+            provider = 'ollama',
+            name = 'ChatLmStudio',
+            chat = true,
+            command = false,
+            model = { temperature = 0, top_p = 1 },
+            system_prompt = chat_system_prompt,
+          },
+          {
+            provider = 'ollama',
+            name = 'CodeLmStudio',
+            chat = false,
+            command = true,
+            model = { temperature = 0, top_p = 1 },
             system_prompt = code_system_prompt,
           },
         },
@@ -168,21 +94,21 @@ return {
               .. '```{{filetype}}\n{{selection}}\n```\n\n'
               .. 'Please respond by explaining the code above.'
             local agent = gp.get_chat_agent()
-            gp.Prompt(params, gp.Target.vnew, nil, agent.model, template, agent.system_prompt)
+            gp.Prompt(params, gp.Target.vnew 'markdown', agent, template)
           end,
           CodeReview = function(gp, params)
             local template = 'I have the following code from {{filename}}:\n\n'
               .. '```{{filetype}}\n{{selection}}\n```\n\n'
-              .. 'Please analyze for code smells and suggest improvements.'
+              .. 'Please analyze for code for obvious issues and mistakes.'
             local agent = gp.get_chat_agent()
-            gp.Prompt(params, gp.Target.vnew 'markdown', nil, agent.model, template, agent.system_prompt)
+            gp.Prompt(params, gp.Target.vnew 'markdown', agent, template)
           end,
           UnitTests = function(gp, params)
             local template = 'I have the following code from {{filename}}:\n\n'
               .. '```{{filetype}}\n{{selection}}\n```\n\n'
-              .. 'Please respond by writing table driven unit tests for the code above.'
+              .. 'Please respond by writing unit tests for the code above.'
             local agent = gp.get_command_agent()
-            gp.Prompt(params, gp.Target.enew, nil, agent.model, template, agent.system_prompt)
+            gp.Prompt(params, gp.Target.vnew, agent, template)
           end,
         },
       }
@@ -197,32 +123,104 @@ return {
       end
 
       -- Chat commands
+
       vim.keymap.set({ 'n', 'i' }, '<C-g>c', '<cmd>GpChatNew<cr>', keymapOptions '[c]hat')
       vim.keymap.set('v', '<C-g>c', ":<C-u>'<,'>GpChatNew<cr>", keymapOptions '[c]hat')
+
       vim.keymap.set({ 'n', 'i' }, '<C-g>v', '<cmd>GpChatNew vsplit<cr>', keymapOptions 'Chat [v]split')
       vim.keymap.set('v', '<C-g>v', ":<C-u>'<,'>GpChatNew vsplit<cr>", keymapOptions 'Chat [v]split')
+
       vim.keymap.set({ 'n', 'i' }, '<C-g>h', '<cmd>GpChatFinder<cr>', keymapOptions 'Chat [h]istory')
 
       -- Prompt commands
+
       vim.keymap.set({ 'n', 'i' }, '<C-g>a', '<cmd>GpAppend<cr>', keymapOptions '[a]ppend')
-      vim.keymap.set({ 'n', 'i' }, '<C-g>p', '<cmd>GpPrepend<cr>', keymapOptions '[p]repend')
-      vim.keymap.set('v', '<C-g>r', ":<C-u>'<,'>GpRewrite<cr>", keymapOptions '[r]ewrite')
       vim.keymap.set('v', '<C-g>a', ":<C-u>'<,'>GpAppend<cr>", keymapOptions '[a]ppend')
+
+      vim.keymap.set({ 'n', 'i' }, '<C-g>p', '<cmd>GpPrepend<cr>', keymapOptions '[p]repend')
       vim.keymap.set('v', '<C-g>p', ":<C-u>'<,'>GpPrepend<cr>", keymapOptions '[p]repend')
-      vim.keymap.set('v', '<C-g>i', ":<C-u>'<,'>GpImplement<cr>", keymapOptions '[i]mplement')
 
       -- Selection commands
-      vim.keymap.set('v', '<C-g>e', ":<C-u>'<,'>GpCodeExplain<cr>", keymapOptions '[e]xplain')
-      vim.keymap.set('v', '<C-g>s', ":<C-u>'<,'>GpCodeReview<cr>", keymapOptions '[s]crutinize')
-      vim.keymap.set('v', '<C-g>u', ":<C-u>'<,'>GpUnitTests<cr>", keymapOptions '[u]nit Tests')
 
-      -- Global Commands
-      vim.keymap.set({ 'n', 'i' }, '<C-g>x', '<cmd>GpContext<cr>', keymapOptions 'Conte[x]t')
-      vim.keymap.set('v', '<C-g>x', ":<C-u>'<,'>GpContext<cr>", keymapOptions 'Conte[x]t')
-      vim.keymap.set({ 'n', 'i', 'v', 'x' }, '<C-g>s', '<cmd>GpStop<cr>', keymapOptions '[s]top')
-      vim.keymap.set({ 'n', 'i', 'v', 'x' }, '<C-g>n', '<cmd>GpNextAgent<cr>', keymapOptions '[n]ext Agent')
+      vim.keymap.set('v', '<C-g>i', ":<C-u>'<,'>GpImplement<cr>", keymapOptions '[i]mplement')
+
+      vim.keymap.set('v', '<C-g>f', ":<C-u>'<,'>GpRewrite<cr>", keymapOptions 're[f]actor')
+
+      vim.keymap.set('v', '<C-g>e', ":<C-u>'<,'>GpCodeExplain<cr>", keymapOptions '[e]xplain')
+
+      vim.keymap.set('v', '<C-g>r', ":<C-u>'<,'>GpCodeReview<cr>", keymapOptions '[r]eview')
+
+      vim.keymap.set('v', '<C-g>u', ":<C-u>'<,'>GpUnitTests<cr>", keymapOptions 'create [u]nit Tests')
+
+      -- Global commands
+
+      vim.keymap.set({ 'n', 'i', 'v' }, '<C-g>x', function()
+        if vim.fn.mode() == 'v' then
+          return ":<C-u>'<,'>GpContext<cr>"
+        end
+        return '<cmd>GpContext<cr>'
+      end, keymapOptions 'Conte[x]t')
+
+      vim.keymap.set({ 'n', 'i', 'v' }, '<C-g>s', '<cmd>GpStop<cr>', keymapOptions '[s]top')
+      vim.keymap.set({ 'n', 'i', 'v' }, '<C-g>n', '<cmd>GpNextAgent<cr>', keymapOptions '[n]ext Agent')
     end,
   },
+
+  -- {
+  --   'yetone/avante.nvim',
+  --   event = 'VeryLazy',
+  --   lazy = false,
+  --   version = false, -- set this if you want to always pull the latest change
+  --   opts = {
+  --     -- add any opts here
+  --   },
+  --   build = 'make',
+  --   dependencies = {
+  --     'stevearc/dressing.nvim',
+  --     'nvim-lua/plenary.nvim',
+  --     'MunifTanjim/nui.nvim',
+  --     'hrsh7th/nvim-cmp',
+  --     'nvim-tree/nvim-web-devicons',
+  --     -- support for image pasting
+  --     {
+  --       'HakonHarnes/img-clip.nvim',
+  --       event = 'VeryLazy',
+  --       opts = {
+  --         default = {
+  --           embed_image_as_base64 = false,
+  --           prompt_for_file_name = false,
+  --           drag_and_drop = {
+  --             insert_mode = true,
+  --           },
+  --         },
+  --       },
+  --     },
+  --     -- Make sure to set this up properly if you have lazy=true
+  --     {
+  --       'MeanderingProgrammer/render-markdown.nvim',
+  --       opts = {
+  --         file_types = { 'markdown', 'Avante' },
+  --       },
+  --       ft = { 'markdown', 'Avante' },
+  --     },
+  --   },
+  -- },
+
+  -- {
+  --   'supermaven-inc/supermaven-nvim',
+  --
+  --   enabled = false, -- on a flight :)
+  --
+  --   config = function()
+  --     require('supermaven-nvim').setup {
+  --       keymaps = {
+  --         accept_suggestion = '<M-CR>',
+  --         clear_suggestion = '<M-[>',
+  --         accept_word = '<M-]>',
+  --       },
+  --     }
+  --   end,
+  -- },
 
   -- {
   --   'zbirenbaum/copilot.lua',

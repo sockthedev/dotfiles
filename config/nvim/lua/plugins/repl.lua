@@ -12,6 +12,11 @@ return {
         },
         live_mode_toggle = 'off',
         live_display = { 'Terminal' },
+        display_options = {
+          terminal_line_number = false,
+          terminal_signcolumn = false,
+          terminal_width = 80,
+        },
       }
 
       -- We wrap the call to SnipRun in a function that saves the cursor position
