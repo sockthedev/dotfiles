@@ -3,12 +3,6 @@
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
--- Diagnostic keymaps
--- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
--- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
@@ -31,16 +25,16 @@ vim.keymap.set('n', "'", '<cmd>split<cr>', { silent = true, desc = 'Horizontal s
 vim.keymap.set('n', '<C-w>=', '<cmd>wincmd =<cr>', { silent = true, desc = 'Make all splits equal size' })
 
 -- Insert empty lines without going into insert mode
-vim.keymap.set('n', '<A-O>', 'O<Esc>', { desc = 'Insert empty line above' })
-vim.keymap.set('n', '<A-o>', 'o<Esc>', { desc = 'Insert empty line below' })
+vim.keymap.set('n', '<M-O>', 'O<Esc>', { desc = 'Insert empty line above' })
+vim.keymap.set('n', '<M-o>', 'o<Esc>', { desc = 'Insert empty line below' })
 
 -- Move Lines
-vim.keymap.set('n', '<A-j>', ':m .+1<cr>==', { desc = 'Move down' })
-vim.keymap.set('v', '<A-j>', ":m '>+1<cr>gv=gv", { desc = 'Move down' })
-vim.keymap.set('i', '<A-j>', '<Esc>:m .+1<cr>==gi', { desc = 'Move down' })
-vim.keymap.set('n', '<A-k>', ':m .-2<cr>==', { desc = 'Move up' })
-vim.keymap.set('v', '<A-k>', ":m '<-2<cr>gv=gv", { desc = 'Move up' })
-vim.keymap.set('i', '<A-k>', '<Esc>:m .-2<cr>==gi', { desc = 'Move up' })
+vim.keymap.set('n', '<M-j>', ':m .+1<cr>==', { desc = 'Move down' })
+vim.keymap.set('v', '<M-j>', ":m '>+1<cr>gv=gv", { desc = 'Move down' })
+vim.keymap.set('i', '<M-j>', '<Esc>:m .+1<cr>==gi', { desc = 'Move down' })
+vim.keymap.set('n', '<M-k>', ':m .-2<cr>==', { desc = 'Move up' })
+vim.keymap.set('v', '<M-k>', ":m '<-2<cr>gv=gv", { desc = 'Move up' })
+vim.keymap.set('i', '<M-k>', '<Esc>:m .-2<cr>==gi', { desc = 'Move up' })
 
 -- Create new file
 vim.keymap.set('n', '<C-n>', '<cmd>enew<cr>', { silent = true, desc = 'New File' })

@@ -12,6 +12,10 @@ window-inherit-font-size = true
 shell-integration-features = no-cursor
 cursor-style = block
 
+macos-option-as-alt = left
+macos-auto-secure-input = true
+macos-secure-input-indication = true
+
 # splits
 
 unfocused-split-opacity = 1
@@ -27,4 +31,5 @@ keybind = cmd+ctrl+k=goto_split:top
 keybind = cmd+ctrl+z=toggle_split_zoom
 
 keybind = cmd+ctrl+.=equalize_splits
+
 
