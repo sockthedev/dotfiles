@@ -1,7 +1,9 @@
 # sockfiles 🧦
 
-neovim, zsh, wezterm.
+my dev setup.
 
-neovim configured for typescript, go, python, and lua dev.
+ghostty, neovim, zsh.
 
-<img src="./assets/screen.jpeg" alt="terminal screenshot" />
+typescript, go, python, and lua dev.
+
+<img src="./assets/screen.png" alt="terminal screenshot" />
