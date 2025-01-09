@@ -55,6 +55,10 @@ vim.keymap.set('n', '<leader>a', 'gg<S-v>G', { desc = 'Select All', noremap = tr
 -- Disable the default <C-a> mapping in visual mode, which would cause numbers to increment
 vim.keymap.set('v', '<C-a>', '<Nop>', { desc = 'Noop', noremap = true, silent = true })
 
+-- Diagnostic keymaps
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+
 -- Toggle relative line numbers
 function ToggleRelativeLineNumber()
   if vim.wo.relativenumber == true then

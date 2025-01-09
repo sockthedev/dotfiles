@@ -1,35 +1,50 @@
+# theme
+
 theme = Jellybeans
 background = #000000
+window-theme = ghostty
+window-decoration = false
+macos-non-native-fullscreen = true
+macos-window-shadow = false
+macos-icon-frame = beige
+
+# osx behaviours
+
+macos-auto-secure-input = true
+macos-option-as-alt = left
+macos-secure-input-indication = true
+
+# font
 
 font-family = Berkeley Mono
 font-size = 18
 adjust-cell-height = 0%
 adjust-cell-width = -8%
-
-window-decoration = false
 window-inherit-font-size = true
 
-shell-integration-features = no-cursor
-cursor-style = block
+# cursor
 
-macos-option-as-alt = left
-macos-auto-secure-input = true
-macos-secure-input-indication = true
+cursor-style = block
+shell-integration-features = no-cursor
 
 # splits
 
-unfocused-split-opacity = 1
-
+# - create
 keybind = cmd+ctrl+\=new_split:right
 keybind = cmd+ctrl+'=new_split:down
 
+# - move
 keybind = cmd+ctrl+l=goto_split:right
 keybind = cmd+ctrl+h=goto_split:left
 keybind = cmd+ctrl+j=goto_split:bottom
 keybind = cmd+ctrl+k=goto_split:top
 
-keybind = cmd+ctrl+z=toggle_split_zoom
-
+# - resize
 keybind = cmd+ctrl+.=equalize_splits
 
+# - focus
+keybind = cmd+ctrl+z=toggle_split_zoom
+
+# - no shade on unfocused splits
+unfocused-split-opacity = 1
 

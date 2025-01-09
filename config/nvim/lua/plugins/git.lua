@@ -11,7 +11,7 @@ return {
           topdelete = { text = '‾' },
           changedelete = { text = '~' },
         },
-        signcolumn = true,
+        signcolumn = false,
         signs_staged_enable = true,
       }
       vim.keymap.set(
