@@ -92,16 +92,34 @@ return {
           CodeExplain = function(gp, params)
             local template = 'I have the following code from {{filename}}:\n\n'
               .. '```{{filetype}}\n{{selection}}\n```\n\n'
-              .. 'Please respond by explaining the code above.'
+              .. 'Please respond by explaining the code above. Focus on the behaviour of the code. What is it doing? What is its purpose?'
             local agent = gp.get_chat_agent()
-            gp.Prompt(params, gp.Target.vnew 'markdown', agent, template)
+            gp.Prompt(params, gp.Target.vnew 'markdown', agent, template, nil, nil, function()
+              vim.cmd 'normal! 1G0'
+              vim.cmd [[execute "normal! \<Esc>"]]
+            end)
           end,
           CodeReview = function(gp, params)
             local template = 'I have the following code from {{filename}}:\n\n'
               .. '```{{filetype}}\n{{selection}}\n```\n\n'
-              .. 'Please analyze for code for obvious issues and mistakes.'
+              .. 'Please perform a code review on this as if you were a senior engineer. Feel free to include code blocks of suggested improvements in your response. You want to help the engineer become a better engineer.'
             local agent = gp.get_chat_agent()
-            gp.Prompt(params, gp.Target.vnew 'markdown', agent, template)
+            gp.Prompt(params, gp.Target.vnew 'markdown', agent, template, nil, nil, function()
+              vim.cmd 'normal! 1G0'
+              vim.cmd [[execute "normal! \<Esc>"]]
+            end)
+          end,
+          RewriteToDiff = function(gp, params)
+            local template = 'I have the following from {{filename}}:\n\n'
+              .. '```{{filetype}}\n{{selection}}\n```\n\n'
+              .. 'Rewrite it based on these instructions: {{command}}\n\n'
+              .. 'Respond with a code block containing the rewritten code, and a brief explanation of the changes that were made along with the reasons for doing so.\n\n'
+            local agent = gp.get_chat_agent()
+            local input_prompt = '🤖 ' .. agent.name .. ' ~'
+            gp.Prompt(params, gp.Target.vnew 'markdown', agent, template, input_prompt, nil, function()
+              vim.cmd 'normal! 1G0'
+              vim.cmd [[execute "normal! \<Esc>"]]
+            end)
           end,
           UnitTests = function(gp, params)
             local template = 'I have the following code from {{filename}}:\n\n'
@@ -124,45 +142,49 @@ return {
 
       -- Chat commands
 
-      vim.keymap.set({ 'n', 'i' }, '<C-g>c', '<cmd>GpChatNew<cr>', keymapOptions '[c]hat')
-      vim.keymap.set('v', '<C-g>c', ":<C-u>'<,'>GpChatNew<cr>", keymapOptions '[c]hat')
-
-      vim.keymap.set({ 'n', 'i' }, '<C-g>v', '<cmd>GpChatNew vsplit<cr>', keymapOptions 'Chat [v]split')
-      vim.keymap.set('v', '<C-g>v', ":<C-u>'<,'>GpChatNew vsplit<cr>", keymapOptions 'Chat [v]split')
-
-      vim.keymap.set({ 'n', 'i' }, '<C-g>h', '<cmd>GpChatFinder<cr>', keymapOptions 'Chat [h]istory')
+      vim.keymap.set({ 'n', 'i' }, '<C-a>n', '<cmd>GpChatNew<cr>', keymapOptions '[n]ew chat')
+      vim.keymap.set('v', '<C-a>n', ":<C-u>'<,'>GpChatNew<cr>", keymapOptions '[n]ew chat')
+      vim.keymap.set({ 'n', 'i' }, '<C-a>h', '<cmd>GpChatFinder<cr>', keymapOptions '[h]istory')
 
       -- Prompt commands
 
-      vim.keymap.set({ 'n', 'i' }, '<C-g>a', '<cmd>GpAppend<cr>', keymapOptions '[a]ppend')
-      vim.keymap.set('v', '<C-g>a', ":<C-u>'<,'>GpAppend<cr>", keymapOptions '[a]ppend')
-
-      vim.keymap.set({ 'n', 'i' }, '<C-g>p', '<cmd>GpPrepend<cr>', keymapOptions '[p]repend')
-      vim.keymap.set('v', '<C-g>p', ":<C-u>'<,'>GpPrepend<cr>", keymapOptions '[p]repend')
+      vim.keymap.set({ 'n', 'i' }, '<C-a>a', '<cmd>GpAppend<cr>', keymapOptions '[a]ppend')
+      vim.keymap.set('v', '<C-a>a', ":<C-u>'<,'>GpAppend<cr>", keymapOptions '[a]ppend')
+      vim.keymap.set({ 'n', 'i' }, '<C-a>p', '<cmd>GpPrepend<cr>', keymapOptions '[p]repend')
+      vim.keymap.set('v', '<C-a>p', ":<C-u>'<,'>GpPrepend<cr>", keymapOptions '[p]repend')
 
       -- Selection commands
 
-      vim.keymap.set('v', '<C-g>i', ":<C-u>'<,'>GpImplement<cr>", keymapOptions '[i]mplement')
-
-      vim.keymap.set('v', '<C-g>f', ":<C-u>'<,'>GpRewrite<cr>", keymapOptions 're[f]actor')
-
-      vim.keymap.set('v', '<C-g>e', ":<C-u>'<,'>GpCodeExplain<cr>", keymapOptions '[e]xplain')
-
-      vim.keymap.set('v', '<C-g>r', ":<C-u>'<,'>GpCodeReview<cr>", keymapOptions '[r]eview')
-
-      vim.keymap.set('v', '<C-g>u', ":<C-u>'<,'>GpUnitTests<cr>", keymapOptions 'create [u]nit Tests')
+      vim.keymap.set('v', '<C-a>i', ":<C-u>'<,'>GpImplement<cr>", keymapOptions '[i]mplement')
+      vim.keymap.set('v', '<C-a>e', ":<C-u>'<,'>GpRewriteToDiff<cr>", keymapOptions '[e]dit')
+      vim.keymap.set('v', '<C-a>d', ":<C-u>'<,'>GpCodeExplain<cr>", keymapOptions '[d]escribe')
+      vim.keymap.set('v', '<C-a>r', ":<C-u>'<,'>GpCodeReview<cr>", keymapOptions '[r]eview')
+      vim.keymap.set('v', '<C-a>t', ":<C-u>'<,'>GpUnitTests<cr>", keymapOptions 'create [t]ests')
 
       -- Global commands
 
-      vim.keymap.set({ 'n', 'i', 'v' }, '<C-g>x', function()
+      vim.keymap.set({ 'n', 'i', 'v' }, '<C-a>x', function()
         if vim.fn.mode() == 'v' then
           return ":<C-u>'<,'>GpContext<cr>"
         end
         return '<cmd>GpContext<cr>'
       end, keymapOptions 'Conte[x]t')
 
-      vim.keymap.set({ 'n', 'i', 'v' }, '<C-g>s', '<cmd>GpStop<cr>', keymapOptions '[s]top')
-      vim.keymap.set({ 'n', 'i', 'v' }, '<C-g>n', '<cmd>GpNextAgent<cr>', keymapOptions '[n]ext Agent')
+      vim.keymap.set({ 'n', 'i', 'v' }, '<C-a>s', '<cmd>GpStop<cr>', keymapOptions '[s]top')
+    end,
+  },
+
+  {
+    'supermaven-inc/supermaven-nvim',
+
+    config = function()
+      require('supermaven-nvim').setup {
+        keymaps = {
+          accept_suggestion = '<M-CR>',
+          clear_suggestion = '<M-[>',
+          accept_word = '<M-]>',
+        },
+      }
     end,
   },
 
@@ -204,22 +226,6 @@ return {
   --       ft = { 'markdown', 'Avante' },
   --     },
   --   },
-  -- },
-
-  -- {
-  --   'supermaven-inc/supermaven-nvim',
-  --
-  --   enabled = false, -- on a flight :)
-  --
-  --   config = function()
-  --     require('supermaven-nvim').setup {
-  --       keymaps = {
-  --         accept_suggestion = '<M-CR>',
-  --         clear_suggestion = '<M-[>',
-  --         accept_word = '<M-]>',
-  --       },
-  --     }
-  --   end,
   -- },
 
   -- {

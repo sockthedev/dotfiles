@@ -80,19 +80,25 @@ alias check_ports="sudo lsof -iTCP -sTCP:LISTEN -n -P | awk 'NR>1 {print \$9, \$
 # find directory in current directory
 function fcd() {
   local dir
-  dir=$(fd -t d . | fzf) && cd "$dir"
+  dir=$(fd -t d . | fzf) && cd "$dir" || exit
 }
 
 # find directory in user directory
 function fcu() {
   local dir
-  dir=$(fd -t d ~/ | fzf) && cd "$dir"
+  dir=$(fd -t d ~/ | fzf) && cd "$dir" || exit
 }
 
-  # find directory in "code" directory
+# find directory in "code" directory
 function fcw() {
   local dir
-  dir=$(fd -t d . ~/code | fzf) && cd "$dir"
+  dir=$(fd -t d . ~/code | fzf) && cd "$dir" || exit
+}
+
+# find directory in "code" directory
+function fcm() {
+  local dir
+  dir=$(fd -t d . ~/code/github.com/DigitalInnovation | fzf) && cd "$dir" || exit
 }
 
 # find recent directory
@@ -101,12 +107,21 @@ function fcz() {
   dir=$(z -l 2>&1 | awk 'NR>1 {print substr($0, index($0,$2))}' | fzf) && cd "$dir"
 }
 
-alias v='nvim'
+alias vss='XDG_DATA_HOME=~/.local/share/nvim-sock \
+XDG_STATE_HOME=~/.local/state/nvim-sock \
+XDG_CACHE_HOME=~/.cache/nvim-sock \
+nvim'
 
-alias vm='XDG_DATA_HOME=~/.local/share/nvim-marks \
+alias vms='XDG_DATA_HOME=~/.local/share/nvim-marks \
 XDG_STATE_HOME=~/.local/state/nvim-marks \
 XDG_CACHE_HOME=~/.cache/nvim-marks \
 nvim'
+
+alias vnl='XDG_DATA_HOME=~/.local/share/nvim-nl \
+XDG_STATE_HOME=~/.local/state/nvim-nl \
+XDG_CACHE_HOME=~/.cache/nvim-nl \
+nvim'
+
 
 alias g='./gradlew'
 

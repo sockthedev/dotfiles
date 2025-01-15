@@ -1,6 +1,5 @@
 theme = tokyonight
 background = #000000
-window-theme = ghostty
 macos-non-native-fullscreen = true
 macos-window-shadow = false
 macos-icon-frame = beige
@@ -8,18 +7,17 @@ window-width = 100000
 window-height = 100000
 window-padding-x = 5
 window-padding-y = 5
-term=xterm-256colo
 confirm-close-surface = false
 macos-auto-secure-input = true
 macos-option-as-alt = left
 macos-secure-input-indication = true
 macos-titlebar-style = tabs
-minimum-contrast = 1.1
 window-save-state = always
 
 # font
 
 font-family = Berkeley Mono
+# font-family = Monaspace Neon
 font-size = 18
 adjust-cell-height = 0%
 adjust-cell-width = -8%
