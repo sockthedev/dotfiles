@@ -9,6 +9,9 @@ return {
       -- local background = '#191919'
       local background = '#000000'
       lackluster.setup {
+        tweak_color = {
+          green = lackluster.color.lack,
+        },
         tweak_syntax = {
           comment = lackluster.color.gray5,
         },

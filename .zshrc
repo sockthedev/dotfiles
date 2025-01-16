@@ -77,34 +77,39 @@ source <(fzf --zsh)
 # list processes listening on ports
 alias check_ports="sudo lsof -iTCP -sTCP:LISTEN -n -P | awk 'NR>1 {print \$9, \$1, \$2}' | sed 's/.*://' | while read port process pid; do echo \"Port \$port: \$(ps -p \$pid -o command= | sed 's/^-//') (PID: \$pid)\"; done | sort -n"
 
+# utility function for finding and changing directory
+function _find_and_cd() {
+  local dir
+  dir=$(fd -t d . "${1:-$PWD}" | fzf)
+  if [[ -n "$dir" ]]; then
+    cd "$dir" || return
+  fi
+}
+
 # find directory in current directory
 function fcd() {
-  local dir
-  dir=$(fd -t d . | fzf) && cd "$dir" || exit
+  _find_and_cd
 }
 
 # find directory in user directory
-function fcu() {
-  local dir
-  dir=$(fd -t d ~/ | fzf) && cd "$dir" || exit
+function fud() {
+  _find_and_cd ~/
+}
+
+# find directory in "work" directory  
+function fwd() {
+  _find_and_cd ~/code
 }
 
 # find directory in "code" directory
-function fcw() {
-  local dir
-  dir=$(fd -t d . ~/code | fzf) && cd "$dir" || exit
-}
-
-# find directory in "code" directory
-function fcm() {
-  local dir
-  dir=$(fd -t d . ~/code/github.com/DigitalInnovation | fzf) && cd "$dir" || exit
+function fmd() {
+  _find_and_cd ~/code/github.com/DigitalInnovation
 }
 
 # find recent directory
-function fcz() {
+function frd() {
   local dir
-  dir=$(z -l 2>&1 | awk 'NR>1 {print substr($0, index($0,$2))}' | fzf) && cd "$dir"
+  dir=$(z -l 2>&1 | awk 'NR>1 {print substr($0, index($0,$2))}' | fzf) && cd "$dir" || return
 }
 
 alias vss='XDG_DATA_HOME=~/.local/share/nvim-sock \

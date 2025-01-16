@@ -113,13 +113,13 @@ return {
             local template = 'I have the following from {{filename}}:\n\n'
               .. '```{{filetype}}\n{{selection}}\n```\n\n'
               .. 'Rewrite it based on these instructions: {{command}}\n\n'
-              .. 'Respond with a code block containing the rewritten code, and a brief explanation of the changes that were made along with the reasons for doing so.\n\n'
+              .. 'Respond with the following:\n\n'
+              .. '  - a code block containing the rewritten code\n\n'
+              .. '  - a brief explanation of the changes that were made along with the reasons for doing so\n\n'
+              .. '  - a "diff" code block that shows the code changes in a diff format.\n\n'
             local agent = gp.get_chat_agent()
             local input_prompt = '🤖 ' .. agent.name .. ' ~'
-            gp.Prompt(params, gp.Target.vnew 'markdown', agent, template, input_prompt, nil, function()
-              vim.cmd 'normal! 1G0'
-              vim.cmd [[execute "normal! \<Esc>"]]
-            end)
+            gp.Prompt(params, gp.Target.popup, agent, template, input_prompt)
           end,
           UnitTests = function(gp, params)
             local template = 'I have the following code from {{filename}}:\n\n'
@@ -156,6 +156,7 @@ return {
       -- Selection commands
 
       vim.keymap.set('v', '<C-a>i', ":<C-u>'<,'>GpImplement<cr>", keymapOptions '[i]mplement')
+      vim.keymap.set('v', '<C-a>q', ":<C-u>'<,'>GpRewrite<cr>", keymapOptions '[q]uick edit')
       vim.keymap.set('v', '<C-a>e', ":<C-u>'<,'>GpRewriteToDiff<cr>", keymapOptions '[e]dit')
       vim.keymap.set('v', '<C-a>d', ":<C-u>'<,'>GpCodeExplain<cr>", keymapOptions '[d]escribe')
       vim.keymap.set('v', '<C-a>r', ":<C-u>'<,'>GpCodeReview<cr>", keymapOptions '[r]eview')
