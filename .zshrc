@@ -1,22 +1,25 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 
+# Add built rust/cargo binaries to the PATH
+export PATH="$HOME/.cargo/bin:$PATH"
+
 # Add Docker to PATH
 export PATH="$HOME/.docker/bin:$PATH"
-
-# Add MySQL client to PATH
-export PATH="/opt/homebrew/opt/mysql-client@8.4/bin:$PATH"
 
 # Add GOBIN to PATH
 export PATH=$PATH:$HOME/go/bin
 
-# Add postgres client utils (pgql) to PATH
-export PATH=/opt/homebrew/opt/libpq/bin:$PATH
+# Add mysql@8.4 to the PATH
+export PATH="/opt/homebrew/opt/mysql-client@8.4/bin:$PATH"
 
-# pyenv
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
+# Add postgres@16 to the PATH
+export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
+
+# # pyenv
+# if command -v pyenv 1>/dev/null 2>&1; then
+#   eval "$(pyenv init -)"
+# fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -39,7 +42,7 @@ plugins=(
   aws
   git
   nvm
-  pyenv
+  # pyenv
   starship
 )
 
@@ -63,7 +66,7 @@ path+=~/.zfunc
 autoload -Uz compinit && compinit
 
 # AWSume alias to source the AWSume script
-alias awsume="source \$(pyenv which awsume)"
+# alias awsume="source \$(pyenv which awsume)"
 
 # enable "z" - recent directory jumping
 . /opt/homebrew/etc/profile.d/z.sh

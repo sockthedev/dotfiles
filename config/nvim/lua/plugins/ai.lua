@@ -1,5 +1,18 @@
 return {
   {
+    'supermaven-inc/supermaven-nvim',
+    config = function()
+      require('supermaven-nvim').setup {
+        keymaps = {
+          accept_suggestion = '<M-CR>',
+          clear_suggestion = '<M-[>',
+          accept_word = '<M-]>',
+        },
+      }
+    end,
+  },
+
+  {
     'robitx/gp.nvim',
     config = function()
       local chat_system_prompt = 'You are an AI assistant to an experienced full stack web developer.\n\n'
@@ -142,92 +155,38 @@ return {
 
       -- Chat commands
 
-      vim.keymap.set({ 'n', 'i' }, '<C-a>n', '<cmd>GpChatNew<cr>', keymapOptions '[n]ew chat')
-      vim.keymap.set('v', '<C-a>n', ":<C-u>'<,'>GpChatNew<cr>", keymapOptions '[n]ew chat')
-      vim.keymap.set({ 'n', 'i' }, '<C-a>h', '<cmd>GpChatFinder<cr>', keymapOptions '[h]istory')
+      vim.keymap.set({ 'n', 'i' }, '<C-g>n', '<cmd>GpChatNew<cr>', keymapOptions '[n]ew chat')
+      vim.keymap.set('v', '<C-g>n', ":<C-u>'<,'>GpChatNew<cr>", keymapOptions '[n]ew chat')
+      vim.keymap.set({ 'n', 'i' }, '<C-g>h', '<cmd>GpChatFinder<cr>', keymapOptions '[h]istory')
 
       -- Prompt commands
 
-      vim.keymap.set({ 'n', 'i' }, '<C-a>a', '<cmd>GpAppend<cr>', keymapOptions '[a]ppend')
-      vim.keymap.set('v', '<C-a>a', ":<C-u>'<,'>GpAppend<cr>", keymapOptions '[a]ppend')
-      vim.keymap.set({ 'n', 'i' }, '<C-a>p', '<cmd>GpPrepend<cr>', keymapOptions '[p]repend')
-      vim.keymap.set('v', '<C-a>p', ":<C-u>'<,'>GpPrepend<cr>", keymapOptions '[p]repend')
+      vim.keymap.set({ 'n', 'i' }, '<C-g>a', '<cmd>GpAppend<cr>', keymapOptions '[a]ppend')
+      vim.keymap.set('v', '<C-g>a', ":<C-u>'<,'>GpAppend<cr>", keymapOptions '[a]ppend')
+      vim.keymap.set({ 'n', 'i' }, '<C-g>p', '<cmd>GpPrepend<cr>', keymapOptions '[p]repend')
+      vim.keymap.set('v', '<C-g>p', ":<C-u>'<,'>GpPrepend<cr>", keymapOptions '[p]repend')
 
       -- Selection commands
 
-      vim.keymap.set('v', '<C-a>i', ":<C-u>'<,'>GpImplement<cr>", keymapOptions '[i]mplement')
-      vim.keymap.set('v', '<C-a>q', ":<C-u>'<,'>GpRewrite<cr>", keymapOptions '[q]uick edit')
-      vim.keymap.set('v', '<C-a>e', ":<C-u>'<,'>GpRewriteToDiff<cr>", keymapOptions '[e]dit')
-      vim.keymap.set('v', '<C-a>d', ":<C-u>'<,'>GpCodeExplain<cr>", keymapOptions '[d]escribe')
-      vim.keymap.set('v', '<C-a>r', ":<C-u>'<,'>GpCodeReview<cr>", keymapOptions '[r]eview')
-      vim.keymap.set('v', '<C-a>t', ":<C-u>'<,'>GpUnitTests<cr>", keymapOptions 'create [t]ests')
+      vim.keymap.set('v', '<C-g>i', ":<C-u>'<,'>GpImplement<cr>", keymapOptions '[i]mplement')
+      vim.keymap.set('v', '<C-g>q', ":<C-u>'<,'>GpRewrite<cr>", keymapOptions '[q]uick edit')
+      vim.keymap.set('v', '<C-g>e', ":<C-u>'<,'>GpRewriteToDiff<cr>", keymapOptions '[e]dit')
+      vim.keymap.set('v', '<C-g>d', ":<C-u>'<,'>GpCodeExplain<cr>", keymapOptions '[d]escribe')
+      vim.keymap.set('v', '<C-g>r', ":<C-u>'<,'>GpCodeReview<cr>", keymapOptions '[r]eview')
+      vim.keymap.set('v', '<C-g>t', ":<C-u>'<,'>GpUnitTests<cr>", keymapOptions 'create [t]ests')
 
       -- Global commands
 
-      vim.keymap.set({ 'n', 'i', 'v' }, '<C-a>x', function()
+      vim.keymap.set({ 'n', 'i', 'v' }, '<C-g>x', function()
         if vim.fn.mode() == 'v' then
           return ":<C-u>'<,'>GpContext<cr>"
         end
         return '<cmd>GpContext<cr>'
       end, keymapOptions 'Conte[x]t')
 
-      vim.keymap.set({ 'n', 'i', 'v' }, '<C-a>s', '<cmd>GpStop<cr>', keymapOptions '[s]top')
+      vim.keymap.set({ 'n', 'i', 'v' }, '<C-g>s', '<cmd>GpStop<cr>', keymapOptions '[s]top')
     end,
   },
-
-  {
-    'supermaven-inc/supermaven-nvim',
-
-    config = function()
-      require('supermaven-nvim').setup {
-        keymaps = {
-          accept_suggestion = '<M-CR>',
-          clear_suggestion = '<M-[>',
-          accept_word = '<M-]>',
-        },
-      }
-    end,
-  },
-
-  -- {
-  --   'yetone/avante.nvim',
-  --   event = 'VeryLazy',
-  --   lazy = false,
-  --   version = false, -- set this if you want to always pull the latest change
-  --   opts = {
-  --     -- add any opts here
-  --   },
-  --   build = 'make',
-  --   dependencies = {
-  --     'stevearc/dressing.nvim',
-  --     'nvim-lua/plenary.nvim',
-  --     'MunifTanjim/nui.nvim',
-  --     'hrsh7th/nvim-cmp',
-  --     'nvim-tree/nvim-web-devicons',
-  --     -- support for image pasting
-  --     {
-  --       'HakonHarnes/img-clip.nvim',
-  --       event = 'VeryLazy',
-  --       opts = {
-  --         default = {
-  --           embed_image_as_base64 = false,
-  --           prompt_for_file_name = false,
-  --           drag_and_drop = {
-  --             insert_mode = true,
-  --           },
-  --         },
-  --       },
-  --     },
-  --     -- Make sure to set this up properly if you have lazy=true
-  --     {
-  --       'MeanderingProgrammer/render-markdown.nvim',
-  --       opts = {
-  --         file_types = { 'markdown', 'Avante' },
-  --       },
-  --       ft = { 'markdown', 'Avante' },
-  --     },
-  --   },
-  -- },
 
   -- {
   --   'zbirenbaum/copilot.lua',
