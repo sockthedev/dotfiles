@@ -17,11 +17,15 @@ window-save-state = always
 # font
 
 font-family = Berkeley Mono
+# font-family = MonoLisa
+# font-family = Operator Mono SSm
+# font-family = Roboto Mono
 # font-family = Monaspace Neon
-font-size = 18
-adjust-cell-height = 0%
-adjust-cell-width = -8%
+font-size = 16
+adjust-cell-height = -2%
+# adjust-cell-width = -6%
 window-inherit-font-size = true
+font-thicken = true
 
 # cursor
 
