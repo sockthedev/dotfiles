@@ -43,7 +43,7 @@ return {
     'stevearc/dressing.nvim',
     opts = {
       input = {
-        enabled = true,
+        enabled = false,
       },
       select = {
         enabled = true,

@@ -3,6 +3,7 @@ return {
     'nvim-neo-tree/neo-tree.nvim',
     branch = 'v3.x',
     dependencies = {
+      'folke/snacks.nvim',
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons',
       'MunifTanjim/nui.nvim',
@@ -19,6 +20,11 @@ return {
       },
     },
     config = function()
+      local Snacks = require 'snacks'
+      local function on_move(data)
+        Snacks.rename.on_rename_file(data.source, data.destination)
+      end
+      local events = require 'neo-tree.events'
       require('neo-tree').setup {
         popup_border_style = 'single',
         enable_git_status = false,
@@ -33,6 +39,10 @@ return {
           filtered_items = {
             visible = true,
           },
+        },
+        event_handlers = {
+          { event = events.FILE_MOVED, handler = on_move },
+          { event = events.FILE_RENAMED, handler = on_move },
         },
       }
 
