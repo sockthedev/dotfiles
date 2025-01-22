@@ -21,11 +21,13 @@ font-family = Berkeley Mono
 # font-family = Operator Mono SSm
 # font-family = Roboto Mono
 # font-family = Monaspace Neon
+# font-family = IntelOne Mono
+# font-family = JetBrains Mono
 font-size = 16
 adjust-cell-height = -2%
-# adjust-cell-width = -6%
-window-inherit-font-size = true
-font-thicken = true
+adjust-cell-width = -10%
+window-inherit-font-size = false
+font-thicken = false
 
 # cursor
 
