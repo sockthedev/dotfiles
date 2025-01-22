@@ -52,13 +52,13 @@ keybind = alt+shift+k=resize_split:up,10
 keybind = alt+shift+l=resize_split:right,10
 
 # - focus
-keybind = cmd+opt+z=toggle_split_zoom
+keybind = opt+z=toggle_split_zoom
 
 # - no shade on unfocused splits
 unfocused-split-opacity = 1
 
 # navigation
 
-keybind = cmd+opt+b=scroll_page_up
-keybind = cmd+opt+f=scroll_page_down
+keybind = opt+b=scroll_page_up
+keybind = opt+f=scroll_page_down
 

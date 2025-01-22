@@ -157,6 +157,10 @@ return {
 
       vim.keymap.set({ 'n', 'i' }, '<C-g>n', '<cmd>GpChatNew<cr>', keymapOptions '[n]ew chat')
       vim.keymap.set('v', '<C-g>n', ":<C-u>'<,'>GpChatNew<cr>", keymapOptions '[n]ew chat')
+      vim.keymap.set({ 'n', 'i' }, '<C-g>\\', '<cmd>GpChatNew vsplit<cr>', keymapOptions 'new chat [v]ertical split')
+      vim.keymap.set('v', '<C-g>\\', ":<C-u>'<,'>GpChatNew vsplit<cr>", keymapOptions '[n]ew chat')
+      vim.keymap.set({ 'n', 'i' }, "<C-g>'", '<cmd>GpChatNew split<cr>', keymapOptions 'new chat vertical split')
+      vim.keymap.set('v', "<C-g>'", ":<C-u>'<,'>GpChatNew split<cr>", keymapOptions 'new chat horizontal split')
       vim.keymap.set({ 'n', 'i' }, '<C-g>h', '<cmd>GpChatFinder<cr>', keymapOptions '[h]istory')
 
       -- Prompt commands
