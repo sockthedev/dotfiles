@@ -25,16 +25,16 @@ vim.keymap.set('n', "'", '<cmd>split<cr>', { silent = true, desc = 'Horizontal s
 vim.keymap.set('n', '<C-w>=', '<cmd>wincmd =<cr>', { silent = true, desc = 'Make all splits equal size' })
 
 -- Insert empty lines without going into insert mode
-vim.keymap.set('n', '<M-O>', 'O<Esc>', { desc = 'Insert empty line above' })
-vim.keymap.set('n', '<M-o>', 'o<Esc>', { desc = 'Insert empty line below' })
+vim.keymap.set('n', '<C-S-O>', 'O<Esc>', { desc = 'Insert empty line above' })
+vim.keymap.set('n', '<C-S-o>', 'o<Esc>', { desc = 'Insert empty line below' })
 
 -- Move Lines
-vim.keymap.set('n', '<M-j>', ':m .+1<cr>==', { desc = 'Move down' })
-vim.keymap.set('v', '<M-j>', ":m '>+1<cr>gv=gv", { desc = 'Move down' })
-vim.keymap.set('i', '<M-j>', '<Esc>:m .+1<cr>==gi', { desc = 'Move down' })
-vim.keymap.set('n', '<M-k>', ':m .-2<cr>==', { desc = 'Move up' })
-vim.keymap.set('v', '<M-k>', ":m '<-2<cr>gv=gv", { desc = 'Move up' })
-vim.keymap.set('i', '<M-k>', '<Esc>:m .-2<cr>==gi', { desc = 'Move up' })
+vim.keymap.set('n', '<C-S-j>', ':m .+1<cr>==', { desc = 'Move down' })
+vim.keymap.set('v', '<C-S-j>', ":m '>+1<cr>gv=gv", { desc = 'Move down' })
+vim.keymap.set('i', '<C-S-j>', '<Esc>:m .+1<cr>==gi', { desc = 'Move down' })
+vim.keymap.set('n', '<C-S-k>', ':m .-2<cr>==', { desc = 'Move up' })
+vim.keymap.set('v', '<C-S-k>', ":m '<-2<cr>gv=gv", { desc = 'Move up' })
+vim.keymap.set('i', '<C-S-k>', '<Esc>:m .-2<cr>==gi', { desc = 'Move up' })
 
 -- Create new file
 vim.keymap.set('n', '<C-n>', '<cmd>enew<cr>', { silent = true, desc = 'New File' })

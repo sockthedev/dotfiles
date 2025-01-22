@@ -149,10 +149,10 @@ return {
     config = function()
       require('treewalker').setup {}
 
-      vim.keymap.set({ 'n', 'v' }, '<C-S-k>', '<cmd>Treewalker Up<cr>', { silent = true })
-      vim.keymap.set({ 'n', 'v' }, '<C-S-j>', '<cmd>Treewalker Down<cr>', { silent = true })
-      vim.keymap.set({ 'n', 'v' }, '<C-S-l>', '<cmd>Treewalker Right<cr>', { silent = true })
-      vim.keymap.set({ 'n', 'v' }, '<C-S-h>', '<cmd>Treewalker Left<cr>', { silent = true })
+      vim.keymap.set({ 'n', 'v' }, '<C-S-Up>', '<cmd>Treewalker Up<cr>', { silent = true })
+      vim.keymap.set({ 'n', 'v' }, '<C-S-Down>', '<cmd>Treewalker Down<cr>', { silent = true })
+      vim.keymap.set({ 'n', 'v' }, '<C-S-Right>', '<cmd>Treewalker Right<cr>', { silent = true })
+      vim.keymap.set({ 'n', 'v' }, '<C-S-Left>', '<cmd>Treewalker Left<cr>', { silent = true })
     end,
   },
 }

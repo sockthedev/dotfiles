@@ -146,17 +146,17 @@ return {
       splits.setup {}
 
       -- navigate splits
-      vim.keymap.set('n', '<C-h>', splits.move_cursor_left)
-      vim.keymap.set('n', '<C-j>', splits.move_cursor_down)
-      vim.keymap.set('n', '<C-k>', splits.move_cursor_up)
-      vim.keymap.set('n', '<C-l>', splits.move_cursor_right)
-      vim.keymap.set('n', '<C-\\>', splits.move_cursor_previous)
+      vim.keymap.set('n', '<C-h>', splits.move_cursor_left, { desc = 'Go to left split' })
+      vim.keymap.set('n', '<C-j>', splits.move_cursor_down, { desc = 'Go to bottom split' })
+      vim.keymap.set('n', '<C-k>', splits.move_cursor_up, { desc = 'Go to top split' })
+      vim.keymap.set('n', '<C-l>', splits.move_cursor_right, { desc = 'Go to right split' })
+      vim.keymap.set('n', '<C-\\>', splits.move_cursor_previous, { desc = 'Go to previous split' })
 
       -- resize splits
-      vim.keymap.set('n', '<C-A-h>', require('smart-splits').resize_left)
-      vim.keymap.set('n', '<C-A-j>', require('smart-splits').resize_down)
-      vim.keymap.set('n', '<C-A-k>', require('smart-splits').resize_up)
-      vim.keymap.set('n', '<C-A-l>', require('smart-splits').resize_right)
+      vim.keymap.set('n', '<C-A-h>', require('smart-splits').resize_left, { desc = 'Resize left' })
+      vim.keymap.set('n', '<C-A-j>', require('smart-splits').resize_down, { desc = 'Resize down' })
+      vim.keymap.set('n', '<C-A-k>', require('smart-splits').resize_up, { desc = 'Resize up' })
+      vim.keymap.set('n', '<C-A-l>', require('smart-splits').resize_right, { desc = 'Resize right' })
     end,
   },
 

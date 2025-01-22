@@ -35,21 +35,21 @@ shell-integration-features = no-cursor
 # splits
 
 # - create
-keybind = cmd+opt+\=new_split:right
-keybind = cmd+opt+'=new_split:down
+keybind = opt+\=new_split:right
+keybind = opt+'=new_split:down
 
 # - move
-keybind = cmd+opt+l=goto_split:right
-keybind = cmd+opt+h=goto_split:left
-keybind = cmd+opt+j=goto_split:bottom
-keybind = cmd+opt+k=goto_split:top
+keybind = alt+l=goto_split:right
+keybind = alt+h=goto_split:left
+keybind = alt+j=goto_split:bottom
+keybind = alt+k=goto_split:top
 
 # - resize
-keybind = cmd+opt+.=equalize_splits
-keybind = cmd+opt+shift+h=resize_split:left,10
-keybind = cmd+opt+shift+j=resize_split:down,10
-keybind = cmd+opt+shift+k=resize_split:up,10
-keybind = cmd+opt+shift+l=resize_split:right,10
+keybind = alt+.=equalize_splits
+keybind = alt+shift+h=resize_split:left,10
+keybind = alt+shift+j=resize_split:down,10
+keybind = alt+shift+k=resize_split:up,10
+keybind = alt+shift+l=resize_split:right,10
 
 # - focus
 keybind = cmd+opt+z=toggle_split_zoom

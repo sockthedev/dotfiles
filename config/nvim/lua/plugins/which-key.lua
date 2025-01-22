@@ -23,8 +23,9 @@ return {
 
       -- Document existing key chains
       require('which-key').add {
-        { '<C-c>', group = '[C]opilot' },
-        { '<C-g>', group = '[G]pt' },
+        { '<C-g>', group = 'Gpt' },
+        { '<C-t>', group = 'Sniprun' },
+        { '<C-w>', group = 'Window' },
         { '<leader>c', group = '[c]ode' },
         { '<leader>cs', group = '[s]wap' },
         { '<leader>d', group = '[d]ap' },
