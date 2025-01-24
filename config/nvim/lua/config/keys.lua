@@ -25,7 +25,6 @@ vim.keymap.set('n', "'", '<cmd>split<cr>', { silent = true, desc = 'Horizontal s
 vim.keymap.set('n', '<C-w>=', '<cmd>wincmd =<cr>', { silent = true, desc = 'Make all splits equal size' })
 
 -- Insert empty lines without going into insert mode
-vim.keymap.set('n', '<C-S-O>', 'O<Esc>', { desc = 'Insert empty line above' })
 vim.keymap.set('n', '<C-S-o>', 'o<Esc>', { desc = 'Insert empty line below' })
 
 -- Move Lines
