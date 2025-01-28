@@ -13,6 +13,10 @@ vim.g.maplocalleader = ' '
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
+-- Change the window title
+vim.opt.title = true -- set the title of window to the value of the titlestring
+vim.opt.titlestring = '%<%F%=%l/%L - nvim' -- what the title of the window will be set to
+
 -- Make line numbers default
 vim.opt.number = true
 -- Relative line numbers

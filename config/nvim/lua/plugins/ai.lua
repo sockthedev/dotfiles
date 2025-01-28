@@ -61,7 +61,7 @@ return {
             name = 'ChatGoogle',
             chat = true,
             command = false,
-            model = { model = 'gemini-2.0-flash-thinking-exp-01-21', temperature = 0, top_p = 1 },
+            model = { model = 'gemini-2.0-flash-exp', temperature = 0, top_p = 1 },
             system_prompt = chat_system_prompt,
           },
           {
@@ -69,7 +69,7 @@ return {
             name = 'CodeGoogle',
             chat = false,
             command = true,
-            model = { model = 'gemini-2.0-flash-thinking-exp-01-21', temperature = 0, top_p = 1 },
+            model = { model = 'gemini-2.0-flash-exp', temperature = 0, top_p = 1 },
             system_prompt = code_system_prompt,
           },
           {

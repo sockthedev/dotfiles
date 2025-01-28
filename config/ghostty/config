@@ -1,18 +1,17 @@
 theme = tokyonight
 background = #000000
-macos-non-native-fullscreen = true
-macos-window-shadow = false
-macos-icon-frame = beige
 window-width = 100000
 window-height = 100000
 window-padding-x = 5
 window-padding-y = 5
-confirm-close-surface = false
-macos-auto-secure-input = true
-macos-option-as-alt = left
-macos-secure-input-indication = true
-macos-titlebar-style = tabs
 window-save-state = always
+unfocused-split-opacity = 1
+cursor-style = block
+shell-integration = zsh
+shell-integration-features = no-cursor
+confirm-close-surface = false
+quick-terminal-position = center
+bold-is-bright = true
 
 # font
 
@@ -29,38 +28,43 @@ adjust-cell-width = -10%
 window-inherit-font-size = false
 font-thicken = false
 
-# cursor
+# macos
 
-cursor-style = block
-shell-integration-features = no-cursor
+macos-non-native-fullscreen = true
+macos-window-shadow = false
+macos-icon-frame = beige
+macos-auto-secure-input = true
+macos-option-as-alt = left
+macos-secure-input-indication = true
+macos-titlebar-style = tabs
 
-# splits
 
-# - create
+# ACTIONS
+# -------
+
+# - create splits
 keybind = opt+\=new_split:right
 keybind = opt+'=new_split:down
 
-# - move
+# - move splits
 keybind = alt+l=goto_split:right
 keybind = alt+h=goto_split:left
 keybind = alt+j=goto_split:bottom
 keybind = alt+k=goto_split:top
 
-# - resize
+# - resize splits
 keybind = alt+.=equalize_splits
 keybind = alt+shift+h=resize_split:left,10
 keybind = alt+shift+j=resize_split:down,10
 keybind = alt+shift+k=resize_split:up,10
 keybind = alt+shift+l=resize_split:right,10
 
-# - focus
+# - focus splits
 keybind = opt+z=toggle_split_zoom
 
-# - no shade on unfocused splits
-unfocused-split-opacity = 1
-
-# navigation
-
+# - navigate pane
 keybind = opt+b=scroll_page_up
 keybind = opt+f=scroll_page_down
 
+# - quick terminal
+keybind = global:cmd+shift+grave_accent=toggle_quick_terminal
