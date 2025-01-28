@@ -41,6 +41,10 @@ return {
             disable = false,
             secret = { 'cat', os.getenv 'HOME' .. '/.anthropic_api_key' },
           },
+          googleai = {
+            disable = false,
+            secret = { 'cat', os.getenv 'HOME' .. '/.googleai_api_key' },
+          },
           -- Run via LMStudio
           ollama = {
             endpoint = 'http://localhost:1234/v1/chat/completions',
@@ -52,6 +56,22 @@ return {
         -- to remove some default agent completely set it just with the name like:
         -- agents = {  { name = "ChatGPT4" }, ... },
         agents = {
+          {
+            provider = 'googleai',
+            name = 'ChatGoogle',
+            chat = true,
+            command = false,
+            model = { model = 'gemini-2.0-flash-thinking-exp-01-21', temperature = 0, top_p = 1 },
+            system_prompt = chat_system_prompt,
+          },
+          {
+            provider = 'googleai',
+            name = 'CodeGoogle',
+            chat = false,
+            command = true,
+            model = { model = 'gemini-2.0-flash-thinking-exp-01-21', temperature = 0, top_p = 1 },
+            system_prompt = code_system_prompt,
+          },
           {
             provider = 'anthropic',
             name = 'ChatAnthropic',
