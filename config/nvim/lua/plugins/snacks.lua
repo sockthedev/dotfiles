@@ -16,7 +16,11 @@ return {
           border = 'single',
           height = 3,
         },
-        lazygit = {},
+        lazygit = {
+          theme = {
+            selectedLineBgColor = { bg = 'default' },
+          },
+        },
       }
 
       vim.keymap.set('n', '<leader>gg', function()

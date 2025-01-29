@@ -14,45 +14,27 @@ return {
 
   -- global find/replace
   {
-    'windwp/nvim-spectre',
+    'MagicDuck/grug-far.nvim',
     config = function()
-      require('spectre').setup {
-        is_open_target_win = false,
-        is_close = true,
-        replace_engine = {
-          ['sed'] = {
-            -- This will stop "-E" files being created
-            args = {
-              '-i',
-              '',
-              '-E',
-            },
-          },
-        },
-      }
-      vim.keymap.set(
-        'n',
-        '<leader>fa',
-        "<cmd>lua require('spectre').open({ is_insert_mode = true })<cr>",
-        { desc = '[a]ll files' }
-      )
+      require('grug-far').setup {}
+      vim.keymap.set('n', '<leader>ff', ":lua require('grug-far').open()<cr>", { desc = '[f]ind' })
       vim.keymap.set(
         'n',
         '<leader>fw',
-        "<cmd>lua require('spectre').open({select_word=true})<cr>",
-        { desc = 'Replace [w]ord in all files' }
+        ":lua require('grug-far').open({ prefills = { search = vim.fn.expand('<cword>') } })<cr>",
+        { desc = 'find [w]ord' }
+      )
+      vim.keymap.set(
+        'v',
+        '<leader>ff',
+        ":<C-u>lua require('grug-far').with_visual_selection({ prefills = { paths = vim.fn.expand('%') } })<cr>",
+        { desc = '[f]ind selection' }
       )
       vim.keymap.set(
         'n',
         '<leader>fc',
-        "<cmd>lua require('spectre').open_file_search({ is_insert_mode = true })<cr>",
-        { desc = '[c]urrent file' }
-      )
-      vim.keymap.set(
-        'n',
-        '<leader>ff',
-        "<cmd>lua require('spectre').open_file_search({select_word=true})<cr>",
-        { desc = 'Replace word current [f]ile' }
+        ":lua require('grug-far').open({ prefills = { paths = vim.fn.expand('%') } })<cr>",
+        { desc = 'find in [c]urrent file' }
       )
     end,
   },

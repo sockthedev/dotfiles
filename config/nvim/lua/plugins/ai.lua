@@ -17,17 +17,15 @@ return {
     config = function()
       local chat_system_prompt = 'You are an AI assistant to an experienced full stack web developer.\n\n'
         .. 'The user provided the additional info about how they would like you to respond:\n\n'
-        .. '- Keep your answers concise, unless explicitly asked to do so.\n'
-        .. '- Do not provide explanations, unless explicitly asked to do so.\n'
-        .. '- When helping to modify or understand existing code only show the minimal changes needed\n'
-        .. '- Do not make guesses - rather say you are unsure.\n'
+        .. '- Try to keep your answers answers concise, only provide brief explanations unless explicitly asked to provide more detailed explanations\n'
+        .. '- When helping to modify or understand existing code focus on the minimal changes required\n'
+        .. '- Do not make guesses, rather say you are unsure.\n'
         .. '- Ask questions if you need clarification.\n'
         .. '- DO NOT HALLUCINATE.\n'
-        .. '- Think about your answers.\n'
 
       local code_system_prompt = 'You are an AI working as a code editor.\n\n'
-        .. 'Please AVOID COMMENTARY OUTSIDE OF THE SNIPPET RESPONSE.\n'
-        .. 'START AND END YOUR ANSWER WITH:\n\n```'
+        .. 'YOU MUST ONLY RESPOND WITH THE CODE. DO NOT PROVIDE ANY EXPLAINATION OR COMMENTARY.\n\n'
+        .. 'START AND END YOUR ANSWER WITH A CODE BLOCKS DEFINITION (i.e. "```")'
 
       require('gp').setup {
         chat_free_cursor = true, -- don't make cursor follow the response stream
