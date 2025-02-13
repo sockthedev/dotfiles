@@ -21,6 +21,9 @@ return {
             selectedLineBgColor = { bg = 'default' },
           },
         },
+        words = {
+          notify_end = false,
+        },
       }
 
       vim.keymap.set('n', '<leader>gg', function()
@@ -32,6 +35,12 @@ return {
       vim.keymap.set('n', '<leader>gl', function()
         snacks.lazygit.log()
       end, { desc = '[l]og' })
+      vim.keymap.set('n', '<C-f>', function()
+        snacks.words.jump(1, true)
+      end, { desc = 'jump [f]orward word' })
+      vim.keymap.set('n', '<C-b>', function()
+        snacks.words.jump(-1, true)
+      end, { desc = 'jump [b]ackwards word' })
     end,
   },
 }

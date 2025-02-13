@@ -29,6 +29,7 @@ return {
   -- funky cursor travel animation
   {
     'sphamba/smear-cursor.nvim',
+    -- enabled = false, -- temporarily disable, as bugged
     opts = {
       cursor_color = '#ffffff',
       stiffness = 0.8, -- 0.6      [0, 1]
@@ -43,7 +44,7 @@ return {
     'stevearc/dressing.nvim',
     opts = {
       input = {
-        enabled = false,
+        enabled = false, -- we use snacks.nvim insteads
       },
       select = {
         enabled = true,

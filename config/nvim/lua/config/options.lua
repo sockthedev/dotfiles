@@ -15,12 +15,15 @@ vim.g.maplocalleader = ' '
 
 -- Change the window title
 vim.opt.title = true -- set the title of window to the value of the titlestring
-vim.opt.titlestring = '%<%F%=%l/%L - nvim' -- what the title of the window will be set to
+vim.opt.titlestring = '%<%F' -- what the title of the window will be set to
 
 -- Make line numbers default
 vim.opt.number = true
 -- Relative line numbers
 vim.opt.relativenumber = true
+
+-- show content length col
+vim.opt.colorcolumn = '80'
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -34,9 +37,12 @@ vim.opt.shiftwidth = 2
 vim.opt.showmode = false
 
 -- Sync clipboard between OS and Neovim.
+--  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.opt.clipboard = 'unnamedplus'
+vim.schedule(function()
+  vim.opt.clipboard = 'unnamedplus'
+end)
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -63,7 +69,7 @@ vim.opt.splitbelow = true
 --  See :help 'list'
 --  and :help 'listchars'
 vim.opt.list = true
-vim.opt.listchars = { tab = '  ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'

@@ -9,7 +9,7 @@ return {
     opts = {
       library = {
         -- Load luvit types when the `vim.uv` word is found
-        { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
       },
     },
   },
@@ -19,7 +19,16 @@ return {
     dependencies = {
 
       -- Automatically install LSPs and related tools to stdpath for neovim
-      { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
+      -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
+      {
+        'williamboman/mason.nvim',
+        opts = {
+          ui = {
+            border = 'single',
+          },
+        },
+      }, -- NOTE: Must be loaded before dependants
+
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
@@ -98,35 +107,7 @@ return {
           --  See `:help K` for why this keymap
           map('K', vim.lsp.buf.hover, 'Do[k]umentation')
 
-          -- The following is our configuration to enable highlighting words under cursor based on the LSP
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if client and client.server_capabilities.documentHighlightProvider then
-            -- vim.api.nvim_create_autocmd('LspDetach', {
-            --   group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
-            --   callback = function(event4)
-            --     vim.lsp.buf.clear_references()
-            --     vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event4.buf }
-            --   end,
-            -- })
-
-            local function highlight_word()
-              vim.lsp.buf.clear_references()
-              vim.lsp.buf.document_highlight()
-            end
-
-            vim.keymap.set(
-              'n',
-              '<leader>ch',
-              highlight_word,
-              { noremap = true, silent = true, buffer = event.buf, desc = '[h]ighlight' }
-            )
-            vim.keymap.set(
-              'n',
-              '<leader>cx',
-              vim.lsp.buf.clear_references,
-              { noremap = true, silent = true, buffer = event.buf, desc = 'Clear Highlight [x]' }
-            )
-          end
 
           -- The following autocommand is used to enable inlay hints in your
           -- code, if the language server you are using supports them
@@ -280,13 +261,6 @@ return {
               validate = false,
             },
           },
-        },
-      }
-
-      -- Ensure the servers and tools above are installed
-      require('mason').setup {
-        ui = {
-          border = 'single',
         },
       }
 

@@ -12,17 +12,19 @@ shell-integration-features = no-cursor
 confirm-close-surface = false
 quick-terminal-position = center
 bold-is-bright = true
+# custom-shader = /Users/sock/code/github.com/hackr-sh/ghostty-shaders/retro-terminal.glsl
 
 # font
 
 font-family = Berkeley Mono
+# font-family = MesloLGS Nerd Font Mono
 # font-family = MonoLisa
 # font-family = Operator Mono SSm
 # font-family = Roboto Mono
 # font-family = Monaspace Neon
 # font-family = IntelOne Mono
 # font-family = JetBrains Mono
-font-size = 16
+font-size = 14
 adjust-cell-height = -2%
 adjust-cell-width = -10%
 window-inherit-font-size = false
@@ -30,14 +32,13 @@ font-thicken = false
 
 # macos
 
-macos-non-native-fullscreen = true
+macos-non-native-fullscreen = false
 macos-window-shadow = false
 macos-icon-frame = beige
 macos-auto-secure-input = true
 macos-option-as-alt = left
 macos-secure-input-indication = true
 macos-titlebar-style = tabs
-
 
 # ACTIONS
 # -------

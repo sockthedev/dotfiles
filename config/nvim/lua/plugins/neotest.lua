@@ -47,15 +47,15 @@ return {
 
     vim.keymap.set('n', '<leader>uf', function()
       require('neotest').run.run(vim.fn.expand '%')
-    end, { desc = 'Run [f]ile' })
+    end, { desc = '[f]ile' })
 
     vim.keymap.set('n', '<leader>ud', function()
       require('neotest').run.run { strategy = 'dap' }
     end, { desc = '[d]ebug nearest test' })
 
-    vim.keymap.set('n', '<leader>us', function()
+    vim.keymap.set('n', '<leader>ux', function()
       require('neotest').run.stop()
-    end, { desc = '[s]top nearest test' })
+    end, { desc = '[x] stop nearest test' })
 
     vim.keymap.set('n', '<leader>ua', function()
       require('neotest').run.attach()
@@ -63,14 +63,14 @@ return {
 
     vim.keymap.set('n', '<leader>ul', function()
       require('neotest').run.run_last()
-    end, { desc = 'Run [l]ast test' })
+    end, { desc = '[l]ast test' })
 
     vim.keymap.set('n', '<leader>uo', function()
       require('neotest').output.open { enter = true }
-    end, { desc = 'Test [o]utput' })
+    end, { desc = '[o]utput' })
 
     vim.keymap.set('n', '<leader>up', function()
       require('neotest').output_panel.toggle()
-    end, { desc = 'Toggle [p]anel' })
+    end, { desc = '[p]anel' })
   end,
 }

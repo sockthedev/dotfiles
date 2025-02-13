@@ -5,9 +5,9 @@ return {
     config = function()
       require('which-key').setup {
         notify = false,
-        delay = function(ctx)
-          return ctx.plugin and 0 or 400
-        end,
+        -- delay between pressing a key and opening which-key (milliseconds)
+        -- this setting is independent of vim.opt.timeoutlen
+        delay = 0,
         win = {
           border = 'single',
           padding = { 1, 1 },
