@@ -14,6 +14,8 @@ return {
           return vim.fn.executable 'make' == 1
         end,
       },
+
+      -- Sets vim.ui.select to telescope
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Pretty icons

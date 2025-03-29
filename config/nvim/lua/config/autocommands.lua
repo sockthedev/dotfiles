@@ -16,13 +16,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, { command = 'checktime' })
 
 -- Ensure that no symbols are concealed in markdown files, and that spelling is enabled for them
-local markdown_augroup = vim.api.nvim_create_augroup('markdown', { clear = true })
-vim.api.nvim_create_autocmd('FileType', {
-  group = markdown_augroup,
-  pattern = 'markdown',
-  callback = function()
-    vim.opt_local.spell = true
-    vim.opt_local.spelllang = { 'en_us', 'en_gb' }
-    vim.opt_local.conceallevel = 0
-  end,
-})
+-- local markdown_augroup = vim.api.nvim_create_augroup('markdown', { clear = true })
+-- vim.api.nvim_create_autocmd('FileType', {
+--   group = markdown_augroup,
+--   pattern = 'markdown',
+--   callback = function()
+--     vim.opt_local.spell = true
+--     vim.opt_local.spelllang = { 'en_us', 'en_gb' }
+--     vim.opt_local.conceallevel = 0
+--   end,
+-- })

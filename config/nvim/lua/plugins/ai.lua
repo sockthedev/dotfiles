@@ -3,12 +3,13 @@ return {
     'robitx/gp.nvim',
     config = function()
       local chat_system_prompt = 'You are an AI assistant to an experienced full stack web developer.\n\n'
-        .. 'The user provided the additional info about how they would like you to respond:\n\n'
-        .. '- Try to keep your answers answers concise, only provide brief explanations unless explicitly asked to provide more detailed explanations\n'
-        .. '- When helping to modify or understand existing code focus on the minimal changes required\n'
-        .. '- Do not make guesses, rather say you are unsure.\n'
+        .. 'Please obey the following rules:\n\n'
+        .. '- Keep your answers answers concise. Only provide brief explanations unless explicitly asked to provide more detailed explanations.\n'
+        .. '- When modifying existing code focus on the minimal changes required.\n'
+        .. '- Only answer if you are absolutely sure.\n'
         .. '- Ask questions if you need clarification.\n'
-        .. '- DO NOT HALLUCINATE.\n'
+        .. '- Always respond in markdown format.\n'
+        .. '- Always wrap code you create in a markdown code block.\n'
 
       local code_system_prompt = 'You are an AI working as a code editor.\n\n'
         .. 'YOU MUST ONLY RESPOND WITH THE CODE. DO NOT PROVIDE ANY EXPLAINATION OR COMMENTARY.\n\n'
@@ -67,10 +68,15 @@ return {
             chat = true,
             command = false,
             model = {
-              model = 'claude-3-5-sonnet-20241022',
+              -- in: $3 / million
+              -- out: $15 / million
+              -- context: 200k
+              -- ouput: 8192, or 64000 with thinking, or 128k with the beta header
+              -- Include the beta header output-128k-2025-02-19 in your API request to increase the maximum output token length to 128k tokens for Claude 3.7 Sonnet.
+              model = 'claude-3-7-sonnet-20250219',
               temperature = 0,
               top_p = 1,
-              max_tokens = 8192,
+              max_tokens = 64000,
             },
             system_prompt = chat_system_prompt,
           },
@@ -80,10 +86,10 @@ return {
             chat = false,
             command = true,
             model = {
-              model = 'claude-3-5-sonnet-20241022',
+              model = 'claude-3-7-sonnet-20250219',
               temperature = 0,
               top_p = 1,
-              max_tokens = 8192,
+              max_tokens = 64000,
             },
             system_prompt = code_system_prompt,
           },
@@ -174,7 +180,15 @@ return {
       local original_prepare_payload = dispatcher.prepare_payload
       dispatcher.prepare_payload = function(messages, model, provider)
         local output = original_prepare_payload(messages, model, provider)
-        if provider == 'openai' and model.model:sub(1, 2) == 'o3' then
+
+        if provider == 'anthropic' then
+          output.temperature = 1 -- required for thinking mode
+          output.top_p = nil -- required for thinking mode
+          output.thinking = {
+            type = 'enabled',
+            budget_tokens = 32000,
+          }
+        elseif provider == 'openai' and model.model:sub(1, 2) == 'o3' then
           for i = #messages, 1, -1 do
             if messages[i].role == 'system' then
               table.remove(messages, i)
@@ -185,6 +199,7 @@ return {
           output.top_p = nil
           output.stream = true
         end
+
         return output
       end
 
@@ -237,49 +252,36 @@ return {
   },
 
   {
-    'supermaven-inc/supermaven-nvim',
+    'zbirenbaum/copilot.lua',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    cmd = 'Copilot',
+    event = 'VimEnter',
     config = function()
-      require('supermaven-nvim').setup {
-        keymaps = {
-          accept_suggestion = '<M-CR>',
-          clear_suggestion = '<M-[>',
-          accept_word = '<M-]>',
+      require('copilot').setup {
+        suggestion = {
+          auto_trigger = true,
+          keymap = {
+            accept = '<M-CR>',
+            accept_word = '<M-]>',
+            accept_line = '<M-]>',
+            prev = '<M-Right>',
+            next = '<M-Left>',
+            dismiss = '<C-]>',
+          },
+        },
+        panel = {
+          auto_refresh = false,
+          keymap = {
+            accept = '<CR>',
+            jump_prev = '<M-[>',
+            jump_next = '<M-]>',
+            refresh = 'gr',
+            open = '<M-CR>',
+          },
         },
       }
     end,
   },
-
-  -- {
-  --   'zbirenbaum/copilot.lua',
-  --   dependencies = {
-  --     'nvim-lua/plenary.nvim',
-  --   },
-  --   cmd = 'Copilot',
-  --   event = 'VimEnter',
-  --   config = function()
-  --     require('copilot').setup {
-  --       suggestion = {
-  --         auto_trigger = true,
-  --         keymap = {
-  --           accept = '<M-CR>',
-  --           accept_word = '<M-Right>',
-  --           accept_line = '<M-Down>',
-  --           prev = '<M-[>',
-  --           next = '<M-]>',
-  --           dismiss = '<C-]>',
-  --         },
-  --       },
-  --       panel = {
-  --         auto_refresh = false,
-  --         keymap = {
-  --           accept = '<CR>',
-  --           jump_prev = '<M-[>',
-  --           jump_next = '<M-]>',
-  --           refresh = 'gr',
-  --           open = '<M-CR>',
-  --         },
-  --       },
-  --     }
-  --   end,
-  -- },
 }

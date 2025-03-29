@@ -6,10 +6,12 @@ return {
     ---@module 'render-markdown'
     ---@type render.md.UserConfig
     opts = {
+      file_types = { 'markdown', 'Avante' },
       sign = {
         enabled = false,
       },
     },
+    ft = { 'markdown', 'Avante' },
   },
 
   -- global find/replace
@@ -37,23 +39,6 @@ return {
         { desc = 'find in [c]urrent file' }
       )
     end,
-  },
-
-  -- make screenshots of code
-  {
-    'mistricky/codesnap.nvim',
-    build = 'make',
-    cmd = 'CodeSnap',
-    keys = {
-      { '<leader>cp', '<cmd>CodeSnap<cr>', mode = 'x', desc = '[P]hoto' },
-    },
-    opts = {
-      has_breadcrumbs = false,
-      code_font_family = 'Berkeley Mono',
-      bg_color = '#cccccc', -- transparent
-      watermark = '',
-      mac_window_bar = false,
-    },
   },
 
   -- session management

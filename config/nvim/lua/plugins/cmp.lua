@@ -9,8 +9,11 @@ return {
 
       -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
       'hrsh7th/cmp-path',
+
+      -- the buffer completion is noisy
+      -- 'hrsh7th/cmp-buffer',
 
       -- VSCode-like pictograms
       'onsails/lspkind-nvim',
@@ -22,13 +25,6 @@ return {
       luasnip.config.setup {}
 
       local lspkind = require 'lspkind'
-      local format_kinds = lspkind.cmp_format {
-        menu = {
-          buffer = '[b]',
-          nvim_lsp = '[l]',
-          path = '[p]',
-        },
-      }
 
       cmp.setup {
         snippet = {
@@ -94,15 +90,15 @@ return {
           end, { 'i', 's' }),
         },
         sources = {
+          { name = 'nvim_lsp' },
+          { name = 'nvim_lsp_signature_help' },
+          -- { name = 'luasnip' },
+          { name = 'path' },
           {
             name = 'lazydev',
             -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
             group_index = 0,
           },
-          { name = 'nvim_lsp' },
-          { name = 'luasnip' },
-          { name = 'path' },
-          { name = 'buffer' },
         },
         formatting = {
           fields = { 'kind', 'abbr', 'menu' },

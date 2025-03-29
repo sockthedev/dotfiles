@@ -13,8 +13,8 @@ export PATH=$PATH:$HOME/go/bin
 # Add mysql@8.4 to the PATH
 export PATH="/opt/homebrew/opt/mysql-client@8.4/bin:$PATH"
 
-# Add postgres@16 to the PATH
-export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
+# Add postgres@17 to the PATH
+export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
 
 # # pyenv
 # if command -v pyenv 1>/dev/null 2>&1; then
@@ -64,9 +64,6 @@ source "$HOME/.cargo/env"
 # python poetry package manager completions
 path+=~/.zfunc
 autoload -Uz compinit && compinit
-
-# AWSume alias to source the AWSume script
-# alias awsume="source \$(pyenv which awsume)"
 
 # enable "z" - recent directory jumping
 . /opt/homebrew/etc/profile.d/z.sh
@@ -158,3 +155,6 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/sock/.cache/lm-studio/bin"
+
+# awsume alias required for unix-like systems
+alias awsume=". awsume"

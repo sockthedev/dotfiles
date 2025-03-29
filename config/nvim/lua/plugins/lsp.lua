@@ -68,8 +68,8 @@ return {
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-T>.
-          map('gd', require('telescope.builtin').lsp_definitions, 'Go to [d]efinition')
-          -- map('gd', vim.lsp.buf.definition, 'Go to [D]efinition')
+          map('gd', vim.lsp.buf.definition, 'Go to [D]efinition')
+          -- map('gd', require('telescope.builtin').lsp_definitions, 'Go to [d]efinition')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header
@@ -141,6 +141,38 @@ return {
         }
       )
 
+      local lspconfig = require 'lspconfig'
+      local configs = require 'lspconfig.configs'
+
+      -- Experimental tsgo lsp support (not there yet though)
+      -- if not configs.tsgo then
+      --   configs.tsgo = {
+      --     default_config = {
+      --       -- init_options = { hostInfo = 'neovim' }, -- not implemented yet
+      --       cmd = { '/Users/sock/code/github.com/microsoft/typescript-go/built/local/tsgo', 'lsp', '--stdio' },
+      --       filetypes = {
+      --         'javascript',
+      --         'javascriptreact',
+      --         'javascript.jsx',
+      --         'typescript',
+      --         'typescriptreact',
+      --         'typescript.tsx',
+      --       },
+      --       root_dir = require('lspconfig').util.root_pattern(
+      --         'tsconfig.json',
+      --         'jsconfig.json',
+      --         'package-lock.json',
+      --         'yarn.lock',
+      --         'bun.lockb',
+      --         'pnpm-lock.yaml',
+      --         '.git'
+      --       ),
+      --       single_file_support = true,
+      --       -- Add any specific settings the tsgo LSP might need
+      --     },
+      --   }
+      -- end
+
       -- Enable the following language servers
       -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
       local servers = {
@@ -157,6 +189,7 @@ return {
         dockerls = {},
         eslint = {
           root_dir = require('lspconfig').util.root_pattern('.eslintrc.json', '.eslintrc'),
+          autostart = false,
         },
         html = {},
         jsonls = {
@@ -209,6 +242,8 @@ return {
           },
         },
         tailwindcss = {},
+        -- typescript-go lsp
+        -- tsgo = {},
         -- typescript lsp based off of the vscode one
         vtsls = {
           root_dir = require('lspconfig').util.root_pattern(
@@ -224,28 +259,13 @@ return {
               autoUseWorkspaceTsdk = true,
             },
             javascript = {
-              inlayHints = {
-                parameterNames = {
-                  enabled = 'all',
-                  suppressWhenArgumentMatchesName = false,
-                },
-                parameterTypes = {
-                  enabled = true,
-                },
+              preferences = {
+                includePackageJsonAutoImports = 'off',
               },
             },
             typescript = {
               tsserver = {
-                maxTsServerMemory = 6144,
-              },
-              inlayHints = {
-                parameterNames = {
-                  enabled = 'all',
-                  suppressWhenArgumentMatchesName = false,
-                },
-                parameterTypes = {
-                  enabled = false,
-                },
+                maxTsServerMemory = 2048,
               },
             },
           },
@@ -265,9 +285,20 @@ return {
       }
 
       -- You can add other tools here that you want Mason to install for you, so that they are available from within Neovim.
-      local ensure_installed = vim.tbl_map(function(key)
-        return key == 'tsserver' and 'ts_ls' or key
-      end, vim.tbl_keys(servers or {}))
+      local ensure_installed = vim.tbl_map(
+        function(key)
+          if key == 'tsserver' then
+            return 'ts_ls'
+          elseif key == 'tsgo' then
+            return nil -- Skip tsgo as it's manually installed
+          else
+            return key
+          end
+        end,
+        vim.tbl_filter(function(key)
+          return key ~= 'tsgo'
+        end, vim.tbl_keys(servers or {}))
+      )
       vim.list_extend(ensure_installed, {
         'goimports', -- Format imports in Go (gopls includes gofmt already)
         'prettierd', -- Used to format JavaScript, TypeScript, HTML, JSON, etc.
@@ -299,6 +330,13 @@ return {
           end,
         },
       }
+
+      -- Manually set up tsgo since it's not managed by Mason
+      if servers.tsgo then
+        local tsgo_config = servers.tsgo
+        tsgo_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, tsgo_config.capabilities or {})
+        require('lspconfig').tsgo.setup(tsgo_config)
+      end
 
       -- disable the diagnostics for .env files
       local group = vim.api.nvim_create_augroup('__env', { clear = true })
