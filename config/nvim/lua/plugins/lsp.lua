@@ -36,7 +36,7 @@ return {
       { 'j-hui/fidget.nvim', opts = {} },
 
       -- Allows extra capabilities provided by nvim-cmp
-      'hrsh7th/cmp-nvim-lsp',
+      -- 'hrsh7th/cmp-nvim-lsp',
 
       -- JSON schemas
       'b0o/schemastore.nvim',
@@ -54,6 +54,9 @@ return {
           toggle_key = '<C-M-k>',
         },
       },
+
+      -- blink provides additional LSP capabilities
+      'saghen/blink.cmp',
     },
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -121,28 +124,8 @@ return {
         end,
       })
 
-      -- LSP servers and clients are able to communicate to each other what features they support.
-      --  By default, Neovim doesn't support everything that is in the LSP Specification.
-      --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
-      --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
-      capabilities = vim.tbl_deep_extend(
-        'force',
-        capabilities,
-        -- Required for nvim-ufo code folding (see folding.lua)
-        {
-          textDocument = {
-            foldingRange = {
-              dynamicRegistration = false,
-              lineFoldingOnly = true,
-            },
-          },
-        }
-      )
-
       local lspconfig = require 'lspconfig'
-      local configs = require 'lspconfig.configs'
+      -- local configs = require 'lspconfig.configs'
 
       -- Experimental tsgo lsp support (not there yet though)
       -- if not configs.tsgo then
@@ -188,7 +171,7 @@ return {
         docker_compose_language_service = {},
         dockerls = {},
         eslint = {
-          root_dir = require('lspconfig').util.root_pattern('.eslintrc.json', '.eslintrc'),
+          root_dir = lspconfig.util.root_pattern('.eslintrc.json', '.eslintrc'),
           autostart = false,
         },
         html = {},
@@ -227,12 +210,7 @@ return {
           },
         },
         pyright = {
-          root_dir = require('lspconfig').util.root_pattern(
-            'pyproject.toml',
-            'requirements.txt',
-            'Pipfile',
-            'pyrightconfig.json'
-          ),
+          root_dir = lspconfig.util.root_pattern('pyproject.toml', 'requirements.txt', 'Pipfile', 'pyrightconfig.json'),
           filetype = { 'python' },
         },
         ruff = {
@@ -246,7 +224,7 @@ return {
         -- tsgo = {},
         -- typescript lsp based off of the vscode one
         vtsls = {
-          root_dir = require('lspconfig').util.root_pattern(
+          root_dir = lspconfig.util.root_pattern(
             'pnpm-workspace.yaml',
             'pnpm-lock.yaml',
             'package-lock.json',
@@ -299,11 +277,13 @@ return {
           return key ~= 'tsgo'
         end, vim.tbl_keys(servers or {}))
       )
+
       vim.list_extend(ensure_installed, {
         'goimports', -- Format imports in Go (gopls includes gofmt already)
         'prettierd', -- Used to format JavaScript, TypeScript, HTML, JSON, etc.
         'stylua', -- Used to format Lua code
       })
+
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
@@ -311,9 +291,20 @@ return {
           function(server_name)
             server_name = server_name == 'tsserver' and 'ts_ls' or server_name
             local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for tsserver)
+            -- LSP servers and clients are able to communicate to each other what features they support.
+            --  By default, Neovim doesn't support everything that is in the LSP Specification.
+            --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
+            --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
+            local capabilities = {
+              textDocument = {
+                -- Required for nvim-ufo code folding (see folding.lua)
+                foldingRange = {
+                  dynamicRegistration = false,
+                  lineFoldingOnly = true,
+                },
+              },
+            }
+            capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
 
             -- FIXME: workaround for https://github.com/neovim/neovim/issues/28058
@@ -334,6 +325,7 @@ return {
       -- Manually set up tsgo since it's not managed by Mason
       if servers.tsgo then
         local tsgo_config = servers.tsgo
+        capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
         tsgo_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, tsgo_config.capabilities or {})
         require('lspconfig').tsgo.setup(tsgo_config)
       end
@@ -350,10 +342,10 @@ return {
       })
 
       -- UI style configuration
-      vim.lsp.handlers['textDocument/hover'] =
-        vim.lsp.with(vim.lsp.handlers.hover, { border = 'single', stylize_markdown = false })
-      vim.lsp.handlers['textDocument/signatureHelp'] =
-        vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'single', stylize_markdown = false })
+      -- vim.lsp.handlers['textDocument/hover'] =
+      --   vim.lsp.with(vim.lsp.handlers.hover, { border = 'single', stylize_markdown = false })
+      -- vim.lsp.handlers['textDocument/signatureHelp'] =
+      --   vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'single', stylize_markdown = false })
       vim.diagnostic.config {
         update_in_insert = true,
         severity_sort = true,
