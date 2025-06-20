@@ -1,4 +1,35 @@
 return {
+  -- cursor movement animation
+  {
+    'sphamba/smear-cursor.nvim',
+    opts = {
+      cursor_color = '#ffffff',
+      stiffness = 0.8, -- 0.6      [0, 1]
+      trailing_stiffness = 0.5, -- 0.3      [0, 1]
+      distance_stop_animating = 0.5, -- 0.1      > 0
+      hide_target_hack = false, -- true     boolean
+    },
+  },
+
+  -- icons
+  {
+    'nvim-tree/nvim-web-devicons',
+    config = function()
+      local lackluster = require 'lackluster'
+      require('nvim-web-devicons').setup {
+        default = true,
+        strict = true,
+        color_icons = false,
+        override = {
+          ['default_icon'] = {
+            color = lackluster.color.gray4,
+            name = 'Default',
+          },
+        },
+      }
+    end,
+  },
+
   -- render markdown
   {
     'MeanderingProgrammer/render-markdown.nvim',
@@ -102,29 +133,6 @@ return {
     event = 'VimEnter',
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = { signs = false },
-  },
-
-  -- Enables navigation between splits with support for wezterm pane navigation
-  {
-    lazy = false,
-    'mrjones2014/smart-splits.nvim',
-    config = function()
-      local splits = require 'smart-splits'
-      splits.setup {}
-
-      -- navigate splits
-      vim.keymap.set('n', '<C-h>', splits.move_cursor_left, { desc = 'Go to left split' })
-      vim.keymap.set('n', '<C-j>', splits.move_cursor_down, { desc = 'Go to bottom split' })
-      vim.keymap.set('n', '<C-k>', splits.move_cursor_up, { desc = 'Go to top split' })
-      vim.keymap.set('n', '<C-l>', splits.move_cursor_right, { desc = 'Go to right split' })
-      vim.keymap.set('n', '<C-\\>', splits.move_cursor_previous, { desc = 'Go to previous split' })
-
-      -- resize splits
-      vim.keymap.set('n', '<C-A-h>', require('smart-splits').resize_left, { desc = 'Resize left' })
-      vim.keymap.set('n', '<C-A-j>', require('smart-splits').resize_down, { desc = 'Resize down' })
-      vim.keymap.set('n', '<C-A-k>', require('smart-splits').resize_up, { desc = 'Resize up' })
-      vim.keymap.set('n', '<C-A-l>', require('smart-splits').resize_right, { desc = 'Resize right' })
-    end,
   },
 
   -- Detect tabstop and shiftwidth automatically

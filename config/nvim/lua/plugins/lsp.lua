@@ -1,5 +1,3 @@
--- Note to self. NEVER try to add Java support again. DON'T do it. It's a rabbit hole that will consume you.
-
 return {
   {
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
@@ -13,7 +11,9 @@ return {
       },
     },
   },
+
   { 'Bilal2453/luvit-meta', lazy = true },
+
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -35,25 +35,8 @@ return {
       -- Displays LSP loading status
       { 'j-hui/fidget.nvim', opts = {} },
 
-      -- Allows extra capabilities provided by nvim-cmp
-      -- 'hrsh7th/cmp-nvim-lsp',
-
       -- JSON schemas
       'b0o/schemastore.nvim',
-
-      -- Show LSP Signature during edits
-      -- Handy for seeing what the current argument to a function requires
-      -- Toggle it via the `toggle_key` (<C-M-k>).
-      -- I've disabled it from auto showing as it is so noisy when it does.
-      {
-        'ray-x/lsp_signature.nvim',
-        event = 'VeryLazy',
-        opts = {
-          floating_window = false,
-          hint_enable = false,
-          toggle_key = '<C-M-k>',
-        },
-      },
 
       -- blink provides additional LSP capabilities
       'saghen/blink.cmp',
@@ -124,37 +107,35 @@ return {
         end,
       })
 
-      local lspconfig = require 'lspconfig'
-      -- local configs = require 'lspconfig.configs'
+      local configs = require 'lspconfig.configs'
 
       -- Experimental tsgo lsp support (not there yet though)
-      -- if not configs.tsgo then
-      --   configs.tsgo = {
-      --     default_config = {
-      --       -- init_options = { hostInfo = 'neovim' }, -- not implemented yet
-      --       cmd = { '/Users/sock/code/github.com/microsoft/typescript-go/built/local/tsgo', 'lsp', '--stdio' },
-      --       filetypes = {
-      --         'javascript',
-      --         'javascriptreact',
-      --         'javascript.jsx',
-      --         'typescript',
-      --         'typescriptreact',
-      --         'typescript.tsx',
-      --       },
-      --       root_dir = require('lspconfig').util.root_pattern(
-      --         'tsconfig.json',
-      --         'jsconfig.json',
-      --         'package-lock.json',
-      --         'yarn.lock',
-      --         'bun.lockb',
-      --         'pnpm-lock.yaml',
-      --         '.git'
-      --       ),
-      --       single_file_support = true,
-      --       -- Add any specific settings the tsgo LSP might need
-      --     },
-      --   }
-      -- end
+      if not configs.tsgo then
+        configs.tsgo = {
+          default_config = {
+            -- init_options = { hostInfo = 'neovim' }, -- not implemented yet
+            cmd = { 'tsgo', '--lsp', '--stdio' },
+            filetypes = {
+              'javascript',
+              'javascriptreact',
+              'javascript.jsx',
+              'typescript',
+              'typescriptreact',
+              'typescript.tsx',
+            },
+            root_dir = require('lspconfig').util.root_pattern(
+              'tsconfig.json',
+              'pnpm-lock.yaml',
+              'package-lock.json',
+              'yarn.lock',
+              'bun.lockb',
+              '.git'
+            ),
+            -- single_file_support = true,
+            -- Add any specific settings the tsgo LSP might need
+          },
+        }
+      end
 
       -- Enable the following language servers
       -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -167,14 +148,31 @@ return {
             },
           },
         },
+
         cssls = {},
+
         docker_compose_language_service = {},
+
         dockerls = {},
+
         eslint = {
-          root_dir = lspconfig.util.root_pattern('.eslintrc.json', '.eslintrc'),
-          autostart = false,
+          root_dir = require('lspconfig').util.root_pattern(
+            '.eslintrc.json',
+            '.eslintrc',
+            '.eslintrc.js',
+            '.eslintrc.cjs',
+            'eslint.config.js',
+            'eslint.config.cjs',
+            'eslint.config.mjs',
+            'eslint.config.ts',
+            'eslint.config.mts',
+            'eslint.config.cts'
+          ),
+          autostart = true,
         },
+
         html = {},
+
         jsonls = {
           settings = {
             json = {
@@ -183,6 +181,7 @@ return {
             },
           },
         },
+
         gopls = {
           settings = {
             gopls = {
@@ -198,6 +197,9 @@ return {
             },
           },
         },
+
+        -- kotlin = {},
+
         lua_ls = {
           settings = {
             Lua = {
@@ -209,22 +211,32 @@ return {
             },
           },
         },
+
         pyright = {
-          root_dir = lspconfig.util.root_pattern('pyproject.toml', 'requirements.txt', 'Pipfile', 'pyrightconfig.json'),
+          root_dir = require('lspconfig').util.root_pattern(
+            'pyproject.toml',
+            'requirements.txt',
+            'Pipfile',
+            'pyrightconfig.json'
+          ),
           filetype = { 'python' },
         },
+
         ruff = {
           capabilities = {
             -- Disable hover in favor of Pyright
             hoverProvider = false,
           },
         },
+
         tailwindcss = {},
+
         -- typescript-go lsp
         -- tsgo = {},
+
         -- typescript lsp based off of the vscode one
         vtsls = {
-          root_dir = lspconfig.util.root_pattern(
+          root_dir = require('lspconfig').util.root_pattern(
             'pnpm-workspace.yaml',
             'pnpm-lock.yaml',
             'package-lock.json',
@@ -243,11 +255,12 @@ return {
             },
             typescript = {
               tsserver = {
-                maxTsServerMemory = 2048,
+                maxTsServerMemory = 4096,
               },
             },
           },
         },
+
         yamlls = {
           settings = {
             yaml = {
@@ -269,11 +282,14 @@ return {
             return 'ts_ls'
           elseif key == 'tsgo' then
             return nil -- Skip tsgo as it's manually installed
+          elseif key == 'kotlin' then
+            return nil -- Skip kotlin as it's manually installed
           else
             return key
           end
         end,
         vim.tbl_filter(function(key)
+          -- return key ~= 'kotlin'
           return key ~= 'tsgo'
         end, vim.tbl_keys(servers or {}))
       )
@@ -286,6 +302,16 @@ return {
 
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
+      local capabilities = {
+        textDocument = {
+          -- Required for nvim-ufo code folding (see folding.lua)
+          foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true,
+          },
+        },
+      }
+
       require('mason-lspconfig').setup {
         handlers = {
           function(server_name)
@@ -295,27 +321,18 @@ return {
             --  By default, Neovim doesn't support everything that is in the LSP Specification.
             --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
             --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
-            local capabilities = {
-              textDocument = {
-                -- Required for nvim-ufo code folding (see folding.lua)
-                foldingRange = {
-                  dynamicRegistration = false,
-                  lineFoldingOnly = true,
-                },
-              },
-            }
             capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
 
-            -- FIXME: workaround for https://github.com/neovim/neovim/issues/28058
-            for _, v in pairs(server) do
-              if type(v) == 'table' and v.workspace then
-                v.workspace.didChangeWatchedFiles = {
-                  dynamicRegistration = false,
-                  relativePatternSupport = false,
-                }
-              end
-            end
+            -- -- FIXME: workaround for https://github.com/neovim/neovim/issues/28058
+            -- for _, v in pairs(server) do
+            --   if type(v) == 'table' and v.workspace then
+            --     v.workspace.didChangeWatchedFiles = {
+            --       dynamicRegistration = false,
+            --       relativePatternSupport = false,
+            --     }
+            --   end
+            -- end
 
             require('lspconfig')[server_name].setup(server)
           end,
@@ -342,10 +359,10 @@ return {
       })
 
       -- UI style configuration
-      -- vim.lsp.handlers['textDocument/hover'] =
-      --   vim.lsp.with(vim.lsp.handlers.hover, { border = 'single', stylize_markdown = false })
-      -- vim.lsp.handlers['textDocument/signatureHelp'] =
-      --   vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'single', stylize_markdown = false })
+      vim.lsp.handlers['textDocument/hover'] =
+        vim.lsp.with(vim.lsp.handlers.hover, { border = 'single', stylize_markdown = false })
+      vim.lsp.handlers['textDocument/signatureHelp'] =
+        vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'single', stylize_markdown = false })
       vim.diagnostic.config {
         update_in_insert = true,
         severity_sort = true,
@@ -353,6 +370,58 @@ return {
           border = 'single',
         },
       }
+    end,
+  },
+
+  -- Nice symbol selector
+  {
+    'bassamsdata/namu.nvim',
+    config = function()
+      require('namu').setup {
+        -- Enable the modules you want
+        namu_symbols = {
+          enable = true,
+          options = {
+            AllowKinds = {
+              default = {
+                'Function',
+                'Method',
+                'Class',
+                'Module',
+                'Property',
+                'Variable',
+                -- "Constant",
+                -- "Enum",
+                -- "Interface",
+                -- "Field",
+                -- "Struct",
+              },
+            },
+            display = {
+              format = 'tree_guides',
+            },
+          }, -- here you can configure namu
+        },
+        -- Optional: Enable other modules if needed
+        ui_select = { enable = false }, -- vim.ui.select() wrapper
+        preview = {
+          highlight_on_move = false,
+          highlight_mode = 'select',
+        },
+        colorscheme = {
+          enable = false,
+          options = {
+            persist = true,
+            write_shada = true,
+          },
+        },
+        highlight = 'NamuPreview',
+      }
+
+      vim.keymap.set('n', '<leader>,', ':Namu symbols<cr>', {
+        desc = 'Jump to symbol',
+        silent = true,
+      })
     end,
   },
 

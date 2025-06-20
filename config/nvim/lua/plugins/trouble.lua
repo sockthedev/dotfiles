@@ -7,32 +7,32 @@ return {
   cmd = 'Trouble',
   keys = {
     {
-      '<leader>xd',
+      '<leader>et',
       '<cmd>Trouble diagnostics toggle<cr>',
       desc = '[d]iagnostics',
     },
     {
-      '<leader>xb',
+      '<leader>eb',
       '<cmd>Trouble diagnostics toggle filter.buf=0<cr>',
       desc = '[b]uffer Diagnostics',
     },
     {
-      '<leader>xs',
+      '<leader>es',
       '<cmd>Trouble symbols toggle<cr>',
       desc = '[s]ymbols',
     },
     {
-      '<leader>xl',
+      '<leader>el',
       '<cmd>Trouble lsp toggle<cr>',
       desc = '[l]SP definitions / references / ...',
     },
     {
-      '<leader>xo',
+      '<leader>eo',
       '<cmd>Trouble loclist toggle<cr>',
       desc = 'L[o]cation list',
     },
     {
-      '<leader>xq',
+      '<leader>eq',
       '<cmd>Trouble qflist toggle<cr>',
       desc = '[q]uickfix List',
     },

@@ -32,7 +32,7 @@ return {
 
       vim.keymap.set('n', '<leader>gd', ':DiffviewOpen<cr>', { desc = '[d]iffview' })
       vim.keymap.set('n', '<leader>gD', ':DiffviewClose<cr>', { desc = '[D] close diffview' })
-      vim.keymap.set('n', '<leader>gh', ':DiffviewFileHistory<cr>', { desc = 'file [h]istory' })
+      vim.keymap.set('n', '<leader>gh', ':DiffviewFileHistory %<cr>', { desc = 'file [h]istory' })
       vim.keymap.set('v', '<leader>gh', ":'<,'>DiffviewFileHistory<cr>", { desc = 'file range [h]istory' })
     end,
   },

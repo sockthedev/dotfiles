@@ -1,5 +1,6 @@
 theme = rose-pine
-background = #000000
+# background = #000000
+background = #100F0F
 window-width = 100000
 window-height = 100000
 window-padding-x = 5
@@ -27,7 +28,7 @@ font-family = Berkeley Mono
 font-size = 14
 adjust-cell-height = -2%
 adjust-cell-width = -10%
-window-inherit-font-size = false
+window-inherit-font-size = true
 font-thicken = false
 
 # macos
@@ -69,3 +70,4 @@ keybind = opt+f=scroll_page_down
 
 # - quick terminal
 keybind = global:cmd+shift+grave_accent=toggle_quick_terminal
+keybind = shift+enter=text:\n

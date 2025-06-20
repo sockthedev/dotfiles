@@ -8,11 +8,11 @@ return {
 
       snacks.setup {
         bufdelete = {},
-        -- bigfile adds a new filetype bigfile to Neovim that triggers when the file is larger than the configured size. This automatically prevents things like LSP and Treesitter attaching to the buffer.
         bigfile = {
           notify = true,
           size = 1.5 * 1024 * 1024, -- 1.5MB
         },
+        indent = {},
         image = {},
         -- input = {
         --   border = 'single',
@@ -23,11 +23,21 @@ return {
             selectedLineBgColor = { bg = 'default' },
           },
         },
+        scratch = {},
         words = {
           notify_end = false,
         },
       }
 
+      -- Scratch
+      vim.keymap.set({ 'n', 'v' }, "<leader>'", function()
+        snacks.scratch()
+      end, { desc = 'Scratch' })
+      vim.keymap.set({ 'n', 'v' }, '<leader>;', function()
+        snacks.scratch.select()
+      end, { desc = 'Scratch Select' })
+
+      -- Lazygit
       vim.keymap.set('n', '<leader>gg', function()
         snacks.lazygit.open()
       end, { desc = 'lazy[g]it' })
@@ -37,6 +47,8 @@ return {
       vim.keymap.set('n', '<leader>gl', function()
         snacks.lazygit.log()
       end, { desc = '[l]og' })
+
+      -- Words jumping
       vim.keymap.set('n', '<C-f>', function()
         snacks.words.jump(1, true)
       end, { desc = 'jump [f]orward word' })
@@ -44,6 +56,7 @@ return {
         snacks.words.jump(-1, true)
       end, { desc = 'jump [b]ackwards word' })
 
+      -- Buffers
       vim.keymap.set('n', '<leader>bo', function()
         snacks.bufdelete.other()
       end, { desc = 'close [o]ther' })

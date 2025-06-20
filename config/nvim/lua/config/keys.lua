@@ -3,12 +3,6 @@
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- Remap j/k to handle wrapped lines
@@ -23,6 +17,19 @@ vim.keymap.set('n', '\\', '<cmd>vsplit<cr>', { silent = true, desc = 'Vertical s
 vim.keymap.set('n', "<C-w>'", '<cmd>split<cr>', { silent = true, desc = 'Horizontal split' })
 vim.keymap.set('n', "'", '<cmd>split<cr>', { silent = true, desc = 'Horizontal split' })
 vim.keymap.set('n', '<C-w>=', '<cmd>wincmd =<cr>', { silent = true, desc = 'Make all splits equal size' })
+
+-- Navigate splits
+vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Go to left split' })
+vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Go to bottom split' })
+vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Go to top split' })
+vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Go to right split' })
+vim.keymap.set('n', '<C-\\>', '<C-w>p', { desc = 'Go to previous split' })
+
+-- Resize splits
+vim.keymap.set('n', '<C-A-h>', '<cmd>vertical resize -2<CR>', { desc = 'Resize left' })
+vim.keymap.set('n', '<C-A-j>', '<cmd>resize +2<CR>', { desc = 'Resize down' })
+vim.keymap.set('n', '<C-A-k>', '<cmd>resize -2<CR>', { desc = 'Resize up' })
+vim.keymap.set('n', '<C-A-l>', '<cmd>vertical resize +2<CR>', { desc = 'Resize right' })
 
 -- Insert empty lines without going into insert mode
 vim.keymap.set('n', '<C-S-o>', 'o<Esc>', { desc = 'Insert empty line below' })
@@ -55,8 +62,8 @@ vim.keymap.set('n', '<leader>a', 'gg<S-v>G', { desc = 'Select All', noremap = tr
 vim.keymap.set('v', '<C-a>', '<Nop>', { desc = 'Noop', noremap = true, silent = true })
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>ee', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
+vim.keymap.set('n', '<leader>eq', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Toggle relative line numbers
 function ToggleRelativeLineNumber()
@@ -74,3 +81,10 @@ vim.keymap.set(
   '<cmd>lua ToggleRelativeLineNumber()<cr>',
   { desc = 'Toggle [r]elative line numbers' }
 )
+
+-- Use leader x to close the current tab
+vim.keymap.set('n', '<leader>x', '<cmd>tabclose<cr>', { desc = '[x] close tab' })
+
+-- Use leader , for prev tab, and . for next tab
+vim.keymap.set('n', '<leader>[', '<cmd>tabprevious<cr>', { desc = 'Prev tab' })
+vim.keymap.set('n', '<leader>]', '<cmd>tabnext<cr>', { desc = 'Next tab' })

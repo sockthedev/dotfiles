@@ -42,16 +42,58 @@ return {
 
       local gfh_actions = require('telescope').extensions.git_file_history.actions
 
+      local copy_file_path = function(prompt_bufnr)
+        local action_state = require 'telescope.actions.state'
+        local picker = action_state.get_current_picker(prompt_bufnr)
+        local entry = picker:get_selection()
+        if entry then
+          local file_path = entry.path or entry.value
+          vim.fn.setreg('+', file_path)
+          print('Copied file path to clipboard: ' .. file_path)
+        else
+          print 'No entry selected'
+        end
+      end
+
+      local copy_relative_path = function(prompt_bufnr)
+        local action_state = require 'telescope.actions.state'
+        local picker = action_state.get_current_picker(prompt_bufnr)
+        local entry = picker:get_selection()
+
+        if entry then
+          local file_path = entry.path or entry.value
+
+          -- Get the project root using vim's current working directory
+          local project_root = vim.fn.getcwd()
+
+          -- Make the path relative to the project root
+          local relative_path = file_path
+          if vim.startswith(file_path, project_root) then
+            relative_path = file_path:sub(#project_root + 2) -- +2 to remove the trailing slash
+          end
+
+          vim.fn.setreg('+', relative_path)
+          print('Copied relative path to clipboard: ' .. relative_path)
+        else
+          print 'No entry selected'
+        end
+      end
+
       require('telescope').setup {
         defaults = {
           mappings = {
             i = {
               ['<c-t>'] = open_with_trouble,
+              ['<c-y>'] = copy_file_path,
+              ['<c-r>'] = copy_relative_path,
             },
             n = {
               ['<c-t>'] = open_with_trouble,
+              ['<c-y>'] = copy_file_path,
+              ['<c-r>'] = copy_relative_path,
             },
           },
+          layout_strategy = 'vertical',
           layout_config = {
             horizontal = {
               width = 0.90,
@@ -63,17 +105,6 @@ return {
             '^.git/',
             'node_modules/*',
           },
-          -- We override the ripgrep arguments to include hidden files and ignore files in .git directory
-          -- vimgrep_arguments = {
-          --   'rg',
-          --   '--color=never',
-          --   '--no-heading',
-          --   '--with-filename',
-          --   '--line-number',
-          --   '--column',
-          --   '--smart-case',
-          --   '--hidden', -- Include hidden files
-          -- },
         },
         pickers = {
           find_files = {

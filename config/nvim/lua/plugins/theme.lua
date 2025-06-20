@@ -39,38 +39,4 @@ return {
       -- vim.cmd("colorscheme rose-pine")
     end,
   },
-
-  -- funky cursor travel animation
-  {
-    'sphamba/smear-cursor.nvim',
-    -- enabled = false, -- temporarily disable, as bugged
-    opts = {
-      cursor_color = '#ffffff',
-      stiffness = 0.8, -- 0.6      [0, 1]
-      trailing_stiffness = 0.5, -- 0.3      [0, 1]
-      distance_stop_animating = 0.5, -- 0.1      > 0
-      hide_target_hack = false, -- true     boolean
-    },
-  },
-
-  -- icons
-  {
-    'nvim-tree/nvim-web-devicons',
-    config = function()
-      local lackluster = require 'lackluster'
-      require('nvim-web-devicons').setup {
-        -- globally enable default icons (default to false)
-        -- will get overriden by `get_icons` option
-        default = true,
-        strict = true,
-        color_icons = false,
-        override = {
-          ['default_icon'] = {
-            color = lackluster.color.gray4,
-            name = 'Default',
-          },
-        },
-      }
-    end,
-  },
 }

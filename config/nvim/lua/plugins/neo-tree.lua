@@ -21,10 +21,49 @@ return {
     },
     config = function()
       local Snacks = require 'snacks'
+
       local function on_move(data)
         Snacks.rename.on_rename_file(data.source, data.destination)
       end
+
+      local function copy_path(state)
+        -- NeoTree is based on [NuiTree](https://github.com/MunifTanjim/nui.nvim/tree/main/lua/nui/tree)
+        -- The node is based on [NuiNode](https://github.com/MunifTanjim/nui.nvim/tree/main/lua/nui/tree#nuitreenode)
+        local node = state.tree:get_node()
+        local filepath = node:get_id()
+        local filename = node.name
+        local modify = vim.fn.fnamemodify
+
+        local results = {
+          modify(filepath, ':.'),
+          filepath,
+          filename,
+          modify(filename, ':r'),
+        }
+
+        vim.ui.select({
+          '1. ' .. results[1],
+          '2. ' .. results[2],
+          '3. ' .. results[3],
+          '4. ' .. results[4],
+        }, { prompt = 'Choose path to copy to clipboard:' }, function(choice)
+          if choice then
+            local i = tonumber(choice:sub(1, 1))
+            if i then
+              local result = results[i]
+              vim.fn.setreg('+', result)
+              vim.notify('Copied to clipboard: ' .. result)
+            else
+              vim.notify 'Invalid selection'
+            end
+          else
+            vim.notify 'Selection cancelled'
+          end
+        end)
+      end
+
       local events = require 'neo-tree.events'
+
       require('neo-tree').setup {
         popup_border_style = 'single',
         enable_git_status = false,
@@ -38,6 +77,11 @@ return {
         filesystem = {
           filtered_items = {
             visible = true,
+          },
+        },
+        window = {
+          mappings = {
+            ['Y'] = copy_path,
           },
         },
         event_handlers = {
