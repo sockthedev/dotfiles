@@ -95,12 +95,20 @@ return {
           },
           layout_strategy = 'vertical',
           layout_config = {
+            vertical = {
+              width = 0.95,
+              height = 0.95,
+              preview_cutoff = 0,
+              prompt_position = "bottom",
+              mirror = false,
+            },
             horizontal = {
               width = 0.90,
               height = 0.90,
               preview_width = 0.5,
             },
           },
+          path_display = { "truncate" },
           file_ignore_patterns = {
             '^.git/',
             'node_modules/*',

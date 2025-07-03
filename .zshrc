@@ -112,7 +112,7 @@ function frd() {
   dir=$(z -l 2>&1 | awk 'NR>1 {print substr($0, index($0,$2))}' | fzf) && cd "$dir" || return
 }
 
-alias vss='XDG_DATA_HOME=~/.local/share/nvim-sock \
+alias v='XDG_DATA_HOME=~/.local/share/nvim-sock \
 XDG_STATE_HOME=~/.local/state/nvim-sock \
 XDG_CACHE_HOME=~/.cache/nvim-sock \
 nvim'

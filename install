@@ -5,6 +5,7 @@ rm -rf ~/.config/karabiner
 rm -rf ~/.config/nvim
 rm -rf ~/.config/zsh
 rm -rf ~/.config/ghostty
+rm -rf ~/.config/opencode
 rm ~/.skhdrc
 rm ~/.zshrc
 
@@ -13,6 +14,7 @@ ln -s "$(pwd)/config/karabiner" ~/.config/karabiner
 ln -s "$(pwd)/config/nvim" ~/.config/nvim
 ln -s "$(pwd)/config/zsh" ~/.config/zsh
 ln -s "$(pwd)/config/ghostty" ~/.config/ghostty
+ln -s "$(pwd)/config/opencode" ~/.config/opencode
 ln -s "$(pwd)/.skhdrc" ~/.skhdrc
 ln -s "$(pwd)/.zshrc" ~/.zshrc
 

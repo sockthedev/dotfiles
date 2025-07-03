@@ -232,34 +232,34 @@ return {
         tailwindcss = {},
 
         -- typescript-go lsp
-        -- tsgo = {},
+        tsgo = {},
 
         -- typescript lsp based off of the vscode one
-        vtsls = {
-          root_dir = require('lspconfig').util.root_pattern(
-            'pnpm-workspace.yaml',
-            'pnpm-lock.yaml',
-            'package-lock.json',
-            'yarn.lock',
-            'bun.lockb',
-            '.git'
-          ),
-          settings = {
-            vtsls = {
-              autoUseWorkspaceTsdk = true,
-            },
-            javascript = {
-              preferences = {
-                includePackageJsonAutoImports = 'off',
-              },
-            },
-            typescript = {
-              tsserver = {
-                maxTsServerMemory = 4096,
-              },
-            },
-          },
-        },
+        -- vtsls = {
+        --   root_dir = require('lspconfig').util.root_pattern(
+        --     'pnpm-workspace.yaml',
+        --     'pnpm-lock.yaml',
+        --     'package-lock.json',
+        --     'yarn.lock',
+        --     'bun.lockb',
+        --     '.git'
+        --   ),
+        --   settings = {
+        --     vtsls = {
+        --       autoUseWorkspaceTsdk = true,
+        --     },
+        --     javascript = {
+        --       preferences = {
+        --         includePackageJsonAutoImports = 'off',
+        --       },
+        --     },
+        --     typescript = {
+        --       tsserver = {
+        --         maxTsServerMemory = 4096,
+        --       },
+        --     },
+        --   },
+        -- },
 
         yamlls = {
           settings = {
