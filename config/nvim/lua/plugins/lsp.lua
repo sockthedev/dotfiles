@@ -17,23 +17,26 @@ return {
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
-
-      -- Automatically install LSPs and related tools to stdpath for neovim
-      -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      {
-        'williamboman/mason.nvim',
-        opts = {
-          ui = {
-            border = 'single',
-          },
-        },
-      }, -- NOTE: Must be loaded before dependants
-
-      'williamboman/mason-lspconfig.nvim',
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
-
       -- Displays LSP loading status
       { 'j-hui/fidget.nvim', opts = {} },
+
+      -- We use this to install language servers and tools
+      {
+        'mason-org/mason-lspconfig.nvim',
+        opts = {},
+        dependencies = {
+          {
+            'mason-org/mason.nvim',
+            opts = {
+              ui = {
+                border = 'single',
+              },
+            },
+          },
+          'neovim/nvim-lspconfig',
+        },
+      },
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- JSON schemas
       'b0o/schemastore.nvim',
@@ -42,6 +45,26 @@ return {
       'saghen/blink.cmp',
     },
     config = function()
+      require('mason-tool-installer').setup {
+        ensure_installed = {
+          --- language servers
+          'cssls',
+          'gopls',
+          'html',
+          'jsonls',
+          'lua_ls',
+          'pyright',
+          'ruff',
+          'tailwindcss',
+          'vtsls',
+          'yamlls',
+          -- tools
+          'goimports', -- Format imports in Go (gopls includes gofmt already)
+          'prettierd', -- Used to format JavaScript, TypeScript, HTML, JSON, etc.
+          'stylua', -- Used to format Lua code
+        },
+      }
+
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
 
@@ -107,202 +130,8 @@ return {
         end,
       })
 
-      local configs = require 'lspconfig.configs'
-
-      -- Experimental tsgo lsp support (not there yet though)
-      if not configs.tsgo then
-        configs.tsgo = {
-          default_config = {
-            -- init_options = { hostInfo = 'neovim' }, -- not implemented yet
-            cmd = { 'tsgo', '--lsp', '--stdio' },
-            filetypes = {
-              'javascript',
-              'javascriptreact',
-              'javascript.jsx',
-              'typescript',
-              'typescriptreact',
-              'typescript.tsx',
-            },
-            root_dir = require('lspconfig').util.root_pattern(
-              'tsconfig.json',
-              'pnpm-lock.yaml',
-              'package-lock.json',
-              'yarn.lock',
-              'bun.lockb',
-              '.git'
-            ),
-            -- single_file_support = true,
-            -- Add any specific settings the tsgo LSP might need
-          },
-        }
-      end
-
-      -- Enable the following language servers
-      -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
-      local servers = {
-        bashls = {
-          filetypes = { 'sh', 'zsh' },
-          settings = {
-            bash = {
-              filetypes = { 'sh', 'zsh' },
-            },
-          },
-        },
-
-        cssls = {},
-
-        docker_compose_language_service = {},
-
-        dockerls = {},
-
-        eslint = {
-          root_dir = require('lspconfig').util.root_pattern(
-            '.eslintrc.json',
-            '.eslintrc',
-            '.eslintrc.js',
-            '.eslintrc.cjs',
-            'eslint.config.js',
-            'eslint.config.cjs',
-            'eslint.config.mjs',
-            'eslint.config.ts',
-            'eslint.config.mts',
-            'eslint.config.cts'
-          ),
-          autostart = true,
-        },
-
-        html = {},
-
-        jsonls = {
-          settings = {
-            json = {
-              schemas = require('schemastore').json.schemas(),
-              validate = { enable = false },
-            },
-          },
-        },
-
-        gopls = {
-          settings = {
-            gopls = {
-              hints = {
-                assignVariableTypes = false,
-                compositeLiteralFields = false,
-                compositeLiteralTypes = false,
-                constantValues = false,
-                functionTypeParameters = true,
-                parameterNames = true,
-                rangeVariableTypes = false,
-              },
-            },
-          },
-        },
-
-        -- kotlin = {},
-
-        lua_ls = {
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = 'Replace',
-              },
-              -- disable noisy `missing-fields` warnings
-              diagnostics = { disable = { 'missing-fields' } },
-            },
-          },
-        },
-
-        pyright = {
-          root_dir = require('lspconfig').util.root_pattern(
-            'pyproject.toml',
-            'requirements.txt',
-            'Pipfile',
-            'pyrightconfig.json'
-          ),
-          filetype = { 'python' },
-        },
-
-        ruff = {
-          capabilities = {
-            -- Disable hover in favor of Pyright
-            hoverProvider = false,
-          },
-        },
-
-        tailwindcss = {},
-
-        -- typescript-go lsp
-        tsgo = {},
-
-        -- typescript lsp based off of the vscode one
-        -- vtsls = {
-        --   root_dir = require('lspconfig').util.root_pattern(
-        --     'pnpm-workspace.yaml',
-        --     'pnpm-lock.yaml',
-        --     'package-lock.json',
-        --     'yarn.lock',
-        --     'bun.lockb',
-        --     '.git'
-        --   ),
-        --   settings = {
-        --     vtsls = {
-        --       autoUseWorkspaceTsdk = true,
-        --     },
-        --     javascript = {
-        --       preferences = {
-        --         includePackageJsonAutoImports = 'off',
-        --       },
-        --     },
-        --     typescript = {
-        --       tsserver = {
-        --         maxTsServerMemory = 4096,
-        --       },
-        --     },
-        --   },
-        -- },
-
-        yamlls = {
-          settings = {
-            yaml = {
-              schemaStore = {
-                enable = false,
-                url = '',
-              },
-              schemas = require('schemastore').yaml.schemas(),
-              validate = false,
-            },
-          },
-        },
-      }
-
-      -- You can add other tools here that you want Mason to install for you, so that they are available from within Neovim.
-      local ensure_installed = vim.tbl_map(
-        function(key)
-          if key == 'tsserver' then
-            return 'ts_ls'
-          elseif key == 'tsgo' then
-            return nil -- Skip tsgo as it's manually installed
-          elseif key == 'kotlin' then
-            return nil -- Skip kotlin as it's manually installed
-          else
-            return key
-          end
-        end,
-        vim.tbl_filter(function(key)
-          -- return key ~= 'kotlin'
-          return key ~= 'tsgo'
-        end, vim.tbl_keys(servers or {}))
-      )
-
-      vim.list_extend(ensure_installed, {
-        'goimports', -- Format imports in Go (gopls includes gofmt already)
-        'prettierd', -- Used to format JavaScript, TypeScript, HTML, JSON, etc.
-        'stylua', -- Used to format Lua code
-      })
-
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
-
-      local capabilities = {
+      vim.lsp.config('*', {
+        capabilities = require('blink.cmp').get_lsp_capabilities(),
         textDocument = {
           -- Required for nvim-ufo code folding (see folding.lua)
           foldingRange = {
@@ -310,42 +139,10 @@ return {
             lineFoldingOnly = true,
           },
         },
-      }
+      })
 
-      require('mason-lspconfig').setup {
-        handlers = {
-          function(server_name)
-            server_name = server_name == 'tsserver' and 'ts_ls' or server_name
-            local server = servers[server_name] or {}
-            -- LSP servers and clients are able to communicate to each other what features they support.
-            --  By default, Neovim doesn't support everything that is in the LSP Specification.
-            --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
-            --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
-            capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-
-            -- -- FIXME: workaround for https://github.com/neovim/neovim/issues/28058
-            -- for _, v in pairs(server) do
-            --   if type(v) == 'table' and v.workspace then
-            --     v.workspace.didChangeWatchedFiles = {
-            --       dynamicRegistration = false,
-            --       relativePatternSupport = false,
-            --     }
-            --   end
-            -- end
-
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
-      }
-
-      -- Manually set up tsgo since it's not managed by Mason
-      if servers.tsgo then
-        local tsgo_config = servers.tsgo
-        capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
-        tsgo_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, tsgo_config.capabilities or {})
-        require('lspconfig').tsgo.setup(tsgo_config)
-      end
+      vim.lsp.enable 'lua_ls'
+      vim.lsp.enable 'vtsls'
 
       -- disable the diagnostics for .env files
       local group = vim.api.nvim_create_augroup('__env', { clear = true })
@@ -359,10 +156,10 @@ return {
       })
 
       -- UI style configuration
-      vim.lsp.handlers['textDocument/hover'] =
-        vim.lsp.with(vim.lsp.handlers.hover, { border = 'single', stylize_markdown = false })
-      vim.lsp.handlers['textDocument/signatureHelp'] =
-        vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'single', stylize_markdown = false })
+      -- vim.lsp.handlers['textDocument/hover'] =
+      --   vim.lsp.with(vim.lsp.handlers.hover, { border = 'single', stylize_markdown = false })
+      -- vim.lsp.handlers['textDocument/signatureHelp'] =
+      --   vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'single', stylize_markdown = false })
       vim.diagnostic.config {
         update_in_insert = true,
         severity_sort = true,

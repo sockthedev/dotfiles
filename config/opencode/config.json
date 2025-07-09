@@ -4,5 +4,5 @@
   "model": "anthropic/claude-sonnet-4-20250514",
   "autoshare": false,
   "autoupdate": false,
-  "disabled_providers": ["openai", "gemini"]
+  "disabled_providers": ["openai", "amazon-bedrock", "google"]
 }
