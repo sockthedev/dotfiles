@@ -8,5 +8,9 @@ return {
     'svelte',
   },
   root_markers = { 'index.html', '.git' },
-  init_options = { provideFormatter = true },
+  settings = {
+    html = {
+      init_options = { provideFormatter = true },
+    },
+  },
 }

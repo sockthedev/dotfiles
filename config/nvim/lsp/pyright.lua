@@ -1,11 +1,13 @@
 return {
-  root_dir = require('lspconfig').util.root_pattern(
+  cmd = { 'pyright-langserver', '--stdio' },
+  root_markers = {
     'pyproject.toml',
     'requirements.txt',
     'Pipfile',
     'pyrightconfig.json',
-    '.git'
-  ),
+    '.git',
+  },
+  workspace_required = true,
   settings = {
     python = {
       analysis = {

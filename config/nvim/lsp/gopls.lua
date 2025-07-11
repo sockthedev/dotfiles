@@ -2,6 +2,7 @@ return {
   cmd = { 'gopls' },
   filetypes = { 'go', 'gomod', 'gowork', 'gotmpl', 'gosum' },
   root_markers = { 'go.mod', 'go.work', '.git' },
+  workspace_required = true,
   settings = {
     gopls = {
       gofumpt = true,

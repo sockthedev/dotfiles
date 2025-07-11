@@ -1,10 +1,4 @@
 return {
-  init_options = {
-    settings = {
-      args = {},
-    },
-  },
-  capabilities = {
-    hoverProvider = false,
-  },
+  cmd = { 'ruff', 'server' },
+  filetypes = { 'python' },
 }

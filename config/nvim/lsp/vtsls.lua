@@ -1,5 +1,3 @@
-local blink = require 'blink.cmp'
-
 return {
   cmd = { 'vtsls', '--stdio' },
   root_markers = {
@@ -10,8 +8,15 @@ return {
     'bun.lockb',
     '.git',
   },
-  filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
-  single_file_support = false,
+  filetypes = {
+    'javascript',
+    'javascriptreact',
+    'javascript.jsx',
+    'typescript',
+    'typescriptreact',
+    'typescript.tsx',
+  },
+  workspace_required = true,
   settings = {
     vtsls = {
       autoUseWorkspaceTsdk = true,

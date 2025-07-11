@@ -53,10 +53,10 @@ return {
           'html',
           'jsonls',
           'lua_ls',
-          'pyright',
-          'ruff',
+          -- 'pyright',
+          -- 'ruff',
           'tailwindcss',
-          'vtsls',
+          -- 'vtsls',
           'yamlls',
           -- tools
           'goimports', -- Format imports in Go (gopls includes gofmt already)
@@ -131,7 +131,12 @@ return {
       })
 
       vim.lsp.config('*', {
-        capabilities = require('blink.cmp').get_lsp_capabilities(),
+        capabilities = vim.tbl_deep_extend(
+          'force',
+          {},
+          vim.lsp.protocol.make_client_capabilities(),
+          require('blink.cmp').get_lsp_capabilities()
+        ),
         textDocument = {
           -- Required for nvim-ufo code folding (see folding.lua)
           foldingRange = {
@@ -141,8 +146,23 @@ return {
         },
       })
 
+      vim.lsp.enable 'cssls'
+      vim.lsp.enable 'gopls'
+      vim.lsp.enable 'html'
+      vim.lsp.enable 'json_ls'
       vim.lsp.enable 'lua_ls'
-      vim.lsp.enable 'vtsls'
+      vim.lsp.enable 'tailwindcss'
+      vim.lsp.enable 'tsgo'
+      -- vim.lsp.enable 'vtsls'
+      vim.lsp.enable 'yamlls'
+
+      vim.diagnostic.config {
+        update_in_insert = true,
+        severity_sort = true,
+        float = {
+          border = 'single',
+        },
+      }
 
       -- disable the diagnostics for .env files
       local group = vim.api.nvim_create_augroup('__env', { clear = true })
@@ -154,19 +174,6 @@ return {
           vim.diagnostic.disable(args.buf)
         end,
       })
-
-      -- UI style configuration
-      -- vim.lsp.handlers['textDocument/hover'] =
-      --   vim.lsp.with(vim.lsp.handlers.hover, { border = 'single', stylize_markdown = false })
-      -- vim.lsp.handlers['textDocument/signatureHelp'] =
-      --   vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'single', stylize_markdown = false })
-      vim.diagnostic.config {
-        update_in_insert = true,
-        severity_sort = true,
-        float = {
-          border = 'single',
-        },
-      }
     end,
   },
 
