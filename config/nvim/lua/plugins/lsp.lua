@@ -56,7 +56,7 @@ return {
           -- 'pyright',
           -- 'ruff',
           'tailwindcss',
-          -- 'vtsls',
+          'vtsls',
           'yamlls',
           -- tools
           'goimports', -- Format imports in Go (gopls includes gofmt already)
@@ -152,8 +152,8 @@ return {
       vim.lsp.enable 'json_ls'
       vim.lsp.enable 'lua_ls'
       vim.lsp.enable 'tailwindcss'
-      vim.lsp.enable 'tsgo'
-      -- vim.lsp.enable 'vtsls'
+      -- vim.lsp.enable 'tsgo'
+      vim.lsp.enable 'vtsls'
       vim.lsp.enable 'yamlls'
 
       vim.diagnostic.config {

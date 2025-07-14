@@ -112,21 +112,7 @@ function frd() {
   dir=$(z -l 2>&1 | awk 'NR>1 {print substr($0, index($0,$2))}' | fzf) && cd "$dir" || return
 }
 
-alias v='XDG_DATA_HOME=~/.local/share/nvim-sock \
-XDG_STATE_HOME=~/.local/state/nvim-sock \
-XDG_CACHE_HOME=~/.cache/nvim-sock \
-nvim'
-
-alias vms='XDG_DATA_HOME=~/.local/share/nvim-marks \
-XDG_STATE_HOME=~/.local/state/nvim-marks \
-XDG_CACHE_HOME=~/.cache/nvim-marks \
-nvim'
-
-alias vnl='XDG_DATA_HOME=~/.local/share/nvim-nl \
-XDG_STATE_HOME=~/.local/state/nvim-nl \
-XDG_CACHE_HOME=~/.cache/nvim-nl \
-nvim'
-
+alias v='nvim'
 
 alias g='./gradlew'
 
