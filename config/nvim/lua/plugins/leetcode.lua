@@ -10,6 +10,9 @@ return {
     config = function()
       require('leetcode').setup {
         lang = 'golang',
+        plugins = {
+          non_standalone = true,
+        },
       }
     end,
   },

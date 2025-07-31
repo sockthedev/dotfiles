@@ -101,11 +101,6 @@ function fwd() {
   _find_and_cd ~/code
 }
 
-# find directory in "code" directory
-function fmd() {
-  _find_and_cd ~/code/github.com/DigitalInnovation
-}
-
 # find recent directory
 function frd() {
   local dir
@@ -113,8 +108,6 @@ function frd() {
 }
 
 alias v='nvim'
-
-alias g='./gradlew'
 
 # nuke node_modules relative to current directory (nested instances too)
 alias nukem="find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' +"

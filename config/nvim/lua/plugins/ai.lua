@@ -45,6 +45,7 @@ return {
 
   {
     'zbirenbaum/copilot.lua',
+    enabled = false,
     dependencies = {
       'nvim-lua/plenary.nvim',
     },

@@ -22,7 +22,7 @@ return {
           popup = background, -- lazy, mason, whichkey
         },
       }
-      vim.cmd.colorscheme 'lackluster-mint' -- types are green
+      -- vim.cmd.colorscheme 'lackluster-mint' -- types are green
     end,
   },
 
@@ -36,7 +36,7 @@ return {
           transparency = true,
         },
       }
-      -- vim.cmd("colorscheme rose-pine")
+      vim.cmd 'colorscheme rose-pine'
     end,
   },
 }
