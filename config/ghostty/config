@@ -18,7 +18,8 @@ bold-is-bright = true
 # font
 
 font-family = Berkeley Mono
-# font-family = MesloLGS Nerd Font Mono
+# font-family = Google Sans Code
+# font-family = MesloLGS Nerd Font Mono
 # font-family = MonoLisa
 # font-family = Operator Mono SSm
 # font-family = Roboto Mono
@@ -26,10 +27,10 @@ font-family = Berkeley Mono
 # font-family = IntelOne Mono
 # font-family = JetBrains Mono
 font-size = 14
-adjust-cell-height = -2%
-adjust-cell-width = -10%
+# adjust-cell-height = -2%
+# adjust-cell-width = -5%
 window-inherit-font-size = true
-font-thicken = false
+font-thicken = true
 
 # macos
 
