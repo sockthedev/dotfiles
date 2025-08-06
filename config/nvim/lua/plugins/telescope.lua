@@ -99,7 +99,7 @@ return {
               width = 0.95,
               height = 0.95,
               preview_cutoff = 0,
-              prompt_position = "bottom",
+              prompt_position = 'bottom',
               mirror = false,
             },
             horizontal = {
@@ -108,7 +108,7 @@ return {
               preview_width = 0.5,
             },
           },
-          path_display = { "truncate" },
+          path_display = { 'truncate' },
           file_ignore_patterns = {
             '^.git/',
             'node_modules/*',
@@ -170,21 +170,19 @@ return {
       vim.keymap.set('n', '<leader>tw', builtin.grep_string, { desc = 'current [w]ord' })
       vim.keymap.set('n', '<leader>t.', builtin.oldfiles, { desc = 'Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader>.', builtin.oldfiles, { desc = 'Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-
-      vim.keymap.set(
-        'n',
-        '<leader>/',
-        builtin.current_buffer_fuzzy_find,
-        { desc = '[/] Fuzzily search in current buffer' }
-      )
-
+      vim.keymap.set('n', '<leader><leader>', builtin.current_buffer_fuzzy_find, { desc = '[ ] Search current buffer' })
+      vim.keymap.set('n', '<leader>/', function()
+        builtin.live_grep {
+          grep_open_files = true,
+          prompt_title = 'Search buffers',
+        }
+      end, { desc = '[ ] Search buffers' })
       vim.keymap.set('n', '<leader>t/', function()
         builtin.live_grep {
           grep_open_files = true,
-          prompt_title = 'Live Grep in Open Files',
+          prompt_title = 'Search buffers',
         }
-      end, { desc = '[/] in Open Files' })
+      end, { desc = '[/] Search buffers' })
 
       -- Shortcut for searching the neovim configuration files
       vim.keymap.set('n', '<leader>tn', function()
