@@ -222,7 +222,7 @@ return {
         highlight = 'NamuPreview',
       }
 
-      vim.keymap.set('n', '<leader>,', ':Namu symbols<cr>', {
+      vim.keymap.set('n', '<leader>/', ':Namu symbols<cr>', {
         desc = 'Jump to symbol',
         silent = true,
       })

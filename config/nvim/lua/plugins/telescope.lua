@@ -169,20 +169,16 @@ return {
       vim.keymap.set('n', '<leader>tt', builtin.builtin, { desc = 'choose [t]elescope type' })
       vim.keymap.set('n', '<leader>tw', builtin.grep_string, { desc = 'current [w]ord' })
       vim.keymap.set('n', '<leader>t.', builtin.oldfiles, { desc = 'Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader>.', builtin.oldfiles, { desc = 'Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader><leader>', builtin.current_buffer_fuzzy_find, { desc = '[ ] Search current buffer' })
-      vim.keymap.set('n', '<leader>/', function()
-        builtin.live_grep {
-          grep_open_files = true,
-          prompt_title = 'Search buffers',
-        }
-      end, { desc = '[ ] Search buffers' })
       vim.keymap.set('n', '<leader>t/', function()
         builtin.live_grep {
           grep_open_files = true,
           prompt_title = 'Search buffers',
         }
       end, { desc = '[/] Search buffers' })
+
+      vim.keymap.set('n', '<leader>,', builtin.find_files, { desc = 'git [f]iles' })
+      vim.keymap.set('n', '<leader>.', builtin.oldfiles, { desc = 'Recent Files ("." for repeat)' })
+      vim.keymap.set('n', '<leader><leader>', builtin.current_buffer_fuzzy_find, { desc = '[ ] Search current buffer' })
 
       -- Shortcut for searching the neovim configuration files
       vim.keymap.set('n', '<leader>tn', function()
