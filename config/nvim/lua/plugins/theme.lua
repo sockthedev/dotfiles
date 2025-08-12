@@ -86,4 +86,19 @@ return {
       -- vim.g.nord_uniform_diff_background = true
     end,
   },
+
+  {
+    'folke/tokyonight.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {
+      transparent = true,
+      styles = {
+        comments = { italic = false },
+        keywords = { italic = false },
+        sidebars = 'transparent',
+        floats = 'transparent',
+      },
+    },
+  },
 }
