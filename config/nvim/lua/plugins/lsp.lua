@@ -62,6 +62,7 @@ return {
           'goimports', -- Format imports in Go (gopls includes gofmt already)
           'prettierd', -- Used to format JavaScript, TypeScript, HTML, JSON, etc.
           'stylua', -- Used to format Lua code
+          'shfmt', -- Used to format shell scripts
         },
       }
 
@@ -152,8 +153,8 @@ return {
       vim.lsp.enable 'json_ls'
       vim.lsp.enable 'lua_ls'
       vim.lsp.enable 'tailwindcss'
-      vim.lsp.enable('tsgo', false)
-      vim.lsp.enable('vtsls', true)
+      vim.lsp.enable('vtsls', false)
+      vim.lsp.enable('tsgo', true) -- Can't wait to use this!
       vim.lsp.enable 'yamlls'
 
       vim.diagnostic.config {

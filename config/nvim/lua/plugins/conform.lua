@@ -12,6 +12,8 @@ return {
           return { timeout_ms = 1000, lsp_fallback = true }
         end,
         formatters_by_ft = {
+          bash = { 'shfmt' },
+          sh = { 'shfmt' },
           css = { 'prettierd' },
           -- go = { 'gofmt' },
           go = { 'goimports' }, -- goimports does the same as gofmt and manages imports

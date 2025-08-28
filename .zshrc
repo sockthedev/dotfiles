@@ -112,6 +112,14 @@ alias v='nvim'
 # nuke node_modules relative to current directory (nested instances too)
 alias nukem="find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' +"
 
+# git aliases
+
+# these help to clean up local branches, you should first run the following 2 commands:
+# git remote prune --dry-run origin
+# git remote prune origin
+alias git-list-untracked='git fetch --prune && git branch -r | awk "{print \$1}" | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk "{print \$1}"'
+alias git-remove-untracked='git fetch --prune && git branch -r | awk "{print \$1}" | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk "{print \$1}" | xargs git branch -D'
+
 # automatically run nvm use when entering a directory with a .nvmrc file
 autoload -U add-zsh-hook
 load-nvmrc() {

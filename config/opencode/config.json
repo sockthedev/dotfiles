@@ -5,5 +5,23 @@
   "autoshare": false,
   "autoupdate": false,
   "layout": "stretch",
-  "disabled_providers": ["openai", "amazon-bedrock", "google"]
+  "disabled_providers": ["openai", "amazon-bedrock", "google"],
+  "lsp": {
+    "typescript": {
+      "disabled": true
+    },
+    "typescript-go": {
+      "command": ["tsgo", "--lsp", "--stdio"],
+      "extensions": [
+        ".ts",
+        ".tsx",
+        ".js",
+        ".jsx",
+        ".mjs",
+        ".cjs",
+        ".mts",
+        ".cts"
+      ]
+    }
+  }
 }
