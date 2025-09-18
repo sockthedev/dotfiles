@@ -153,8 +153,8 @@ return {
       vim.lsp.enable 'json_ls'
       vim.lsp.enable 'lua_ls'
       vim.lsp.enable 'tailwindcss'
-      vim.lsp.enable('vtsls', false)
-      vim.lsp.enable('tsgo', true) -- Can't wait to use this!
+      vim.lsp.enable('vtsls', true)
+      vim.lsp.enable('tsgo', false) -- Can't wait to use this!
       vim.lsp.enable 'yamlls'
 
       vim.diagnostic.config {
