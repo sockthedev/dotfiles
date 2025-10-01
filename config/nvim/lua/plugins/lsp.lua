@@ -48,6 +48,7 @@ return {
       require('mason-tool-installer').setup {
         ensure_installed = {
           --- language servers
+          'copilot',
           'cssls',
           'gopls',
           'html',

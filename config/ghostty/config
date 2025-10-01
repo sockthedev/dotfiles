@@ -31,6 +31,7 @@ font-size = 14
 # adjust-cell-width = -5%
 window-inherit-font-size = true
 font-thicken = true
+font-feature = -calt
 
 # macos
 
