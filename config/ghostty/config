@@ -1,6 +1,7 @@
 theme = TokyoNight Night
-# background = #000000
-background = #100F0F
+# background = #100F0F
+background = #181818
+window-theme = ghostty
 window-width = 100000
 window-height = 100000
 window-padding-x = 5
@@ -13,7 +14,7 @@ shell-integration-features = no-cursor
 confirm-close-surface = false
 quick-terminal-position = center
 bold-is-bright = true
-# custom-shader = /Users/sock/code/github.com/hackr-sh/ghostty-shaders/retro-terminal.glsl
+# custom-shader = ~/.config/ghostty/shaders/shader.glsl
 
 # font
 
@@ -39,9 +40,13 @@ macos-non-native-fullscreen = false
 macos-window-shadow = false
 macos-icon-frame = beige
 macos-auto-secure-input = true
-macos-option-as-alt = left
 macos-secure-input-indication = true
 macos-titlebar-style = tabs
+
+# make the alt key work (left side, keep right side as meta)
+macos-option-as-alt = left
+keybind = alt+left=unbind
+keybind = alt+right=unbind
 
 # ACTIONS
 # -------

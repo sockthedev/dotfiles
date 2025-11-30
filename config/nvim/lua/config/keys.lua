@@ -2,7 +2,6 @@
 --  See `:help vim.keymap.set()`
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- Remap j/k to handle wrapped lines

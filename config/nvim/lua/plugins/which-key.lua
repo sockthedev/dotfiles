@@ -40,4 +40,8 @@ return {
       }
     end,
   },
+
+  -- Analyze keymaps
+  -- :KeyAnalyzer <C-
+  { 'meznaric/key-analyzer.nvim', opts = {} },
 }

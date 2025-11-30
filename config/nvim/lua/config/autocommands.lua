@@ -9,3 +9,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- Check if we need to reload the file when it changed
 vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, { command = 'checktime' })
+
+-- Enter insert mode when opening a terminal
+-- vim.api.nvim_create_autocmd('TermOpen', {
+--   desc = 'Enter insert mode when opening a terminal',
+--   group = vim.api.nvim_create_augroup('terminal-insert-mode', { clear = true }),
+--   callback = function()
+--     vim.cmd('startinsert')
+--   end,
+-- })

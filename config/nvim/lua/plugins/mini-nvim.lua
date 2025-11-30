@@ -50,6 +50,7 @@ return {
               { hl = 'MiniStatuslineFileinfo', strings = { search, location } },
             }
           end,
+          -- inactive = nil,
           inactive = function()
             local fileinfo = custom_fileinfo { trunc_width = 20 }
 
