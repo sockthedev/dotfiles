@@ -47,7 +47,6 @@ return {
     config = function()
       require('mason-tool-installer').setup {
         ensure_installed = {
-          'copilot', -- already bundled with copilot.lua
           --- language servers
           'cspell_ls',
           'cssls',
@@ -147,7 +146,6 @@ return {
         },
       })
 
-      vim.lsp.enable('copilot', false)
       vim.lsp.enable 'cspell_ls'
       vim.lsp.enable 'cssls'
       vim.lsp.enable 'gopls'

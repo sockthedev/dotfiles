@@ -19,14 +19,36 @@ These are global rules that you MUST always adhere to.
 
 ## Git
 
-- When you have contributed code and you are creating a commit, then you MUST add the following to the bottom of the commit message:
+- Git Commit Convention
 
-  🤖 Collaboration with [Claude Code](https://claude.ai/code)
+  All commits MUST follow Conventional Commits:
 
-  Co-Authored-By: Claude <noreply@anthropic.com>
+  ```
+  {type}({scope}): {description}
 
-- When you have contributed code and you are creating a pull request, then you MUST add the following to the bottom of the pull request message:
+  {body}
 
-  🤖 Collaboration with [Claude Code](https://claude.ai/code)
+  Co-Authored-By: OpenCode <noreply@opencode.ai>
+  ```
 
-  Co-Authored-By: Claude <noreply@anthropic.com>
+  **Types:** feat, fix, docs, style, refactor, test, chore
+
+  **Examples:**
+  - `docs(ticket): bootstrap NSE-311 ticket workspace`
+  - `feat(users): send signup emails to user_management users`
+  - `docs(ticket): complete analysis phase`
+
+- **Create Pull Requests** using `gh pr create`:
+
+  ```
+  gh pr create --title "{type}({scope}): {description}" --body "$(cat <<'EOF'
+  ## Summary
+  - bullet points
+
+  ## Changes
+  - file changes
+
+  Co-Authored-By: OpenCode <noreply@opencode.ai>
+  EOF
+  )"
+  ```

@@ -145,3 +145,4 @@ export PATH="$PATH:/Users/sock/.cache/lm-studio/bin"
 
 # awsume alias required for unix-like systems
 alias awsume=". awsume"
+
