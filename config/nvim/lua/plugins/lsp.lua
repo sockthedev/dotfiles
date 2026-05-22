@@ -57,6 +57,7 @@ return {
           -- 'pyright',
           -- 'ruff',
           'tailwindcss',
+          'tree-sitter-cli',
           'vtsls',
           'yamlls',
           -- tools
@@ -166,15 +167,15 @@ return {
       }
 
       -- disable the diagnostics for .env files
-      local group = vim.api.nvim_create_augroup('__env', { clear = true })
-      vim.api.nvim_create_autocmd('BufEnter', {
-        pattern = { '.env', '.env.*' },
-        group = group,
-        callback = function(args)
-          ---@diagnostic disable-next-line: deprecated
-          vim.diagnostic.disable(args.buf)
-        end,
-      })
+      -- local group = vim.api.nvim_create_augroup('__env', { clear = true })
+      -- vim.api.nvim_create_autocmd('BufEnter', {
+      --   pattern = { '.env', '.env.*' },
+      --   group = group,
+      --   callback = function(args)
+      --     ---@diagnostic disable-next-line: deprecated
+      --     vim.diagnostic.disable(args.buf)
+      --   end,
+      -- })
     end,
   },
 

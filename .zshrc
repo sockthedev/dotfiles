@@ -109,6 +109,9 @@ function frd() {
 
 alias v='nvim'
 
+alias c='claude --dangerously-skip-permissions'
+# alias c='claude --enable-auto-mode'
+
 # nuke node_modules relative to current directory (nested instances too)
 alias nukem="find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' +"
 
@@ -146,3 +149,17 @@ export PATH="$PATH:/Users/sock/.cache/lm-studio/bin"
 # awsume alias required for unix-like systems
 alias awsume=". awsume"
 
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/sock/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/sock/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/sock/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/sock/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+# pnpm
+export PNPM_HOME="/Users/sock/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

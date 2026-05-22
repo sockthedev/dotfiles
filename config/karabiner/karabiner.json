@@ -1,5 +1,5 @@
 {
-    "global": { "show_profile_name_in_menu_bar": true },
+    "global": { "show_in_menu_bar": false },
     "profiles": [
         { "name": "Default profile" },
         {
@@ -7,6 +7,7 @@
                 "rules": [
                     {
                         "description": "Change right_command+hjkl to arrow keys",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -86,10 +87,24 @@
                         "vendor_id": 1452
                     },
                     "ignore": true
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 56,
+                        "vendor_id": 6647
+                    },
+                    "ignore": true
                 }
             ],
             "name": "neovim",
             "selected": true,
+            "simple_modifications": [
+                {
+                    "from": { "key_code": "right_command" },
+                    "to": [{ "key_code": "delete_or_backspace" }]
+                }
+            ],
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         },
         {

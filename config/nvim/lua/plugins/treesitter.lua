@@ -1,6 +1,8 @@
 return {
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    branch = 'main',
+    lazy = false,
     build = ':TSUpdate',
     keys = {
       { '<C-space>', desc = 'Increment selection', mode = 'x' },
@@ -10,7 +12,7 @@ return {
       -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
 
       ---@diagnostic disable-next-line: missing-fields
-      require('nvim-treesitter.configs').setup {
+      require('nvim-treesitter').setup {
         ensure_installed = {
           'astro',
           'bash',
@@ -28,6 +30,7 @@ return {
           'json',
           'jsonc',
           'kotlin',
+          -- 'latex',
           'lua',
           'markdown',
           'markdown_inline',
@@ -73,7 +76,7 @@ return {
 
   {
     'nvim-treesitter/nvim-treesitter-context',
-
+    branch = 'master',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
       require('treesitter-context').setup {
@@ -96,70 +99,68 @@ return {
 
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
+    branch = 'main',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
-      require('nvim-treesitter.configs').setup {
-        textobjects = {
-          select = {
-            enable = true,
-            -- Automatically jump forward to textobj, similar to targets.vim
-            lookahead = true,
-            keymaps = {
-              ['af'] = { query = '@function.outer', desc = 'Select outer part of a function' },
-              ['if'] = { query = '@function.inner', desc = 'Select inner part of a function' },
-              ['ac'] = { query = '@class.outer', desc = 'Select outer part of a class' },
-              ['ic'] = { query = '@class.inner', desc = 'Select inner part of a class' },
-              ['as'] = { query = '@scope', query_group = 'locals', desc = 'Select language scope' },
-            },
-            -- You can choose the select mode (default is charwise 'v')
-            --
-            -- Can also be a function which gets passed a table with the keys
-            -- * query_string: eg '@function.inner'
-            -- * method: eg 'v' or 'o'
-            -- and should return the mode ('v', 'V', or '<c-v>') or a table
-            -- mapping query_strings to modes.
-            selection_modes = {
-              ['@parameter.outer'] = 'v', -- charwise
-              ['@function.outer'] = 'V', -- linewise
-              ['@class.outer'] = '<c-v>', -- blockwise
-            },
+      require('nvim-treesitter-textobjects').setup {
+        select = {
+          -- Automatically jump forward to textobj, similar to targets.vim
+          lookahead = true,
+          keymaps = {
+            ['af'] = { query = '@function.outer', desc = 'Select outer part of a function' },
+            ['if'] = { query = '@function.inner', desc = 'Select inner part of a function' },
+            ['ac'] = { query = '@class.outer', desc = 'Select outer part of a class' },
+            ['ic'] = { query = '@class.inner', desc = 'Select inner part of a class' },
+            ['as'] = { query = '@scope', query_group = 'locals', desc = 'Select language scope' },
           },
-          swap = {
-            enable = true,
-            swap_next = {
-              ['<leader>csn'] = { query = '@parameter.inner', desc = 'With [N]ext Parameter' },
-            },
-            swap_previous = {
-              ['<leader>csp'] = { query = '@parameter.inner', desc = 'With [P]revious Parameter' },
-            },
+          -- You can choose the select mode (default is charwise 'v')
+          --
+          -- Can also be a function which gets passed a table with the keys
+          -- * query_string: eg '@function.inner'
+          -- * method: eg 'v' or 'o'
+          -- and should return the mode ('v', 'V', or '<c-v>') or a table
+          -- mapping query_strings to modes.
+          selection_modes = {
+            ['@parameter.outer'] = 'v', -- charwise
+            ['@function.outer'] = 'V', -- linewise
+            ['@class.outer'] = '<c-v>', -- blockwise
           },
-          move = {
-            enable = true,
-            set_jumps = true, -- whether to set jumps in the jumplist
-            goto_next_start = {
-              [']m'] = { query = '@function.outer', desc = 'Next function start' },
-              [']]'] = { query = '@class.outer', desc = 'Next class start' },
-              [']o'] = { query = '@loop.*', desc = 'Next loop start' },
-              [']b'] = { query = '@block.outer', desc = 'Next block start' },
-            },
-            goto_next_end = {
-              [']M'] = { query = '@function.outer', desc = 'Next function end' },
-              [']['] = { query = '@class.outer', desc = 'Next class end' },
-              [']O'] = { query = '@loop.*', desc = 'Next loop end' },
-              [']B'] = { query = '@block.outer', desc = 'Next block end' },
-            },
-            goto_previous_start = {
-              ['[m'] = { query = '@function.outer', desc = 'Previous function start' },
-              ['[['] = { query = '@class.outer', desc = 'Previous class start' },
-              ['[o'] = { query = '@loop.*', desc = 'Previous loop start' },
-              ['[b'] = { query = '@block.outer', desc = 'Previous block start' },
-            },
-            goto_previous_end = {
-              ['[M'] = { query = '@function.outer', desc = 'Previous function end' },
-              ['[]'] = { query = '@class.outer', desc = 'Previous class end' },
-              ['[O'] = { query = '@loop.*', desc = 'Previous loop end' },
-              ['[B'] = { query = '@block.outer', desc = 'Previous block end' },
-            },
+        },
+        swap = {
+          enable = true,
+          swap_next = {
+            ['<leader>csn'] = { query = '@parameter.inner', desc = 'With [N]ext Parameter' },
+          },
+          swap_previous = {
+            ['<leader>csp'] = { query = '@parameter.inner', desc = 'With [P]revious Parameter' },
+          },
+        },
+        move = {
+          enable = true,
+          set_jumps = true, -- whether to set jumps in the jumplist
+          goto_next_start = {
+            [']m'] = { query = '@function.outer', desc = 'Next function start' },
+            [']]'] = { query = '@class.outer', desc = 'Next class start' },
+            [']o'] = { query = '@loop.*', desc = 'Next loop start' },
+            [']b'] = { query = '@block.outer', desc = 'Next block start' },
+          },
+          goto_next_end = {
+            [']M'] = { query = '@function.outer', desc = 'Next function end' },
+            [']['] = { query = '@class.outer', desc = 'Next class end' },
+            [']O'] = { query = '@loop.*', desc = 'Next loop end' },
+            [']B'] = { query = '@block.outer', desc = 'Next block end' },
+          },
+          goto_previous_start = {
+            ['[m'] = { query = '@function.outer', desc = 'Previous function start' },
+            ['[['] = { query = '@class.outer', desc = 'Previous class start' },
+            ['[o'] = { query = '@loop.*', desc = 'Previous loop start' },
+            ['[b'] = { query = '@block.outer', desc = 'Previous block start' },
+          },
+          goto_previous_end = {
+            ['[M'] = { query = '@function.outer', desc = 'Previous function end' },
+            ['[]'] = { query = '@class.outer', desc = 'Previous class end' },
+            ['[O'] = { query = '@loop.*', desc = 'Previous loop end' },
+            ['[B'] = { query = '@block.outer', desc = 'Previous block end' },
           },
         },
       }
@@ -167,15 +168,15 @@ return {
   },
 
   -- quick navigation
-  {
-    'aaronik/treewalker.nvim',
-    config = function()
-      require('treewalker').setup {}
-
-      vim.keymap.set({ 'n', 'v' }, '<C-S-Up>', '<cmd>Treewalker Up<cr>', { silent = true })
-      vim.keymap.set({ 'n', 'v' }, '<C-S-Down>', '<cmd>Treewalker Down<cr>', { silent = true })
-      vim.keymap.set({ 'n', 'v' }, '<C-S-Right>', '<cmd>Treewalker Right<cr>', { silent = true })
-      vim.keymap.set({ 'n', 'v' }, '<C-S-Left>', '<cmd>Treewalker Left<cr>', { silent = true })
-    end,
-  },
+  -- {
+  --   'aaronik/treewalker.nvim',
+  --   config = function()
+  --     require('treewalker').setup {}
+  --
+  --     vim.keymap.set({ 'n', 'v' }, '<C-S-Up>', '<cmd>Treewalker Up<cr>', { silent = true })
+  --     vim.keymap.set({ 'n', 'v' }, '<C-S-Down>', '<cmd>Treewalker Down<cr>', { silent = true })
+  --     vim.keymap.set({ 'n', 'v' }, '<C-S-Right>', '<cmd>Treewalker Right<cr>', { silent = true })
+  --     vim.keymap.set({ 'n', 'v' }, '<C-S-Left>', '<cmd>Treewalker Left<cr>', { silent = true })
+  --   end,
+  -- },
 }

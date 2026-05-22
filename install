@@ -17,5 +17,6 @@ ln -s "$(pwd)/config/zsh" ~/.config/zsh
 ln -s "$(pwd)/config/ghostty" ~/.config/ghostty
 ln -s "$(pwd)/config/opencode/AGENTS.md" ~/.config/opencode/AGENTS.md
 ln -s "$(pwd)/config/opencode/opencode.json" ~/.config/opencode/opencode.json
+ln -s "$(pwd)/config/claude/CLAUDE.md" ~/.claude/CLAUDE.md
 ln -s "$(pwd)/.skhdrc" ~/.skhdrc
 ln -s "$(pwd)/.zshrc" ~/.zshrc

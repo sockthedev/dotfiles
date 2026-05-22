@@ -27,7 +27,7 @@ font-family = Berkeley Mono
 # font-family = Monaspace Neon
 # font-family = IntelOne Mono
 # font-family = JetBrains Mono
-font-size = 14
+font-size = 12
 # adjust-cell-height = -2%
 # adjust-cell-width = -5%
 window-inherit-font-size = true
@@ -47,6 +47,9 @@ macos-titlebar-style = tabs
 macos-option-as-alt = left
 keybind = alt+left=unbind
 keybind = alt+right=unbind
+
+# specific override for UK Keyboard hash symbol
+keybind = alt+3=text:#
 
 # ACTIONS
 # -------
